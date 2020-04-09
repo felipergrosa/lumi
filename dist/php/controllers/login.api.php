@@ -16,6 +16,9 @@ if($sql->rowCount() > 0){
     $_SESSION['nobre_usuario_id'] = $row['id'];
     $_SESSION['nobre_usuario_login'] = $row['login'];
     $_SESSION['nobre_usuario_nome'] = $row['nome'];
+    $_SESSION['nobre_usuario_titulo'] = 'Testador do sistema';
+    $_SESSION['nobre_usuario_descricao'] = 'Testador do sistema descrição';
+    $_SESSION['nobre_usuario_foto'] = 'null.png';
     if($row['general_level'] == 'ROOT'){
         $_SESSION['nobre_usuario_isroot'] = true;
     }

@@ -1,6 +1,4 @@
-
 <?php
-sleep(5);
 @session_start();
 ini_set('display_errors', 'on');
 $user_code = $_SESSION['nobre_usuario_id'];

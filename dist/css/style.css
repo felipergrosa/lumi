@@ -1,0 +1,10 @@
+#loading_animation {
+    position: fixed;
+    margin-left: -40px;
+    top: 45px;
+    z-index: 9999;
+}
+.blur_loading {
+    filter: blur(5px) grayscale(100%) contrast(80%) ;
+    /* filter: grayscale(100%); */
+}

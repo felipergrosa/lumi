@@ -3,8 +3,8 @@
         <nome>Pagamentos</nome>
         <descricao>Dados do Usuario</descricao>
         <atividade>1</atividade>
-        <open>MeusDados.html</open>
-        <class></class>
-        <style></style>
+        <link>MeusDados.html</link>
+        <class>btn-outline-primary</class>
+        <style>lnr-map</style>
     </display>
 </menu>

@@ -172,15 +172,11 @@ class ControleAcessos {
                 $seta = '';
             } else {
                 $click = '';
-                $seta = '<i class="fa fa-angle-left pull-right"></i>';
+                $seta = '<i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>';
             }
             if (count(@$mn['submenu']) == 1) {
                 foreach ($mn['submenu'] as $key_submenu=>$submenu) {
-                    echo (array_key_exists($mn['nome'],$lang)) ? '<li class="treeview">
-                    <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\'); ">
-                        <i class="' . $mn['class'] . ' "></i> <span>' . $lang[$mn['nome']] . '</span>
-
-                    </a></li>' : '<li class="treeview">
+                echo '<li class="mm-active">
                     <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\'); ">
                         <i class="' . $mn['class'] . ' "></i> <span>' . $mn['nome'] . '</span>
 
@@ -190,11 +186,7 @@ class ControleAcessos {
                 }
             } else {
 
-                echo (array_key_exists($mn['nome'],$lang)) ? '<li class="treeview">
-                <a href="#" ' . $click . '>
-                    <i class="' . $mn['class'] . '"></i> <span>' . $lang[$mn['nome']]. '</span>
-                    ' . $seta . '
-                </a>' : '<li class="treeview">
+                echo '<li class="mm-active">
                 <a href="#" ' . $click . '>
                     <i class="' . $mn['class'] . '"></i> <span>' .$mn['nome']. '</span>
                     ' . $seta . '
@@ -203,11 +195,9 @@ class ControleAcessos {
 
                 if (@$mn['submenu'] && @$mn['link'] == null) {
                     ksort($mn['submenu']);
-                    echo '<ul class="treeview-menu">';
+                    echo '<ul>';
                     foreach ($mn['submenu'] as $key_submenu=>$submenu) {
-                        echo (array_key_exists($submenu['nome'],$lang)) ?
-                        '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $lang[$submenu['nome']] . '</a></li>' :
-                        '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
+                        echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
                     }
                     echo '</ul>';
                 }

@@ -1,9 +1,10 @@
 <menu>
     <display>
-        <nome>Configurações</nome>
+        <nome>Master</nome>
         <descricao>Configurações do sistema</descricao>
         <atividade>1</atividade>
         <class>metismenu-icon pe-7s-tools</class>
+        <link>pqp</link>
         <style></style>
     </display>
 </menu>

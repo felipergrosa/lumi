@@ -1,10 +1,9 @@
 <menu>
     <display>
         <nome>Sistema</nome>
-        <descricao>Dados do Usuario</descricao>
+        <descricao>Configurações assertivas de sistema</descricao>
         <atividade>1</atividade>
-        <open>MeusDados.html</open>
-        <class></class>
+        <class>metismenu-icon</class>
         <style></style>
     </display>
 </menu>

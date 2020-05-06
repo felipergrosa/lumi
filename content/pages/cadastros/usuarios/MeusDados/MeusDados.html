@@ -1,0 +1,75 @@
+<div class="app-main__inner">
+    <div class="mb-3 card">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                Edição de usuario <span class="conteudo_usuario_nome"></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <form onsubmit="return false;" id="MeusDadosForm" name="MeusDadosForm">
+                <input type="hidden" name="MeusDadosForm_id" id="MeusDadosForm_id" value="" />
+                <div class="form-group row">
+                  <div class="col-md-6 col-xs-12">
+                      <label for="MeusDadosForm_nome">Nome</label>
+                      <input type="text" class="form-control" id="MeusDadosForm_nome" name="MeusDadosForm_nome" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="MeusDadosForm_email">Email</label>
+                      <input type="text" class="form-control" id="MeusDadosForm_email" name="MeusDadosForm_email" />
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="SalvarDadosUsuario();">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function PopularDadosUsuario(){
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/usuarios/MeusDados/post.php',
+            data: {'action':'PopularDadosUsuario'},
+            dataType: 'json',
+            async: false,
+            success: function (MeusDados)
+            {
+                $('.conteudo_usuario_nome').html(' ' + MeusDados['nome']);
+                $('#MeusDadosForm_nome').val(MeusDados['nome']);
+                $('#MeusDadosForm_email').val(MeusDados['email']);
+
+
+            }
+        });
+    }
+    function SalvarDadosUsuario(){
+        var id = $('#MeusDadosForm_id').val();
+        var nome = $('#MeusDadosForm_nome').val();
+        var email = $('#MeusDadosForm_email').val();
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/usuarios/MeusDados/post.php',
+            data: {'action':'SalvarDadosUsuario', id:id, nome:nome, email:email},
+            // dataType: 'json',
+            async: false,
+            success: function (MeusDados)
+            {
+
+                toastr.success('Dados Atualizados');
+                <!-- UpdateSession(); -->
+                PopularDadosUsuario();
+                $('#info_usuario').load('content/components/info_usuario.php');
+
+
+            }
+        });
+    }
+    $(document).ready(function(){
+        <!-- UpdateUserDetails(); -->
+        PopularDadosUsuario();
+    });
+
+</script>

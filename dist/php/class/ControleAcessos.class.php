@@ -197,7 +197,19 @@ class ControleAcessos {
                     ksort($mn['submenu']);
                     echo '<ul>';
                     foreach ($mn['submenu'] as $key_submenu=>$submenu) {
-                        echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
+                        if(count($submenu['tela']) == 1){
+                            foreach($submenu['tela'] as $key_tl=>$tl){
+                                $link = $tl['link'];
+                            }
+                            echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/'.$key_menu.'/'.$key_submenu.'/'.$key_tl.'/'.$link.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
+
+
+                        }
+                        else {
+                            echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
+                        }
+
+
                     }
                     echo '</ul>';
                 }

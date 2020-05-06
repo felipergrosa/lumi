@@ -1,3 +1,19 @@
+function unSetSession(){
+    var dados;
+    $.ajax({
+        type: 'POST',
+        url: 'dist/php/controllers/sessionControl.api.php',
+        data: {'action': 'unsetSession'},
+        async: false,
+        dataType: 'json',
+        success: function (data)
+        {
+           dados = data;
+        }
+    });
+    return dados;
+}
+
 function Login(){
     $('#login-btn').prop('disabled', 1);
     $('#login-btn').val('Aguarde, realizando login...');
@@ -36,3 +52,7 @@ $(document).on("submit", "form", function(e){
     e.preventDefault();
     return  false;
 });
+
+$(document).ready(function(){
+    unSetSession();
+})

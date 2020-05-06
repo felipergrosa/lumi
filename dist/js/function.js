@@ -155,7 +155,7 @@ function CadProdCalculaMargem(custo, campopreco, campomargem) {
     soma1 = moedamatriz(soma1);
     $('#' + campomargem).val(soma1);
 }
-var GeneralTime = setInterval(GeneralControl, 4000);
+// var GeneralTime = setInterval(GeneralControl, 4000);
 $(document).ready(function(){
     /* GeneralControl('firstcheck'); */
 });

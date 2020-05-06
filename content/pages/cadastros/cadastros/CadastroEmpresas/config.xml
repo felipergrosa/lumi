@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Cadastro de Empresas</nome>
+        <descricao>Cadastro de Empresas</descricao>
+        <atividade>1</atividade>
+        <link>cadastro_empresas.html</link>
+        <class>btn-outline-primary</class>
+        <style>pe-7s-box1</style>
+    </display>
+</menu>

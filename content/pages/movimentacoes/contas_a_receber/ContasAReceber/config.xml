@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Pedidos</nome>
+        <descricao>Pedidos do sistema</descricao>
+        <atividade>1</atividade>
+        <link>pedidos.html</link>
+        <class>metismenu-icon pe-7s-tools</class>
+        <style></style>
+    </display>
+</menu>

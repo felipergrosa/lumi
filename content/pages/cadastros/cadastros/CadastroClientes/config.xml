@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Cadastro de Clientes</nome>
+        <descricao>Cadastro de Clientes</descricao>
+        <atividade>1</atividade>
+        <link>cadastro_clientes.html</link>
+        <class>btn-outline-primary</class>
+        <style>lnr-user</style>
+    </display>
+</menu>

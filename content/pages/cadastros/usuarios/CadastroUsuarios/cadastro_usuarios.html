@@ -1,0 +1,196 @@
+<div class="app-main__inner">
+    <div class="mb-3 card" id="cadastro_usuarios_userlist">
+        <div class="card-header-tab card-header" style="display:block; margin-top: 15px; margin-bottom: -10px;">
+
+
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                Cadastro de Usuários
+                <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <table style="width: 100%;" id="cadastro_usuarios_userlist_table" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Login</th>
+                        <th>E-mail</th>
+                        <th>Root</th>
+                    </tr>
+                </thead>
+                <tbody class="cadastro_usuarios_lista pointer">
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="mb-3 card" id="cadastro_usuarios_edit" style="display:none;">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                <span id="cadastro_usuarios_edit_nome"></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <form onsubmit="return false;" id="cadastro_usuarios_edit_form" name="cadastro_usuarios_edit_form">
+                <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <div class="form-group row">
+                  <div class="col-md-2 col-xs-4">
+                      <label for="cadastro_usuarios_edit_form_id">ID</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_id" name="cadastro_usuarios_edit_form_id" readonly/>
+                  </div>
+                  <div class="col-md-10 col-xs-8">
+                      <label for="cadastro_usuarios_edit_form_nome">Nome</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_nome" name="cadastro_usuarios_edit_form_nome" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_usuarios_edit_form_login">Login</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_login" name="cadastro_usuarios_edit_form_login" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_usuarios_edit_form_email">E-mail</label>
+                      <input type="email" class="form-control" id="cadastro_usuarios_edit_form_email" name="cadastro_usuarios_edit_form_email" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_usuarios_edit_form_pass">Senha (deixe em branco para manter inalterado)</label>
+                      <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass" name="cadastro_usuarios_edit_form_pass" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_usuarios_edit_form_pass2">Confirmar Senha</label>
+                      <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass2" name="cadastro_usuarios_edit_form_pass2" />
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                      <h4>Acessos</h4>
+                  </div>
+                  <div class="col-md-12 col-xs-12 usuarios_acessos" id="acessos">
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        GetUserList();
+        $('#cadastro_usuarios_userlist_table').DataTable({
+                "language": {
+                    "url": "assets/datatables/Portuguese-Brasil.json"
+                }
+            }
+
+        );
+
+    });
+
+    function GetUserList(){
+        $('.cadastro_usuarios_lista').html('');
+        console.log('getting');
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
+            data: {'action':'GetUserList'},
+            dataType: 'json',
+            async: false,
+            success: function (UserList)
+            {
+                $(UserList).each(function(k,v){
+                    var general_level = '';
+                    if(v['general_level'] == 'ROOT'){
+                        general_level = 'root';
+                    }
+                    $('.cadastro_usuarios_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.login + '</td><td>' + v.email + '</td><td>' + general_level + '</td></tr>');
+                });
+            }
+        });
+    }
+    function GetUserInfoEdit(id, action){
+        $('#cadastro_usuarios_userlist').hide();
+        $('#cadastro_usuarios_edit').fadeIn(500);
+
+        $('#cadastro_usuarios_edit_form :input').each(function(k,v){
+            $(v).val('');
+        });
+        if(action == 'editar'){
+            $.ajax({
+                type: 'POST',
+                url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
+                data: {'action':'GetUserData', 'id':id},
+                dataType: 'json',
+                async: false,
+                success: function (User)
+                {
+                    $('#cadastro_usuarios_edit_form_id').val(User.id);
+                    $('#cadastro_usuarios_edit_form_nome').val(User.nome);
+                    $('#cadastro_usuarios_edit_form_login').val(User.login);
+                    $('#cadastro_usuarios_edit_form_email').val(User.email);
+                    $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
+                    $('#action_for_form').val(action);
+                    $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php', {id:id}, function(response){
+                        $('.usuarios_acessos').html(response);
+                    });
+
+
+                }
+            });
+        }
+        else {
+            $('.usuarios_acessos').load('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php');
+            $('#cadastro_usuarios_edit_form_id').val(id);
+            $('#cadastro_usuarios_edit_nome').html('Novo usuário');
+            $('#action_for_form').val(action);
+        }
+    }
+
+    function Save() {
+        if($('#cadastro_usuarios_edit_form_pass').val() != $('#cadastro_usuarios_edit_form_pass2').val()){
+            toastr.error('A Confirmação de senha não bate.');
+        }
+        else {
+          var dados = $('#cadastro_usuarios_edit_form').serializeArray();
+          var action = $('#action_for_form').val();
+          console.log(action);
+          var acessos = $('#acessos :input').serializeArray();
+          // console.log(dados);
+          $.ajax({
+              type: 'POST',
+              url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
+              data: {'dados': dados, 'action': action, 'telas': acessos},
+              success: function (data)
+              {
+                  console.log(data);
+                  if (data == 0) {
+                      toastr.success('Sucesso! Usuario atualizado.');
+                      GetUserList();
+                      $('#cadastro_usuarios_userlist').fadeIn(500);
+                      $('#cadastro_usuarios_edit').hide();
+
+                  } else {
+                      toastr.error('Erro: ' + data);
+                  }
+              }
+          });
+        }
+      }
+
+</script>
+<style type="text/css">
+    .pointer {
+        cursor:pointer;
+    }
+</style>

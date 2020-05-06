@@ -1,0 +1,9 @@
+<menu>
+    <display>
+        <nome>Cadastros Gerais</nome>
+        <descricao>Cadastros gerais do sistema</descricao>
+        <atividade>1</atividade>
+        <class>metismenu-icon</class>
+        <style></style>
+    </display>
+</menu>

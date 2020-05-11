@@ -10,3 +10,13 @@ if(@$_POST['action'] == 'GetEstados'){
     echo json_encode($row);
     exit;
 }
+if(@$_POST['action'] == 'GetEstadoSigla'){
+    $sigla = $_POST['sigla'];
+    $sql = "SELECT id FROM dados_estados WHERE sigla = :sigla";
+    $sql = $con->prepare($sql);
+    $sql->bindParam('sigla', $sigla);
+    $sql->execute();
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+    echo $row['id'];
+    exit;
+}

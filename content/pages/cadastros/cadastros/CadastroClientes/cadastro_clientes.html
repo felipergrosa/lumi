@@ -290,6 +290,12 @@
                       <label for="cadastro_clientes_edit_form_observacoes">Observações</label>
                       <textarea class="form-control" id="cadastro_clientes_edit_form_observacoes" name="cadastro_clientes_edit_form_observacoes"></textarea>
                   </div>
+                  <div class="col-md-12 col-xs-12">
+                      <label for="cadastro_clientes_edit_form_empresa">Empresas</label>
+                      <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_clientes_edit_form_empresa" name="cadastro_clientes_edit_form_empresa">
+
+                      </select>
+                  </div>
               </div>
               <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
             </form>
@@ -319,6 +325,7 @@
         MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
         MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
 
+
         PopularEmpresas('#cadastro_clientes_edit_form_empresa');
         GetUserList();
         $('#cadastro_clientes_userlist_table').DataTable({
@@ -345,8 +352,9 @@
                 $(UserList).each(function(k,v){
                     // console.log(UserList);
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
                 });
+                MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
             }
         });
     }
@@ -357,6 +365,7 @@
         $('#cadastro_clientes_edit_form :input').each(function(k,v){
             $(v).val('');
         });
+        $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
         if(action == 'editar'){
             $.ajax({
                 type: 'POST',
@@ -392,6 +401,7 @@
                     MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
+                    PopularEmpresas('#cadastro_clientes_edit_form_empresa', User.id);
 
 
                 }
@@ -402,20 +412,21 @@
             $('#cadastro_clientes_edit_form_id').val(id);
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
             $('#action_for_form').val(action);
+            $('#cadastro_clientes_edit_form_restricao').removeAttr('checked');
         }
     }
 
     function Save() {
 
           var dados = $('#cadastro_clientes_edit_form').serializeArray();
-          console.log(dados);
+          var empresas = $('#cadastro_clientes_edit_form_empresa').val();
           var action = $('#action_for_form').val();
 
           // console.log(dados);
           $.ajax({
               type: 'POST',
               url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-              data: {'dados': dados, 'action': action},
+              data: {'dados': dados, 'action': action, 'empresas':empresas},
               success: function (data)
               {
                   // console.log(data);
@@ -463,6 +474,23 @@
                 });
 
       }
+      function MascaraCpfCnpjManualTexto(campo){
+          try {
+              $(campo).unmask();
+          } catch (e) {}
+
+          $(campo).each(function(k,v){
+              var tamanho = $(v).text().length;
+              if(tamanho <= 11){
+                  $(v).mask("999.999.999-99");
+              } else {
+                  $(v).mask("99.999.999/9999-99");
+              }
+          });
+
+          var tamanho = $(campo).text().length;
+      }
+
       function MascaraCpfCnpjManual(campo){
           try {
               $(campo).unmask();
@@ -552,14 +580,19 @@
                   async: 'false',
                   success: function (data)
                   {
-                      // console.log(data);
-                      var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
-                      // console.log(estado);
-                      // console.log('#' + prefix + '_endereco');
-                      $('#' + prefix + '_endereco').val(data.logradouro);
-                      $('#' + prefix + '_bairro').val(data.bairro);
-                      $('#' + prefix + '_cidade').val(data.localidade);
-                      toastr.success('Cep retornado da base de dados.');
+                      if(data.localidade){
+                          // console.log(data);
+                          var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
+                          // console.log(estado);
+                          // console.log('#' + prefix + '_endereco');
+                          $('#' + prefix + '_endereco').val(data.logradouro);
+                          $('#' + prefix + '_bairro').val(data.bairro);
+                          $('#' + prefix + '_cidade').val(data.localidade);
+                          toastr.success('Cep retornado da base de dados.');
+                      }
+                      else {
+                          toastr.error('Cep sem dados retornados da API.');
+                      }
 
 
 
@@ -572,22 +605,25 @@
           }
 
       }
-      function PopularEmpresas(campo){
+      function PopularEmpresas(campo, id = 0){
           var action = 'GetEmpresas';
-          $(campo + ' input').remove();
+          $(campo + ' option').remove();
           $.ajax({
               type: 'POST',
               url: 'dist/php/controllers/empresas.api.php',
               dataType: 'json',
               async: 'false',
-              data: {'action': action},
+              data: {'action': action, 'id':id},
               success: function (data)
               {
+                  console.log(data);
                   $(data).each(function(k,v){
+
                       // console.log(v);
                       $(campo)
                          .append($("<option></option>")
                          .attr("value", v.id)
+                         .attr("selected", v.ativo)
                          .text(v.nome));
                   });
 
@@ -641,3 +677,4 @@
     }
 </style>
 <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>

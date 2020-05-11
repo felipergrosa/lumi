@@ -102,7 +102,6 @@ if($_POST['action'] == 'novo'){
 
     }
 
-
     $error_message = "";
     $error = 0;
     foreach($obrigatorios as $ob){
@@ -240,9 +239,9 @@ if($_POST['action'] == 'novo'){
                 :endereco_entrega_contato_telefone,
                 :endereco_entrega_contato_email,
                 :observacoes,
+                :atividade,
                 :restricao,
                 :restricao_texto,
-                :atividade,
                 NOW()
             )";
     try {
@@ -296,7 +295,18 @@ if($_POST['action'] == 'novo'){
     }
 
     $insertId = $con->lastInsertId();
-    echo $insertId;
+
+    @$empresas = $_POST['empresas'];
+
+    if(@is_array($empresas)){
+        foreach($empresas as $ep){
+            $sql = "INSERT INTO clientes_empresas (cliente, empresa) VALUES (:cliente, :empresa)";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('cliente', $insertId);
+            $sql->bindParam('empresa', $ep);
+            $sql->execute();
+        }
+    }
     echo 0;
     exit;
 
@@ -493,6 +503,23 @@ WHERE id = :id";
         $error_message = $e->getMessage();
         echo $error_message;
         exit;
+    }
+
+
+    @$empresas = $_POST['empresas'];
+    $sql = "DELETE FROM clientes_empresas WHERE cliente = :id";
+    $sql = $con->prepare($sql);
+    $sql->bindParam('id', $info[$prefix.'id']);
+    $sql->execute();
+
+    if(@is_array($empresas)){
+        foreach($empresas as $ep){
+            $sql = "INSERT INTO clientes_empresas (cliente, empresa) VALUES (:cliente, :empresa)";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('cliente', $info[$prefix.'id']);
+            $sql->bindParam('empresa', $ep);
+            $sql->execute();
+        }
     }
 
     echo 0;

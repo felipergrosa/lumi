@@ -3,7 +3,9 @@ $db_hostname = '';
 $db_database = '';
 $db_username = '';
 $db_password = '';
-// Configuração geral Contact Front-End
-/* Display Errors General. Por filosofia, o sistema não deve retornar erros.
-   Todos devem ser suprimidos. Caso precise debugar uma pagina ative apenas aqui. */
-ini_set('display_errors', 'off');
+
+$mssql_hostname = "";
+$mssql_dbname = "";
+$mssql_username = "";
+$mssql_pw = "";
+//$con = new PDO ("dblib:host=$hostname;dbname=$dbname", "$username", "$pw");

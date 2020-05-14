@@ -1,10 +1,10 @@
 <menu>
     <display>
-        <nome>Pedidos</nome>
-        <descricao>Pedidos do sistema</descricao>
+        <nome>Pedidos do sistema</nome>
+        <descricao>Cadastro de Pedidos do sistema</descricao>
         <atividade>1</atividade>
-        <link>pedidos.html</link>
-        <class>metismenu-icon pe-7s-note2</class>
-        <style></style>
+        <link>cadastro_pedidos.html</link>
+        <class>btn-outline-primary</class>
+        <style>lnr-briefcase</style>
     </display>
 </menu>

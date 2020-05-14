@@ -1,0 +1,411 @@
+<div class="app-main__inner">
+
+
+
+    <div class="mb-3 card" id="cadastro_pedidos_edit">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                <span>Cadastro de Pedido</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <form onsubmit="return false;" id="cadastro_pedidos_edit_form" name="cadastro_pedidos_edit_form">
+                <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <div class="form-group row">
+
+                    <div class="col-md-8 col-xs-12">
+                        <label for="cadastro_pedidos_edit_form_cpfcnpj">CPF/CNPJ</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj" onblur="BuscaCPFCNPJ(this.value);"/>
+                    </div>
+
+                    <div class="col-md-4 col-xs-12">
+                        <label for="cadastro_pedidos_edit_form_empresa">Empresa</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_empresa" name="cadastro_pedidos_edit_form_empresa">
+                        </select>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="Continuar();">Continuar</button>
+
+                <div class="form-group row">
+                    <div class="col-md-4 col-xs-4">
+                        <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_id">Empresa</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_id">Cliente</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Prioridade</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Frete</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_id">No pedido repres.</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Data Pedido</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Prev Fatura</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_id">No pedido de compra</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Tabela Preço</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-3 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Cond. Pagto</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-3 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Transportadora</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12"> <span class=" font-size-lg">Descontos</span> </div>
+
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Padrao</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_id">Adic 1</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Adic 2</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Adic 3</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-1 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_id">Part.com.</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Natureza de operação</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_id">Observação</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $.jMaskGlobals.watchDataMask = true;
+        // window.onerror = function(){
+        //    return true;
+        // }
+        MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
+
+
+        PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
+
+
+
+    });
+
+    function GetUserList(){
+        $('.cadastro_pedidos_lista').html('');
+        // console.log('getting');
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
+            data: {'action':'GetUserList'},
+            dataType: 'json',
+            async: false,
+            success: function (UserList)
+            {
+                $(UserList).each(function(k,v){
+                    // console.log(UserList);
+
+                    $('.cadastro_pedidos_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                });
+                MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
+            }
+        });
+    }
+    function GetUserInfoEdit(id, action){
+        $('#cadastro_pedidos_userlist').hide();
+        $('#cadastro_pedidos_edit').fadeIn(500);
+
+        $('#cadastro_pedidos_edit_form :input').each(function(k,v){
+            $(v).val('');
+        });
+        $('#cadastro_pedidos_edit_form_restricao').attr('checked', false);
+        if(action == 'editar'){
+            $.ajax({
+                type: 'POST',
+                url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
+                data: {'action':'GetUserData', 'id':id},
+                dataType: 'json',
+                async: false,
+                success: function (User)
+                {
+                    var prefix = '#cadastro_pedidos_edit_form_';
+                    var UserKeys = Object.keys(User);
+                    $(UserKeys).each(function(k,v){
+                        // console.log(User[v]);
+                        $(prefix + v).val(User[v]);
+                    });
+
+                    MascaraCpfCnpjManual('#cadastro_pedidos_edit_form_cpfcnpj');
+                    $('#cadastro_pedidos_edit_form_endereco_cep').unmask();
+                    $('#cadastro_pedidos_edit_form_endereco_cep').mask("99999-999");
+                    $('#cadastro_pedidos_edit_nome').html('Edição de representante - ' + User.nome);
+                    $('#action_for_form').val(action);
+
+                    if(User.restricao == 1){
+                        $('#cadastro_pedidos_edit_form_restricao').attr('checked', true);
+                    }
+                    else {
+                        $('#cadastro_pedidos_edit_form_restricao').attr('checked', false);
+                    }
+
+                    MascaraTelefone('#cadastro_pedidos_edit_form_tel1');
+                    MascaraTelefone('#cadastro_pedidos_edit_form_fax');
+                    MascaraTelefone('#cadastro_pedidos_edit_form_contato_compras_fone');
+                    MascaraTelefone('#cadastro_pedidos_edit_form_contato_cobranca_fone');
+                    MascaraTelefone('#cadastro_pedidos_edit_form_endereco_cobranca_contato_telefone');
+                    MascaraTelefone('#cadastro_pedidos_edit_form_endereco_entrega_contato_telefone');
+                    PopularEmpresas('#cadastro_pedidos_edit_form_empresa', User.id);
+
+
+                }
+            });
+        }
+        else {
+            $('.usuarios_acessos').load('content/pages/movimentacoes/pedidos/PedidosSistema/acessos.php');
+            $('#cadastro_pedidos_edit_form_id').val(id);
+            $('#cadastro_pedidos_edit_nome').html('Novo representante');
+            $('#action_for_form').val(action);
+            $('#cadastro_pedidos_edit_form_restricao').removeAttr('checked');
+        }
+    }
+
+    function Save() {
+
+        var dados = $('#cadastro_pedidos_edit_form').serializeArray();
+        var empresas = $('#cadastro_pedidos_edit_form_empresa').val();
+        var action = $('#action_for_form').val();
+
+        // console.log(dados);
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
+            data: {'dados': dados, 'action': action, 'empresas':empresas},
+            success: function (data)
+            {
+                // console.log(data);
+                if (data == 0) {
+                    toastr.success('Sucesso! Cliente atualizado.');
+                    GetUserList();
+                    $('#cadastro_pedidos_userlist').fadeIn(500);
+                    $('#cadastro_pedidos_edit').hide();
+
+                } else {
+                    toastr.error('Erro: ' + data);
+                }
+            }
+        });
+
+    }
+
+    function MascaraCpfCnpj(campo){
+        $(campo).keydown(function(event){
+            // console.log(event.originalEvent.code);
+            if(event.originalEvent.code != 'Tab' && event.originalEvent.code != 'Enter' && event.originalEvent.code != 'NumpadEnter'){
+                try {
+                    $(campo).unmask();
+                } catch (e) {}
+
+                var tamanho = $(campo).val().length;
+
+                if(tamanho < 11){
+                    $(campo).mask("999.999.999-99", {reverse: true, maxlength:false, recursive:true});
+                } else {
+                    $(campo).mask("99.999.999/9999-99", {reverse: true, maxlength:false, recursive:true});
+                }
+
+                // ajustando foco
+                var elem = this;
+                setTimeout(function(){
+                    // mudo a posição do seletor
+                    elem.selectionStart = elem.selectionEnd = 10000;
+                }, 0);
+                // reaplico o valor para mudar o foco
+                var currentValue = $(this).val();
+                $(this).val('');
+                $(this).val(currentValue);
+            }
+        });
+
+    }
+    function MascaraCpfCnpjManualTexto(campo){
+        try {
+            $(campo).unmask();
+        } catch (e) {}
+
+        $(campo).each(function(k,v){
+            var tamanho = $(v).text().length;
+            if(tamanho <= 11){
+                $(v).mask("999.999.999-99");
+            } else {
+                $(v).mask("99.999.999/9999-99");
+            }
+        });
+
+        var tamanho = $(campo).text().length;
+    }
+
+    function MascaraCpfCnpjManual(campo){
+        try {
+            $(campo).unmask();
+        } catch (e) {}
+
+        var tamanho = $(campo).val().length;
+
+        if(tamanho <= 11){
+            $(campo).mask("999.999.999-99");
+        } else {
+            $(campo).mask("99.999.999/9999-99");
+        }
+    }
+
+    function MascaraTelefone(campo){
+        $(campo).unmask();
+        $(campo)
+        .mask("(99) 9999-99999")
+        .focusout(function (event) {
+            var target, phone, element;
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+            phone = target.value.replace(/\D/g, '');
+            element = $(target);
+            element.unmask();
+            if(phone.length > 10) {
+                element.mask("(99) 99999-9999");
+            } else {
+                element.mask("(99) 9999-99999");
+            }
+        });
+
+    }
+
+
+
+
+    function PopularEmpresas(campo, id = 0){
+        var action = 'GetEmpresas';
+        $(campo + ' option').remove();
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/empresas.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'id':id},
+            success: function (data)
+            {
+                console.log(data);
+                $(data).each(function(k,v){
+
+                    // console.log(v);
+                    $(campo)
+                    .append($("<option></option>")
+                    .attr("value", v.id)
+                    .attr("selected", v.ativo)
+                    .text(v.nome));
+                });
+
+
+
+            }
+        });
+
+    }
+    function BuscaCPFCNPJ(valor){
+        // console.log(valor);
+        var action = 'valida';
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/cpfcnpj.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'cpfcnpj':valor},
+            success: function (data)
+            {
+                // console.log(data);
+                if(data.erro == 1){
+                    toastr.error(data.resposta);
+                }
+                else {
+                    toastr.success(data.resposta);
+                }
+
+
+
+            }
+        });
+    }
+
+    function Continuar(){
+        var action = 'continuar';
+        var cpfcnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();
+        var empresa = $('#cadastro_pedidos_edit_form_empresa').val();
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
+            data: {'cpfcnpj': cpfcnpj, 'action': action, 'empresa':empresa},
+            dataType: 'json',
+            success: function (data)
+            {
+                console.log(data);
+                if(data.erro == 1){
+                     toastr.error('Erro: ' + data.mensagem);
+                }
+                else {
+
+                }
+            }
+        });
+    }
+
+</script>
+<style type="text/css">
+    .pointer {
+        cursor:pointer;
+    }
+    #cadastro_pedidos_edit_form label {
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>

@@ -1,0 +1,823 @@
+<div class="app-main__inner">
+    <div class="mb-3 card" id="cadastro_representantes_userlist">
+        <div class="card-header-tab card-header" style="display:block; margin-top: 15px; margin-bottom: -10px;">
+
+
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                Cadastro de Representantes
+                <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <table style="width: 100%;" id="cadastro_representantes_userlist_table" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Doc</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody class="cadastro_representantes_lista pointer">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="mb-3 card" id="cadastro_representantes_edit" style="display:none;">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                <span id="cadastro_representantes_edit_nome"></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <form onsubmit="return false;" id="cadastro_representantes_edit_form" name="cadastro_representantes_edit_form">
+                <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <div class="form-group row">
+                  <div class="col-md-1 col-xs-2">
+                      <label for="cadastro_representantes_edit_form_id">ID</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_id" name="cadastro_representantes_edit_form_id" readonly/>
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_cpfcnpj">CPF/CNPJ</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_cpfcnpj" name="cadastro_representantes_edit_form_cpfcnpj" onblur="BuscaCPFCNPJ(this.value);"/>
+                  </div>
+
+                  <div class="col-md-4 col-xs-8">
+                      <label for="cadastro_representantes_edit_form_nome">Nome Fantasia</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_nome" name="cadastro_representantes_edit_form_nome" />
+                  </div>
+                  <div class="col-md-4 col-xs-8">
+                      <label for="cadastro_representantes_edit_form_razao_social">Razão Social</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_razao_social" name="cadastro_representantes_edit_form_razao_social" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_rgie">RG/Insc. Estadual</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_rgie" name="cadastro_representantes_edit_form_rgie" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cep">CEP <span id="cadastro_representantes_edit_form_endereco_cep_resultado"></span></label>
+                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cep" name="cadastro_representantes_edit_form_endereco_cep" onchange="BuscaCep(this.value, 'cadastro_representantes_edit_form_endereco');"/>
+                  </div>
+
+                  <div class="col-md-5 col-xs-12">
+                      <label for="cadastro_representantes_edit_form_endereco_endereco">Endereço </label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_endereco" name="cadastro_representantes_edit_form_endereco_endereco" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_numero">Número</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_numero" name="cadastro_representantes_edit_form_endereco_numero" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_complemento">Complemento</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_complemento" name="cadastro_representantes_edit_form_endereco_complemento" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_bairro">Bairro</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_bairro" name="cadastro_representantes_edit_form_endereco_bairro" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cidade">Cidade</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cidade" name="cadastro_representantes_edit_form_endereco_cidade" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_estado">Estado</label>
+                      <select class="form-control" id="cadastro_representantes_edit_form_endereco_estado" name="cadastro_representantes_edit_form_endereco_estado">
+                      </select>
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">Inscrição CCM</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Inscrição INSS</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Data Cadastro (Inicial)</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Data Fundação</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Data Nascimento</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">Contrato Assinado</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Data Assinatura Contrato</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Capital Social</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Core</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Validade</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">Mat Entreg</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Data Entrega</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Contrato Social no.</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Data contrato social</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Tipo registro contrato</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">No PIS</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Fax</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Email</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">% Desc Base Comis</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">% Desc Concedido</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">% Comissão</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">% cota</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Tipo Comissão</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Cargo</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Gerente</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">Supervisor</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Tab. Preço</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">%Max Des:</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">% IR</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Valor Min. Deduc. IR</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">Transp. Envio Amostras</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">Contato</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">Telefone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Média</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">Tipo Frete</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa">% A Cada</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_suframa" name="cadastro_representantes_edit_form_suframa" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_suframa_validade">%Descontar</label>
+                      <input type="date" class="form-control" id="cadastro_representantes_edit_form_suframa_validade" name="cadastro_representantes_edit_form_suframa_validade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_desconto">% Limite Desconto</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_desconto" name="cadastro_representantes_edit_form_desconto" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_natureza_operacao">Consistir Municipios</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_natureza_operacao" name="cadastro_representantes_edit_form_natureza_operacao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_data_cadastro">--------------</label>
+                      <input readonly type="text" class="form-control" id="cadastro_representantes_edit_form_data_cadastro" name="cadastro_representantes_edit_form_data_cadastro" />
+                  </div>
+
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_email1">Status</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_email1" name="cadastro_representantes_edit_form_email1" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_tel1">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_tel1" name="cadastro_representantes_edit_form_tel1" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_fax">Fax</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_fax" name="cadastro_representantes_edit_form_fax" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_site">Site</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_site" name="cadastro_representantes_edit_form_site" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_compras">Contato Compras</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_compras" name="cadastro_representantes_edit_form_contato_compras" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_compras_fone">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_compras_fone" name="cadastro_representantes_edit_form_contato_compras_fone" />
+                  </div>
+                  <div class="col-md-6 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_compras_email">E-mail</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_compras_email" name="cadastro_representantes_edit_form_contato_compras_email" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_cobranca">Contato Cobrança</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_cobranca" name="cadastro_representantes_edit_form_contato_cobranca" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_cobranca_fone">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_cobranca_fone" name="cadastro_representantes_edit_form_contato_cobranca_fone" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_cobranca_email">E-mail</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_cobranca_email" name="cadastro_representantes_edit_form_contato_cobranca_email" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_contato_cobranca_funcao">Função</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_contato_cobranca_funcao" name="cadastro_representantes_edit_form_contato_cobranca_funcao" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_grupo">Grupo</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_grupo" name="cadastro_representantes_edit_form_grupo" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_segmento_mercado">Seg. Mercado</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_segmento_mercado" name="cadastro_representantes_edit_form_segmento_mercado" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_segmento_regiao">Região</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_segmento_regiao" name="cadastro_representantes_edit_form_segmento_regiao" />
+                  </div>
+
+
+
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12"> <span class=" font-size-lg">Endereço de Cobrança</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('cobranca');"> Repetir o endereço</button></div>
+                  <hr />
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_cep">CEP <span id="cadastro_representantes_edit_form_endereco_cobranca_cep_resultado"></span></label>
+                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_cep" name="cadastro_representantes_edit_form_endereco_cobranca_cep" onchange="BuscaCep(this.value, 'cadastro_representantes_edit_form_endereco_cobranca');"/>
+                  </div>
+
+                  <div class="col-md-7 col-xs-12">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_endereco">Endereço </label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_endereco" name="cadastro_representantes_edit_form_endereco_cobranca_endereco" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_numero">Número</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_numero" name="cadastro_representantes_edit_form_endereco_cobranca_numero" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_complemento">Complemento</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_complemento" name="cadastro_representantes_edit_form_endereco_cobranca_complemento" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_bairro">Bairro</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_bairro" name="cadastro_representantes_edit_form_endereco_cobranca_bairro" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_cidade">Cidade</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_cidade" name="cadastro_representantes_edit_form_endereco_cobranca_cidade" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_estado">Estado</label>
+                      <select class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_estado" name="cadastro_representantes_edit_form_endereco_cobranca_estado">
+                      </select>
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_contato">Contato Cobrança</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_contato" name="cadastro_representantes_edit_form_endereco_cobranca_contato" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_contato_telefone">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_contato_telefone" name="cadastro_representantes_edit_form_endereco_cobranca_contato_telefone" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_cobranca_contato_email">E-mail NFE</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_cobranca_contato_email" name="cadastro_representantes_edit_form_endereco_cobranca_contato_email" />
+                  </div>
+                  </div>
+              <div class="form-group row">
+                  <div class="col-md-12"> <span class=" font-size-lg">Endereço de Entrega</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('entrega');"> Repetir o endereço</button></div>
+                  <hr />
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_cep">CEP <span id="cadastro_representantes_edit_form_endereco_entrega_cep_resultado"></span></label>
+                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_cep" name="cadastro_representantes_edit_form_endereco_entrega_cep" onchange="BuscaCep(this.value, 'cadastro_representantes_edit_form_endereco_entrega');"/>
+                  </div>
+
+                  <div class="col-md-7 col-xs-12">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_endereco">Endereço </label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_endereco" name="cadastro_representantes_edit_form_endereco_entrega_endereco" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_numero">Número</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_numero" name="cadastro_representantes_edit_form_endereco_entrega_numero" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_complemento">Complemento</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_complemento" name="cadastro_representantes_edit_form_endereco_entrega_complemento" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_bairro">Bairro</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_bairro" name="cadastro_representantes_edit_form_endereco_entrega_bairro" />
+                  </div>
+
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_cidade">Cidade</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_cidade" name="cadastro_representantes_edit_form_endereco_entrega_cidade" />
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_estado">Estado</label>
+                      <select class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_estado" name="cadastro_representantes_edit_form_endereco_entrega_estado">
+                      </select>
+                  </div>
+                  <div class="col-md-6 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_cnpj">CNPJ</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_cnpj" name="cadastro_representantes_edit_form_endereco_entrega_cnpj" />
+                  </div>
+                  <div class="col-md-6 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_ie">Insc. Estadual</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_ie" name="cadastro_representantes_edit_form_endereco_entrega_ie" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_contato">Contato Entrega</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_contato" name="cadastro_representantes_edit_form_endereco_entrega_contato" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_contato_telefone">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_contato_telefone" name="cadastro_representantes_edit_form_endereco_entrega_contato_telefone" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_endereco_entrega_contato_email">E-mail</label>
+                      <input type="text" class="form-control" id="cadastro_representantes_edit_form_endereco_entrega_contato_email" name="cadastro_representantes_edit_form_endereco_entrega_contato_email" />
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <div class="col-md-3 col-xs-6">
+                      <label for="cadastro_representantes_edit_form_restricao">Restrição  <input type="checkbox" id="cadastro_representantes_edit_form_restricao" name="cadastro_representantes_edit_form_restricao" VALUE="1" /></label>
+
+                  </div>
+                  <hr />
+                  <div class="col-md-12 col-xs-12">
+                      <textarea class="form-control" id="cadastro_representantes_edit_form_restricao_texto" name="cadastro_representantes_edit_form_restricao_texto"></textarea>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                      <label for="cadastro_representantes_edit_form_observacoes">Observações</label>
+                      <textarea class="form-control" id="cadastro_representantes_edit_form_observacoes" name="cadastro_representantes_edit_form_observacoes"></textarea>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                      <label for="cadastro_representantes_edit_form_empresa">Empresas</label>
+                      <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_representantes_edit_form_empresa" name="cadastro_representantes_edit_form_empresa">
+
+                      </select>
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $.jMaskGlobals.watchDataMask = true;
+        // window.onerror = function(){
+        //    return true;
+        // }
+        $('#cadastro_representantes_edit_form_endereco_cep').mask("99999-999");
+        PopularEstados('#cadastro_representantes_edit_form_endereco_estado');
+        PopularEstados('#cadastro_representantes_edit_form_endereco_entrega_estado');
+        PopularEstados('#cadastro_representantes_edit_form_endereco_cobranca_estado');
+        MascaraCpfCnpj('#cadastro_representantes_edit_form_cpfcnpj');
+
+        MascaraTelefone('#cadastro_representantes_edit_form_tel1');
+        MascaraTelefone('#cadastro_representantes_edit_form_fax');
+        MascaraTelefone('#cadastro_representantes_edit_form_contato_compras_fone');
+        MascaraTelefone('#cadastro_representantes_edit_form_contato_cobranca_fone');
+        MascaraTelefone('#cadastro_representantes_edit_form_endereco_cobranca_contato_telefone');
+        MascaraTelefone('#cadastro_representantes_edit_form_endereco_entrega_contato_telefone');
+
+
+        PopularEmpresas('#cadastro_representantes_edit_form_empresa');
+        GetUserList();
+        $('#cadastro_representantes_userlist_table').DataTable({
+                "language": {
+                    "url": "assets/datatables/Portuguese-Brasil.json"
+                }
+            }
+
+        );
+
+    });
+
+    function GetUserList(){
+        $('.cadastro_representantes_lista').html('');
+        // console.log('getting');
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/cadastros/CadastroRepresentantes/post.php',
+            data: {'action':'GetUserList'},
+            dataType: 'json',
+            async: false,
+            success: function (UserList)
+            {
+                $(UserList).each(function(k,v){
+                    // console.log(UserList);
+
+                    $('.cadastro_representantes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                });
+                MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
+            }
+        });
+    }
+    function GetUserInfoEdit(id, action){
+        $('#cadastro_representantes_userlist').hide();
+        $('#cadastro_representantes_edit').fadeIn(500);
+
+        $('#cadastro_representantes_edit_form :input').each(function(k,v){
+            $(v).val('');
+        });
+        $('#cadastro_representantes_edit_form_restricao').attr('checked', false);
+        if(action == 'editar'){
+            $.ajax({
+                type: 'POST',
+                url: 'content/pages/cadastros/cadastros/CadastroRepresentantes/post.php',
+                data: {'action':'GetUserData', 'id':id},
+                dataType: 'json',
+                async: false,
+                success: function (User)
+                {
+                    var prefix = '#cadastro_representantes_edit_form_';
+                    var UserKeys = Object.keys(User);
+                    $(UserKeys).each(function(k,v){
+                        // console.log(User[v]);
+                        $(prefix + v).val(User[v]);
+                    });
+
+                    MascaraCpfCnpjManual('#cadastro_representantes_edit_form_cpfcnpj');
+                    $('#cadastro_representantes_edit_form_endereco_cep').unmask();
+                    $('#cadastro_representantes_edit_form_endereco_cep').mask("99999-999");
+                    $('#cadastro_representantes_edit_nome').html('Edição de representante - ' + User.nome);
+                    $('#action_for_form').val(action);
+
+                    if(User.restricao == 1){
+                        $('#cadastro_representantes_edit_form_restricao').attr('checked', true);
+                    }
+                    else {
+                        $('#cadastro_representantes_edit_form_restricao').attr('checked', false);
+                    }
+
+                    MascaraTelefone('#cadastro_representantes_edit_form_tel1');
+                    MascaraTelefone('#cadastro_representantes_edit_form_fax');
+                    MascaraTelefone('#cadastro_representantes_edit_form_contato_compras_fone');
+                    MascaraTelefone('#cadastro_representantes_edit_form_contato_cobranca_fone');
+                    MascaraTelefone('#cadastro_representantes_edit_form_endereco_cobranca_contato_telefone');
+                    MascaraTelefone('#cadastro_representantes_edit_form_endereco_entrega_contato_telefone');
+                    PopularEmpresas('#cadastro_representantes_edit_form_empresa', User.id);
+
+
+                }
+            });
+        }
+        else {
+            $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroRepresentantes/acessos.php');
+            $('#cadastro_representantes_edit_form_id').val(id);
+            $('#cadastro_representantes_edit_nome').html('Novo representante');
+            $('#action_for_form').val(action);
+            $('#cadastro_representantes_edit_form_restricao').removeAttr('checked');
+        }
+    }
+
+    function Save() {
+
+          var dados = $('#cadastro_representantes_edit_form').serializeArray();
+          var empresas = $('#cadastro_representantes_edit_form_empresa').val();
+          var action = $('#action_for_form').val();
+
+          // console.log(dados);
+          $.ajax({
+              type: 'POST',
+              url: 'content/pages/cadastros/cadastros/CadastroRepresentantes/post.php',
+              data: {'dados': dados, 'action': action, 'empresas':empresas},
+              success: function (data)
+              {
+                  // console.log(data);
+                  if (data == 0) {
+                      toastr.success('Sucesso! Cliente atualizado.');
+                      GetUserList();
+                      $('#cadastro_representantes_userlist').fadeIn(500);
+                      $('#cadastro_representantes_edit').hide();
+
+                  } else {
+                      toastr.error('Erro: ' + data);
+                  }
+              }
+          });
+
+     }
+
+      function MascaraCpfCnpj(campo){
+          $(campo).keydown(function(event){
+              // console.log(event.originalEvent.code);
+              if(event.originalEvent.code != 'Tab' && event.originalEvent.code != 'Enter' && event.originalEvent.code != 'NumpadEnter'){
+                        try {
+                            $(campo).unmask();
+                        } catch (e) {}
+
+                        var tamanho = $(campo).val().length;
+
+                        if(tamanho < 11){
+                            $(campo).mask("999.999.999-99", {reverse: true, maxlength:false, recursive:true});
+                        } else {
+                            $(campo).mask("99.999.999/9999-99", {reverse: true, maxlength:false, recursive:true});
+                        }
+
+                        // ajustando foco
+                        var elem = this;
+                        setTimeout(function(){
+                            // mudo a posição do seletor
+                            elem.selectionStart = elem.selectionEnd = 10000;
+                        }, 0);
+                        // reaplico o valor para mudar o foco
+                        var currentValue = $(this).val();
+                        $(this).val('');
+                        $(this).val(currentValue);
+                    }
+                });
+
+      }
+      function MascaraCpfCnpjManualTexto(campo){
+          try {
+              $(campo).unmask();
+          } catch (e) {}
+
+          $(campo).each(function(k,v){
+              var tamanho = $(v).text().length;
+              if(tamanho <= 11){
+                  $(v).mask("999.999.999-99");
+              } else {
+                  $(v).mask("99.999.999/9999-99");
+              }
+          });
+
+          var tamanho = $(campo).text().length;
+      }
+
+      function MascaraCpfCnpjManual(campo){
+          try {
+              $(campo).unmask();
+          } catch (e) {}
+
+          var tamanho = $(campo).val().length;
+
+          if(tamanho <= 11){
+              $(campo).mask("999.999.999-99");
+          } else {
+              $(campo).mask("99.999.999/9999-99");
+          }
+      }
+
+      function MascaraTelefone(campo){
+          $(campo).unmask();
+          $(campo)
+        .mask("(99) 9999-99999")
+        .focusout(function (event) {
+            var target, phone, element;
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+            phone = target.value.replace(/\D/g, '');
+            element = $(target);
+            element.unmask();
+            if(phone.length > 10) {
+                element.mask("(99) 99999-9999");
+            } else {
+                element.mask("(99) 9999-99999");
+            }
+        });
+
+      }
+
+      function PopularEstados(campo){
+          var action = 'GetEstados';
+          $(campo + ' input').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/estados.api.php',
+              dataType: 'json',
+              async: 'false',
+              data: {'action': action},
+              success: function (data)
+              {
+                  $(data).each(function(k,v){
+                      // console.log(v);
+                      $(campo)
+                         .append($("<option></option>")
+                         .attr("value", v.id)
+                         .text(v.nome));
+                  });
+
+
+
+              }
+          });
+
+      }
+
+      function GetEstadoSigla(sigla, campo_estado){
+          var action = 'GetEstadoSigla';
+          resultado = "";
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/estados.api.php',
+              dataType: 'json',
+              async: 'false',
+              data: {'action': action, 'sigla':sigla},
+              success: function (data)
+              {
+                  // console.log(data);
+                  $(campo_estado).val(data);
+              }
+          });
+          console.log(resultado);
+      }
+
+      function BuscaCep(cep, prefix){
+          cep = cep.replace("-", "");
+          var tamanho = cep.length;
+          // console.log(tamanho);
+          if(tamanho == 8){
+              $.ajax({
+                  type: 'GET',
+                  url: 'https://viacep.com.br/ws/' + cep + '/json/',
+                  dataType: 'json',
+                  async: 'false',
+                  success: function (data)
+                  {
+                      if(data.localidade){
+                          // console.log(data);
+                          var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
+                          // console.log(estado);
+                          // console.log('#' + prefix + '_endereco');
+                          $('#' + prefix + '_endereco').val(data.logradouro);
+                          $('#' + prefix + '_bairro').val(data.bairro);
+                          $('#' + prefix + '_cidade').val(data.localidade);
+                          toastr.success('Cep retornado da base de dados.');
+                      }
+                      else {
+                          toastr.error('Cep sem dados retornados da API.');
+                      }
+
+
+
+
+                  }
+              });
+          }
+          else {
+             toastr.error('Cep Inválido.');
+          }
+
+      }
+      function PopularEmpresas(campo, id = 0){
+          var action = 'GetEmpresas';
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/empresas.api.php',
+              dataType: 'json',
+              async: 'false',
+              data: {'action': action, 'id':id},
+              success: function (data)
+              {
+                  console.log(data);
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                         .append($("<option></option>")
+                         .attr("value", v.id)
+                         .attr("selected", v.ativo)
+                         .text(v.nome));
+                  });
+
+
+
+              }
+          });
+
+      }
+      function RepetirEndereco(tipo){
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_endereco').val($('#cadastro_representantes_edit_form_endereco_endereco').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_cep').val($('#cadastro_representantes_edit_form_endereco_cep').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_numero').val($('#cadastro_representantes_edit_form_endereco_numero').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_complemento').val($('#cadastro_representantes_edit_form_endereco_complemento').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_bairro').val($('#cadastro_representantes_edit_form_endereco_bairro').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_cidade').val($('#cadastro_representantes_edit_form_endereco_cidade').val());
+          $('#cadastro_representantes_edit_form_endereco_' + tipo + '_estado').val($('#cadastro_representantes_edit_form_endereco_estado').val());
+      }
+      function BuscaCPFCNPJ(valor){
+          // console.log(valor);
+          var action = 'valida';
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/cpfcnpj.api.php',
+              dataType: 'json',
+              async: 'false',
+              data: {'action': action, 'cpfcnpj':valor},
+              success: function (data)
+              {
+                  // console.log(data);
+                  if(data.erro == 1){
+                      toastr.error(data.resposta);
+                  }
+                  else {
+                      toastr.success(data.resposta);
+                  }
+
+
+
+              }
+          });
+      }
+
+</script>
+<style type="text/css">
+    .pointer {
+        cursor:pointer;
+    }
+    #cadastro_representantes_edit_form label {
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>

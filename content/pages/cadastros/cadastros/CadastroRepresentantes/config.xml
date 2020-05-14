@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Cadastro de Representantes</nome>
+        <descricao>Cadastro de Representantes</descricao>
+        <atividade>1</atividade>
+        <link>cadastro_representantes.html</link>
+        <class>btn-outline-primary</class>
+        <style>lnr-briefcase</style>
+    </display>
+</menu>

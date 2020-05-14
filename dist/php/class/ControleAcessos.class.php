@@ -13,7 +13,7 @@ class ControleAcessos {
     public $campanhas;
     public $listas;
     public $path;
-    public $lang;
+    // public $lang;
 
 
     function ControleAcessos($con_front, $user, $path) {
@@ -24,7 +24,7 @@ class ControleAcessos {
         // $this->GetFilas();
 
         @session_start();
-        $this->lang = $_SESSION['LANGUAGE_VALUE'];
+        // $this->lang = $_SESSION['LANGUAGE_VALUE'];
         // Manter o GetCampanhasListas comentado e só requisitar no momento do uso, o mesmo consome demais do banco e do sistema.
         // $this->GetCampanhasListas();
     }
@@ -163,11 +163,11 @@ class ControleAcessos {
 
     function ExibeMenu() {
 
-        $lang = $this->lang;
+        // $lang = $this->lang;
         $menu = $this->menu;
         ksort($menu);
         foreach ($menu as $key_menu=>$mn) {
-            if ($mn['link'] != null) {
+            if (@$mn['link'] != null) {
                 $click = 'onclick="javascript: CarregaPagina(\'' . $mn['link'] . '\'); "';
                 $seta = '';
             } else {
@@ -206,7 +206,7 @@ class ControleAcessos {
 
                         }
                         else {
-                            echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.$key_menu.'/'.$key_submenu.'\')"><i class="' . $submenu['class'] . '"></i> ' . $submenu['nome'] . '</a></li>';
+                            echo '<li> <a href="#" onclick="javascript: CarregaPagina(\'content/pages/controle/gpmenu.php?cm='.@$key_menu.'/'.@$key_submenu.'\')"><i class="' . @$submenu['class'] . '"></i> ' . @$submenu['nome'] . '</a></li>';
                         }
 
 

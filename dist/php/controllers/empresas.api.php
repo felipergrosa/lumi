@@ -15,7 +15,7 @@ if(@$_POST['action'] == 'GetEmpresas'){
         }
 
     }
-    $sql = "SELECT * FROM empresas ORDER BY nome ASC";
+    $sql = "SELECT *, nome_fantasia as nome FROM empresas ORDER BY nome ASC";
     $sql = $con->query($sql);
     $cont = 0;
     while($row_res = $sql->fetch(PDO::FETCH_ASSOC)){

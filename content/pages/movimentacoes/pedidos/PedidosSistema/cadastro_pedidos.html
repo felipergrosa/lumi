@@ -29,88 +29,102 @@
                 <button type="submit" class="btn btn-primary" onclick="Continuar();">Continuar</button>
 
                 <div class="form-group row">
-                    <div class="col-md-4 col-xs-4">
-                        <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
-                        <label for="cadastro_pedidos_edit_form_id">Empresa</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-3 col-xs-4">
+                        <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" />
+                        <label for="cadastro_pedidos_edit_form_empresa_nome">Empresa</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_empresa_nome" name="cadastro_pedidos_edit_form_empresa_nome" readonly/>
                     </div>
                     <div class="col-md-4 col-xs-4">
-                        <label for="cadastro_pedidos_edit_form_id">Cliente</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_cliente_nome">Cliente</label>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cliente_nome" name="cadastro_pedidos_edit_form_cliente_nome" readonly/>
                     </div>
                     <div class="col-md-1 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Prioridade</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_prioridade">Prioridade</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_prioridade" name="cadastro_pedidos_edit_form_prioridade">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </div>
-                    <div class="col-md-1 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Frete</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_frete">Frete</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_frete" name="cadastro_pedidos_edit_form_frete">
+                            <option value="FOB">FOB</option>
+                            <option value="CIF">CIF</option>
+                        </select>
                     </div>
                     <div class="col-md-2 col-xs-4">
-                        <label for="cadastro_pedidos_edit_form_id">No pedido repres.</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_num_pedido_representante">N° pedido repres.</label>
+                        <input type="number" class="form-control" id="cadastro_pedidos_edit_form_num_pedido_representante" name="cadastro_pedidos_edit_form_num_pedido_representante" />
                     </div>
-                    <div class="col-md-1 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Data Pedido</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_data_pedido">Data Pedido</label>
+                        <input type="date" class="form-control" id="cadastro_pedidos_edit_form_data_pedido" name="cadastro_pedidos_edit_form_data_pedido" />
                     </div>
-                    <div class="col-md-1 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Prev Fatura</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-2 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_data_previsao_faturamento">Prev Fatura</label>
+                        <input type="date" class="form-control" id="cadastro_pedidos_edit_form_data_previsao_faturamento" name="cadastro_pedidos_edit_form_data_previsao_faturamento" />
                     </div>
                     <div class="col-md-2 col-xs-4">
-                        <label for="cadastro_pedidos_edit_form_id">No pedido de compra</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
-                    </div>
-                    <div class="col-md-1 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Tabela Preço</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_num_pedido_compra">N° ped comp</label>
+                        <input type="number" class="form-control" id="cadastro_pedidos_edit_form_num_pedido_compra" name="cadastro_pedidos_edit_form_num_pedido_compra" />
                     </div>
                     <div class="col-md-3 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Cond. Pagto</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_tabela_preco">Tabela Preço</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_tabela_preco" name="cadastro_pedidos_edit_form_tabela_preco">
+                            <option value="1">1</option>
+                        </select>
                     </div>
                     <div class="col-md-3 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Transportadora</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_cond_pagto">Cond. Pagto</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_cond_pagto" name="cadastro_pedidos_edit_form_cond_pagto">
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_transportadora">Transportadora</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_transportadora" name="cadastro_pedidos_edit_form_transportadora">
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12"> <span class=" font-size-lg">Descontos</span> </div>
 
                     <div class="col-md-2 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Padrao</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_desconto_padrao">Padrao</label>
+                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_padrao" name="cadastro_pedidos_edit_form_desconto_padrao" />
                     </div>
-                    <div class="col-md-1 col-xs-4">
-                        <label for="cadastro_pedidos_edit_form_id">Adic 1</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
-                    </div>
-                    <div class="col-md-2 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Adic 2</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-2 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_desconto_adic1">Adic 1</label>
+                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic1" name="cadastro_pedidos_edit_form_desconto_adic1" />
                     </div>
                     <div class="col-md-2 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Adic 3</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
-                    </div>
-                    <div class="col-md-1 col-xs-4">
-                        <label for="cadastro_pedidos_edit_form_id">Part.com.</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_desconto_adic2">Adic 2</label>
+                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic2" name="cadastro_pedidos_edit_form_desconto_adic2" />
                     </div>
                     <div class="col-md-2 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Natureza de operação</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                        <label for="cadastro_pedidos_edit_form_desconto_adic3">Adic 3</label>
+                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic3" name="cadastro_pedidos_edit_form_desconto_adic3" />
                     </div>
-                    <div class="col-md-2 col-xs-2">
-                        <label for="cadastro_pedidos_edit_form_id">Observação</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" readonly/>
+                    <div class="col-md-2 col-xs-4">
+                        <label for="cadastro_pedidos_edit_form_desconto_part_com">Part.com.</label>
+                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_part_com" name="cadastro_pedidos_edit_form_desconto_part_com" />
+                    </div>
+                    <div class="col-md-6 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_natureza_operacao">Natureza de operação</label>
+                        <select class="form-control" id="cadastro_pedidos_edit_form_natureza_operacao" name="cadastro_pedidos_edit_form_natureza_operacao">
+                        </select>
+                    </div>
+                    <div class="col-md-6 col-xs-2">
+                        <label for="cadastro_pedidos_edit_form_observacao">Observação</label>
+                        <textarea class="form-control" id="cadastro_pedidos_edit_form_observacao" name="cadastro_pedidos_edit_form_observacao"></textarea>
                     </div>
 
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosSalvar();">Salvar</button>
             </form>
         </div>
     </div>
@@ -155,68 +169,15 @@
         });
     }
     function GetUserInfoEdit(id, action){
-        $('#cadastro_pedidos_userlist').hide();
-        $('#cadastro_pedidos_edit').fadeIn(500);
-
-        $('#cadastro_pedidos_edit_form :input').each(function(k,v){
-            $(v).val('');
-        });
-        $('#cadastro_pedidos_edit_form_restricao').attr('checked', false);
-        if(action == 'editar'){
-            $.ajax({
-                type: 'POST',
-                url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
-                data: {'action':'GetUserData', 'id':id},
-                dataType: 'json',
-                async: false,
-                success: function (User)
-                {
-                    var prefix = '#cadastro_pedidos_edit_form_';
-                    var UserKeys = Object.keys(User);
-                    $(UserKeys).each(function(k,v){
-                        // console.log(User[v]);
-                        $(prefix + v).val(User[v]);
-                    });
-
-                    MascaraCpfCnpjManual('#cadastro_pedidos_edit_form_cpfcnpj');
-                    $('#cadastro_pedidos_edit_form_endereco_cep').unmask();
-                    $('#cadastro_pedidos_edit_form_endereco_cep').mask("99999-999");
-                    $('#cadastro_pedidos_edit_nome').html('Edição de representante - ' + User.nome);
-                    $('#action_for_form').val(action);
-
-                    if(User.restricao == 1){
-                        $('#cadastro_pedidos_edit_form_restricao').attr('checked', true);
-                    }
-                    else {
-                        $('#cadastro_pedidos_edit_form_restricao').attr('checked', false);
-                    }
-
-                    MascaraTelefone('#cadastro_pedidos_edit_form_tel1');
-                    MascaraTelefone('#cadastro_pedidos_edit_form_fax');
-                    MascaraTelefone('#cadastro_pedidos_edit_form_contato_compras_fone');
-                    MascaraTelefone('#cadastro_pedidos_edit_form_contato_cobranca_fone');
-                    MascaraTelefone('#cadastro_pedidos_edit_form_endereco_cobranca_contato_telefone');
-                    MascaraTelefone('#cadastro_pedidos_edit_form_endereco_entrega_contato_telefone');
-                    PopularEmpresas('#cadastro_pedidos_edit_form_empresa', User.id);
 
 
-                }
-            });
-        }
-        else {
-            $('.usuarios_acessos').load('content/pages/movimentacoes/pedidos/PedidosSistema/acessos.php');
-            $('#cadastro_pedidos_edit_form_id').val(id);
-            $('#cadastro_pedidos_edit_nome').html('Novo representante');
-            $('#action_for_form').val(action);
-            $('#cadastro_pedidos_edit_form_restricao').removeAttr('checked');
-        }
     }
 
-    function Save() {
+    function CadastroPedidosSalvar() {
 
         var dados = $('#cadastro_pedidos_edit_form').serializeArray();
         var empresas = $('#cadastro_pedidos_edit_form_empresa').val();
-        var action = $('#action_for_form').val();
+        var action = 'novo';
 
         // console.log(dados);
         $.ajax({
@@ -225,15 +186,12 @@
             data: {'dados': dados, 'action': action, 'empresas':empresas},
             success: function (data)
             {
-                // console.log(data);
+                console.log(data);
                 if (data == 0) {
-                    toastr.success('Sucesso! Cliente atualizado.');
-                    GetUserList();
-                    $('#cadastro_pedidos_userlist').fadeIn(500);
-                    $('#cadastro_pedidos_edit').hide();
+                    toastr.success('Cadastro Realizado');
 
                 } else {
-                    toastr.error('Erro: ' + data);
+                        toastr.error('Erro: ' + data);
                 }
             }
         });
@@ -392,7 +350,8 @@
                      toastr.error('Erro: ' + data.mensagem);
                 }
                 else {
-
+                    $('#cadastro_pedidos_edit_form_empresa_nome').val(data.dados.empresa_nome);
+                    $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.cliente_nome);
                 }
             }
         });

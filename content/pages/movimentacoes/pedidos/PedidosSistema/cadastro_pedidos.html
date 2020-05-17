@@ -1,6 +1,7 @@
 <div class="app-main__inner">
 
-
+    <div id="cadastro_clientes" style="display:none">
+    </div>
 
     <div class="mb-3 card" id="cadastro_pedidos_edit">
         <div class="card-header-tab card-header">
@@ -26,7 +27,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="Continuar();">Continuar</button>
+                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosContinuar();">Continuar</button>
 
                 <div class="form-group row">
                     <div class="col-md-3 col-xs-4">
@@ -191,7 +192,7 @@
                     toastr.success('Cadastro Realizado');
 
                 } else {
-                        toastr.error('Erro: ' + data);
+                    toastr.error('Erro: ' + data);
                 }
             }
         });
@@ -334,7 +335,7 @@
         });
     }
 
-    function Continuar(){
+    function CadastroPedidosContinuar(){
         var action = 'continuar';
         var cpfcnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();
         var empresa = $('#cadastro_pedidos_edit_form_empresa').val();
@@ -347,7 +348,11 @@
             {
                 console.log(data);
                 if(data.erro == 1){
-                     toastr.error('Erro: ' + data.mensagem);
+                    toastr.error('Erro: ' + data.mensagem);
+                }
+                else if(data.erro == 2){
+                    console.log(data);
+                    CarregaCadastroClientesPedidos();
                 }
                 else {
                     $('#cadastro_pedidos_edit_form_empresa_nome').val(data.dados.empresa_nome);
@@ -355,6 +360,37 @@
                 }
             }
         });
+    }
+
+    function CarregaCadastroClientesPedidos(){
+        toastr.warning('Cliente não encontrado, carregando tela para cadastramento.');
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/cadastros/CadastroClientes/cadastro_clientes.html',
+            async: false,
+            success: function (data)
+            {
+                $('#cadastro_clientes').html(data);
+                $('#cadastro_pedidos_edit').hide();
+                $('#cadastro_clientes').show();
+
+
+            },
+            complete: function(){
+                GetUserInfoEdit(0, 'novo');
+                $('#cadastro_clientes_edit_form_cpfcnpj').val($('#cadastro_pedidos_edit_form_cpfcnpj').val());
+                $('#post_screen').val('cadastro_pedidos');
+                $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
+            }
+        });
+
+    }
+
+    function CadastroPedidosPosCliente(){
+        $('#cadastro_clientes').html('');
+        $('#cadastro_clientes').hide();
+        $('#cadastro_pedidos_edit').show();
+        CadastroPedidosContinuar();
     }
 
 </script>

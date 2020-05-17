@@ -53,7 +53,7 @@ if(@$_POST['action'] == 'continuar'){
         $sql->bindParam('cpfcnpj', $cpfcnpj);
         $sql->execute();
         if($sql->rowCount() == 0){
-            $retorno['erro'] = 1;
+            $retorno['erro'] = 2;
             $retorno['mensagem'] = 'Cliente não encontrado';
         }
         else {

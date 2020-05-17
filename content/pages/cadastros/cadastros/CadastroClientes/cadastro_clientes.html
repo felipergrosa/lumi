@@ -38,6 +38,7 @@
         <div class="card-body">
             <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <input type="hidden" name="post_screen" id="post_screen" value="" />
                 <div class="form-group row">
                   <div class="col-md-1 col-xs-2">
                       <label for="cadastro_clientes_edit_form_id">ID</label>
@@ -297,7 +298,7 @@
                       </select>
                   </div>
               </div>
-              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+              <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick=CadastroClientesSave();">Salvar</button>
             </form>
         </div>
     </div>
@@ -335,6 +336,10 @@
             }
 
         );
+
+        if($('#post_screen').val() == 'cadastro_pedidos'){
+            $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
+        }
 
     });
 
@@ -416,7 +421,7 @@
         }
     }
 
-    function Save() {
+    function CadastroClientesSave() {
 
           var dados = $('#cadastro_clientes_edit_form').serializeArray();
           var empresas = $('#cadastro_clientes_edit_form_empresa').val();
@@ -435,6 +440,10 @@
                       GetUserList();
                       $('#cadastro_clientes_userlist').fadeIn(500);
                       $('#cadastro_clientes_edit').hide();
+
+                      if($('#post_screen').val() == "cadastro_pedidos"){
+                          CadastroPedidosPosCliente();
+                      }
 
                   } else {
                       toastr.error('Erro: ' + data);
@@ -631,6 +640,7 @@
 
               }
           });
+
 
       }
       function RepetirEndereco(tipo){

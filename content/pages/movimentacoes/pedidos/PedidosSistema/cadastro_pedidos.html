@@ -12,6 +12,7 @@
         </div>
         <div class="card-body">
             <form onsubmit="return false;" id="cadastro_pedidos_edit_form" name="cadastro_pedidos_edit_form">
+                <span id="cadastro_pedidos_top_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <div class="form-group row">
 
@@ -27,8 +28,10 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosContinuar();">Continuar</button>
 
+                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosContinuar();">Continuar</button>
+                </span>
+                <span id="cadastro_pedidos_middle_form" style="display: none;">
                 <div class="form-group row">
                     <div class="col-md-3 col-xs-4">
                         <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" />
@@ -126,6 +129,7 @@
 
 
                 <button type="submit" class="btn btn-primary" onclick="CadastroPedidosSalvar();">Salvar</button>
+                </span>
             </form>
         </div>
     </div>
@@ -190,6 +194,7 @@
                 console.log(data);
                 if (data == 0) {
                     toastr.success('Cadastro Realizado');
+                    $('#cadastro_pedidos_middle_form').hide();
 
                 } else {
                     toastr.error('Erro: ' + data);
@@ -312,27 +317,29 @@
     }
     function BuscaCPFCNPJ(valor){
         // console.log(valor);
-        var action = 'valida';
-        $.ajax({
-            type: 'POST',
-            url: 'dist/php/controllers/cpfcnpj.api.php',
-            dataType: 'json',
-            async: 'false',
-            data: {'action': action, 'cpfcnpj':valor},
-            success: function (data)
-            {
-                // console.log(data);
-                if(data.erro == 1){
-                    toastr.error(data.resposta);
+        if(valor != ""){
+            var action = 'valida';
+            $.ajax({
+                type: 'POST',
+                url: 'dist/php/controllers/cpfcnpj.api.php',
+                dataType: 'json',
+                async: 'false',
+                data: {'action': action, 'cpfcnpj':valor},
+                success: function (data)
+                {
+                    // console.log(data);
+                    if(data.erro == 1){
+                        toastr.error(data.resposta);
+                    }
+                    else {
+                        toastr.success(data.resposta);
+                    }
+
+
+
                 }
-                else {
-                    toastr.success(data.resposta);
-                }
-
-
-
-            }
-        });
+            });
+        }
     }
 
     function CadastroPedidosContinuar(){
@@ -357,6 +364,8 @@
                 else {
                     $('#cadastro_pedidos_edit_form_empresa_nome').val(data.dados.empresa_nome);
                     $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.cliente_nome);
+                    $('#cadastro_pedidos_top_form').hide();
+                    $('#cadastro_pedidos_middle_form').show();
                 }
             }
         });

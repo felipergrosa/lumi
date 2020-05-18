@@ -5,11 +5,6 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-SET NAMES utf8mb4;
-
-CREATE DATABASE `nobre_luminarias` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `nobre_luminarias`;
-
 DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,6 +60,8 @@ CREATE TABLE `clientes` (
   CONSTRAINT `clientes_ibfk_3` FOREIGN KEY (`endereco_entrega`) REFERENCES `dados_enderecos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `clientes_empresas`;
 CREATE TABLE `clientes_empresas` (
@@ -177,27 +174,27 @@ CREATE TABLE `empresas` (
 DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `representante` int(11) NOT NULL,
-  `empresa` int(11) NOT NULL,
-  `cliente` int(11) NOT NULL,
-  `prioridade` int(11) NOT NULL,
-  `frete` int(11) NOT NULL,
-  `num_pedido_representante` int(11) NOT NULL,
-  `data_pedido` date NOT NULL,
-  `data_previsao_faturamento` date NOT NULL,
-  `num_pedido_compra` int(11) NOT NULL,
-  `tabela_preco` int(11) NOT NULL,
-  `cond_pagto` int(11) NOT NULL,
-  `transportadora` int(11) NOT NULL,
-  `desconto_padrao` double NOT NULL,
-  `desconto_adic1` double NOT NULL,
-  `desconto_adic2` double NOT NULL,
-  `desconto_adic3` double NOT NULL,
-  `desconto_part_com` double NOT NULL,
-  `natureza_operacao` int(11) NOT NULL,
-  `observacao` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_cadastro` datetime NOT NULL,
-  `usuario_cadastro` int(11) NOT NULL,
+  `representante` int(11) DEFAULT NULL,
+  `empresa` int(11) DEFAULT NULL,
+  `cliente` int(11) DEFAULT NULL,
+  `prioridade` int(11) DEFAULT NULL,
+  `frete` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `num_pedido_representante` int(11) DEFAULT NULL,
+  `data_pedido` date DEFAULT NULL,
+  `data_previsao_faturamento` date DEFAULT NULL,
+  `num_pedido_compra` int(11) DEFAULT NULL,
+  `tabela_preco` int(11) DEFAULT NULL,
+  `cond_pagto` int(11) DEFAULT NULL,
+  `transportadora` int(11) DEFAULT NULL,
+  `desconto_padrao` double DEFAULT NULL,
+  `desconto_adic1` double DEFAULT NULL,
+  `desconto_adic2` double DEFAULT NULL,
+  `desconto_adic3` double DEFAULT NULL,
+  `desconto_part_com` double DEFAULT NULL,
+  `natureza_operacao` int(11) DEFAULT NULL,
+  `observacao` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_cadastro` datetime DEFAULT NULL,
+  `usuario_cadastro` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `empresa` (`empresa`),
   KEY `cliente` (`cliente`),
@@ -225,6 +222,13 @@ CREATE TABLE `usuarios` (
   KEY `usuarios_group_idx` (`group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+TRUNCATE `usuarios`;
+INSERT INTO `usuarios` (`id`, `login`, `pass`, `nome`, `cpfcnpj`, `email`, `general_level`, `group`, `chat`, `tipo_usuario`, `atividade`, `force_pass`) VALUES
+(1,	'david',	'fff770d28b26f61efc768afb936444c6f3c0f3c8',	'David Silva',	'',	'davidsilva.ti@gmail.com',	'ROOT',	2,	0,	'user',	1,	0),
+(3,	'1',	'ffb7aee6e86cdcf8b2bbd9ed58dc5f70ff9f226e',	'1',	NULL,	'1',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(7,	'2',	'ffb7aee6e86cdcf8b2bbd9ed58dc5f70ff9f226e',	'1',	NULL,	'1',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(8,	'3',	'ffb7aee6e86cdcf8b2bbd9ed58dc5f70ff9f226e',	'1',	NULL,	'1',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(9,	'teste',	'd9a173992071172b72c8f1939563fd9c1b88ab7b',	'Teste',	NULL,	'teste@teste.com',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `usuarios_acessos`;
 CREATE TABLE `usuarios_acessos` (
@@ -301,4 +305,4 @@ CREATE TABLE `usuarios_group_acessos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2020-05-14 03:57:57
+-- 2020-05-18 14:42:18

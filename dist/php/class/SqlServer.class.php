@@ -31,4 +31,25 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function BuscaTabelas($empresa){
+        $con = $this->con;
+        $sql = "SELECT BusinessCadTabPreco.CdTabela as id_tabela,
+        BusinessCadTabPreco.DsTabela as descricao_tabela
+        FROM BusinessCadTabPreco
+        WHERE BusinessCadTabPreco.cdEmpresa = $empresa";
+        $sql = $con->prepare($sql);
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function BuscaEmpresas(){
+        $con = $this->con;
+        $sql = "SELECT BusinessCadEmpresa.FsEmpresa as nome,
+         BusinessCadEmpresa.CdEmpresa as id
+        FROM BusinessCadEmpresa ORDER BY BusinessCadEmpresa.FsEmpresa ASC";
+        $sql = $con->prepare($sql);
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

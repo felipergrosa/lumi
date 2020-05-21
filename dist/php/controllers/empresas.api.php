@@ -2,7 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 session_start();
 require __DIR__.'/../general.inc.php';
-
+ini_set('display_errors', 'on');
+$con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
 if(@$_POST['action'] == 'GetEmpresas'){
     $id = $_POST['id'];
     if($id != 0){
@@ -15,10 +16,10 @@ if(@$_POST['action'] == 'GetEmpresas'){
         }
 
     }
-    $sql = "SELECT *, nome_fantasia as nome FROM empresas ORDER BY nome ASC";
-    $sql = $con->query($sql);
+    $sql = new SqlServer($con_sql_server);
+    $row_res_sql = $sql->BuscaEmpresas();
     $cont = 0;
-    while($row_res = $sql->fetch(PDO::FETCH_ASSOC)){
+    foreach($row_res_sql as $row_res){
         $row[$cont] = $row_res;
         @$row[$cont]['ativo'] = $empresa_ativa[$row_res['id']];
         $cont++;

@@ -128,7 +128,37 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosSalvar();">Salvar</button>
+                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosSalvar();">Continuar</button>
+                </span>
+                <span id="cadastro_pedidos_produtos_form" style="">
+                    <div class="form-group row">
+                        <div class="col-md-3 col-xs-4">
+                            <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" />
+                            <label for="cadastro_pedidos_edit_form_empresa_nome">Empresa</label>
+                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_empresa_nome" name="cadastro_pedidos_edit_form_empresa_nome" readonly/>
+                        </div>
+                        <div class="col-md-4 col-xs-4">
+                            <label for="cadastro_pedidos_edit_form_cliente_nome">Cliente</label>
+                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cliente_nome" name="cadastro_pedidos_edit_form_cliente_nome" readonly/>
+                        </div>
+                        <div class="col-md-1 col-xs-2">
+                            <label for="cadastro_pedidos_edit_form_prioridade">Prioridade</label>
+                            <select class="form-control" id="cadastro_pedidos_edit_form_prioridade" name="cadastro_pedidos_edit_form_prioridade">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <label for="cadastro_pedidos_edit_form_frete">Frete</label>
+                            <select class="form-control" id="cadastro_pedidos_edit_form_frete" name="cadastro_pedidos_edit_form_frete">
+                                <option value="FOB">FOB</option>
+                                <option value="CIF">CIF</option>
+                            </select>
+                        </div>
+                    </div>
                 </span>
             </form>
         </div>
@@ -366,6 +396,8 @@
                     $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.cliente_nome);
                     $('#cadastro_pedidos_top_form').hide();
                     $('#cadastro_pedidos_middle_form').show();
+
+                    GetTabelaPrecos(empresa, '#cadastro_pedidos_edit_form_tabela_preco');
                 }
             }
         });
@@ -400,6 +432,35 @@
         $('#cadastro_clientes').hide();
         $('#cadastro_pedidos_edit').show();
         CadastroPedidosContinuar();
+    }
+    function GetTabelaPrecos(empresa, campo){
+        var action = 'get_tabelas_precos';
+        var empresa = 1;
+        $(campo + ' option').remove();
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/sql_integration.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'empresa':empresa},
+            success: function (data)
+            {
+                console.log(data);
+                $(data).each(function(k,v){
+
+                    // console.log(v);
+                    $(campo)
+                    .append($("<option></option>")
+                    .attr("value", v.id_tabela)
+                    .attr("selected", v.ativo)
+                    .text(v.descricao_tabela));
+                });
+
+
+
+            }
+        });
+        //cadastro_pedidos_edit_form_tabela_preco
     }
 
 </script>

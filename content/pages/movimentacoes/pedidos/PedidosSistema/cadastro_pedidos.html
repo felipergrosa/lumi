@@ -31,7 +31,7 @@
 
                 <button type="submit" class="btn btn-primary" onclick="CadastroPedidosContinuar();">Continuar</button>
                 </span>
-                <span id="cadastro_pedidos_middle_form" style="display: none;">
+                <span id="cadastro_pedidos_middle_form">
                 <div class="form-group row">
                     <div class="col-md-3 col-xs-4">
                         <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" />
@@ -128,38 +128,48 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosSalvar();">Continuar</button>
+                <button type="submit" class="btn btn-primary" onclick="">Continuar</button>
                 </span>
-                <span id="cadastro_pedidos_produtos_form" style="">
-                    <div class="form-group row">
-                        <div class="col-md-3 col-xs-4">
-                            <input type="hidden" class="form-control" id="cadastro_pedidos_edit_form_id" name="cadastro_pedidos_edit_form_id" />
-                            <label for="cadastro_pedidos_edit_form_empresa_nome">Empresa</label>
-                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_empresa_nome" name="cadastro_pedidos_edit_form_empresa_nome" readonly/>
+                <span id="cadastro_pedidos_produtos_form" class="produtos_dinamico" style="">
+                    <!-- <div class="form-group row produto">
+                        <div class="col-md-2 col-xs-4">
+                            <label for="cadastro_pedidos_edit_form_produto_id">id</label>
+                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_id" name="cadastro_pedidos_edit_form_produto_id"/>
                         </div>
                         <div class="col-md-4 col-xs-4">
-                            <label for="cadastro_pedidos_edit_form_cliente_nome">Cliente</label>
-                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cliente_nome" name="cadastro_pedidos_edit_form_cliente_nome" readonly/>
-                        </div>
-                        <div class="col-md-1 col-xs-2">
-                            <label for="cadastro_pedidos_edit_form_prioridade">Prioridade</label>
-                            <select class="form-control" id="cadastro_pedidos_edit_form_prioridade" name="cadastro_pedidos_edit_form_prioridade">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
+                            <label for="cadastro_pedidos_edit_form_produto_nome">produto</label>
+                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_nome" name="cadastro_pedidos_edit_form_produto_nome"/>
                         </div>
                         <div class="col-md-2 col-xs-2">
-                            <label for="cadastro_pedidos_edit_form_frete">Frete</label>
-                            <select class="form-control" id="cadastro_pedidos_edit_form_frete" name="cadastro_pedidos_edit_form_frete">
-                                <option value="FOB">FOB</option>
-                                <option value="CIF">CIF</option>
-                            </select>
+                            <label for="cadastro_pedidos_edit_form_produto_qt">qt</label>
+                            <input type="number" class="form-control" id="cadastro_pedidos_edit_form_produto_qt" name="cadastro_pedidos_edit_form_produto_qt"/>
+
                         </div>
-                    </div>
+                        <div class="col-md-2 col-xs-2">
+                            <label for="cadastro_pedidos_edit_form_produto_preco">preço</label>
+                            <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco" name="cadastro_pedidos_edit_form_produto_preco" readonly/>
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <label for="cadastro_pedidos_edit_form_produto_preco_sub">subtotal</label>
+                            <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco_sub" name="cadastro_pedidos_edit_form_produto_preco_sub" readonly/>
+                        </div>
+                    </div> -->
                 </span>
+                <div class="form-group row">
+                    <div class="col-xs-3 col-md-3">
+                    
+                        
+                        <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <label>Total</label>
+                        <input type="text" class="form-control" id="vendas_nova_venda_total" name="vendas_nova_venda_total"/>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -168,7 +178,37 @@
 
 
 <script type="text/javascript">
+    t = '';
+    function BuscaProdutoGatilho(element, busca, alvo = false){
+        clearTimeout(t);
+        t = setTimeout(function(){
+            BuscaCombo(element, busca, alvo);
+        }, 500);
+    }
+    function BuscaProduto(busca){
+        var tabela_preco = $('#cadastro_pedidos_edit_form_tabela_preco');
+        if(busca != "" && tabela_preco != ""){
+            var action = "busca_produtos";
+            $.ajax({
+                type: 'POST',
+                url: 'dist/php/controllers/produtos.api.php',
+                dataType: 'json',
+                async: 'false',
+                data: {'action': action, 'busca':busca, 'tabela':tabela_preco},
+                success: function (data)
+                {
+                    console.log(data);
 
+
+
+                }
+            });
+        }
+
+    }
+    function Log(val){
+        console.log(val);
+    }
     $(document).ready(function(){
         $.jMaskGlobals.watchDataMask = true;
         // window.onerror = function(){
@@ -178,6 +218,8 @@
 
 
         PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
+        console.log('populando');
+        $('.produtos_dinamico').load('content/pages/movimentacoes/pedidos/PedidosSistema/produtos_dinamico.php');
 
 
 
@@ -212,23 +254,25 @@
 
         var dados = $('#cadastro_pedidos_edit_form').serializeArray();
         var empresas = $('#cadastro_pedidos_edit_form_empresa').val();
+        var produtos = $('#cadastro_pedidos_produtos_form').serializeArray();
         var action = 'novo';
 
         // console.log(dados);
         $.ajax({
             type: 'POST',
             url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
-            data: {'dados': dados, 'action': action, 'empresas':empresas},
+            data: {'dados': dados, 'action': action, 'empresas':empresas, 'produtos':produtos},
             success: function (data)
             {
                 console.log(data);
-                if (data == 0) {
-                    toastr.success('Cadastro Realizado');
-                    $('#cadastro_pedidos_middle_form').hide();
+                toastr.success('Cadastro Realizado');
+                // if (data == 0) {
+                //     toastr.success('Cadastro Realizado');
+                //     $('#cadastro_pedidos_middle_form').hide();
 
-                } else {
-                    toastr.error('Erro: ' + data);
-                }
+                // } else {
+                //     toastr.error('Erro: ' + data);
+                // }
             }
         });
 
@@ -462,8 +506,149 @@
         });
         //cadastro_pedidos_edit_form_tabela_preco
     }
+    function BuscaCombo(element, busca, alvo = false){
+        var tipo = "produto";
+        if($('#busca_box').length){
+            console.log('existe');
+        }
+        else {
+            console.log('não existe, criando...');
+            $('body').append('<div id="busca_box"></div>');
+        }
+        var left = $(element).offset().left;
+        var top = $(element).offset().top;
+        var altura = $(element).height();
+        var largura = $(element).width();
+        $('#busca_box').css('left', parseInt(left) + 'px');
+        $('#busca_box').css('top', top+(altura*2) + 'px');
+        $('#busca_box').css('width', largura + 'px');
+        $('#busca_box').html('<span onclick="RemoveBuscaCombo();">buscando ' + busca + '...</span>');
 
+        // var tabela_preco = $('#cadastro_pedidos_edit_form_tabela_preco');
+        var tabela_preco = $('#cadastro_pedidos_edit_form_tabela_preco').val();
+        if(busca != "" && tabela_preco != ""){
+            var action = "busca_produtos";
+            $.ajax({
+                type: 'POST',
+                url: 'dist/php/controllers/produtos.api.php',
+                dataType: 'json',
+                async: 'false',
+                data: {'action': action, 'busca':busca, 'tabela':tabela_preco},
+                success: function (data)
+                {
+
+                    console.log(data);
+                    if(data['status'] == 'ok'){
+                        var retorno = '';
+                        var maximo = 5;
+                        var cont = 1;
+                        $(data['fetch']).each(function(k,v){
+                            /* console.log(v); */
+                            console.log(v.produto_id + 'Nome :' + v.produto_descricao);
+                            if(cont<=maximo){
+                                retorno = retorno + '<div class="busca_item" onclick="PreencheProduto(\'' + v.produto_id.trim() + '\', \'' + alvo + '\', \'' + v.produto_preco + '\', \'' + v.produto_descricao + '\');">' + v.produto_descricao + ' (' + v.produto_id + ')</div>';
+                            }
+                            cont++;
+                            /* console.log(k); */
+                            /* var newvalue = JSON.parse(v);
+                            console.log(newvalue); */
+                        });
+                        $('#busca_box').html(retorno);
+                    
+                    }
+                    if(data['status'] == 'erro'){
+                        $('#busca_box').html('<span onclick="RemoveBuscaCombo();">Nenhum resultado para "' + busca + '" encontrado.</span>');
+                    }
+
+            }
+
+        });
+    }
+
+}
+function RemoveBuscaCombo(){
+    $('#busca_box').remove();
+}
+function PreencheProduto(valor, target, preco, nome){
+    console.log('id:');
+    console.log(valor);
+    var elemento = target;
+    // CarregaNome(elemento, valor, true);
+    console.log(preco);
+    preco = parseFloat(preco);
+    $('#' + target + ' #vendas_nova_venda_produto_id').val(valor);
+    $('#' + target + ' #vendas_nova_venda_produto_nome').val(nome);
+    $('#' + target + ' #vendas_nova_venda_produto_valor').val( preco.toFixed(2) );
+    $('#' + target + ' #vendas_nova_venda_produto_qt').focus();
+    if($('#' + target + ' #vendas_nova_venda_produto_qt').val() == ''){
+        $('#' + target + ' #vendas_nova_venda_produto_qt').val(1);
+        $('#' + target + ' #vendas_nova_venda_produto_subtot').val( preco.toFixed(2) );
+    }
+    else {
+        var qt = $('#' + target + ' #vendas_nova_venda_produto_qt').val();
+        var subtot = qt*valor;
+        $('#' + target + ' #vendas_nova_venda_produto_subtot').val( subtot.toFixed(2) );
+        
+    }
+    
+    RemoveBuscaCombo();
+}
+
+
+    function RecalculaValor(elemento, valor){
+        if(valor != ''){
+            var alvo = $(elemento).parent().parent();
+            var classalvo = $(alvo).attr('id');
+            if(valor <= 0){
+                valor = 1;
+                $('#' + classalvo + ' #vendas_nova_venda_produto_qt').val(1);
+            }
+            
+            var qt = valor;
+            var valor_original = $('#' + classalvo + ' #vendas_nova_venda_produto_valor').val();
+            var valor_novo = valor_original*qt;
+            $('#' + classalvo + ' #vendas_nova_venda_produto_subtot').val( valor_novo.toFixed(2) );
+            CalculaTotal();
+        }
+    }
+    function DeleteLinha(elemento){
+        var alvo = $(elemento).parent().parent();
+        var classalvo = $(alvo).attr('id');
+        $('#' + classalvo + ' :input').val('');
+        CalculaTotal();
+    }
+    function CalculaTotal(){
+        var total = 0;
+        $('.vendas_nova_venda_produto_subtot').each(function(k,v){
+            var valor_aqui = $(v).val();
+            if(valor_aqui != ''){
+                total = Number(total)+Number(valor_aqui);
+            }
+        });
+        $('#vendas_nova_venda_total').val(total.toFixed(2));
+    }
 </script>
+<style type="text/css">
+#busca_box {
+
+    color: #FFF;
+    position: absolute;
+    left: 387px;
+    top: 200px;
+    z-index:1000;
+    padding: 10px;
+    border-radius: 10px;
+    background-image: url('dist/img/background4.png');
+}
+#busca_box .busca_item {
+    width: 100%;
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 5px;
+    cursor:pointer;
+    font-style:italic;
+}
+</style>
 <style type="text/css">
     .pointer {
         cursor:pointer;

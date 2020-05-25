@@ -7,7 +7,7 @@ class SqlServer {
         $this->con = $con;
     }
 
-    function BuscaProduto($busca, $tabela, $empresa = null, $por_id = false){
+    function BuscaProduto($busca, $tabela, $por_id = false, $limit = 100, $empresa = null){
         $con = $this->con;
         if($por_id){
             $sql_search = " AND BusinessCadProduto.CdProduto = '$busca' ";
@@ -15,7 +15,7 @@ class SqlServer {
         else {
             $sql_search = " AND BusinessCadProduto.DsProduto LIKE '%$busca%' ";
         }
-        $sql = "SELECT TOP 100 BusinessCadProduto.DsProduto as produto_descricao,
+        $sql = "SELECT TOP $limit BusinessCadProduto.DsProduto as produto_descricao,
                 BusinessCadProduto.CdProduto as produto_id,
                 BusinessCadTabPrecoItem.Venda as produto_preco,
                 BusinessCadTabPrecoItem.CdTabela as tb_id
@@ -25,7 +25,6 @@ class SqlServer {
                 LEFT JOIN BusinessCadTabPrecoItem ON BusinessCadProduto.CdProduto = BusinessCadTabPrecoItem.CdProduto
                 WHERE BusinessCadTabPrecoItem.CdTabela = $tabela
                 $sql_search";
-
         $sql = $con->prepare($sql);
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);

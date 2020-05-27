@@ -128,48 +128,50 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" onclick="">Continuar</button>
+                <button type="submit" class="btn btn-primary" onclick="CadastroPedidosIrParaProdutos();">Continuar</button>
                 </span>
-                <span id="cadastro_pedidos_produtos_form" class="produtos_dinamico" style="">
-                    <!-- <div class="form-group row produto">
-                        <div class="col-md-2 col-xs-4">
-                            <label for="cadastro_pedidos_edit_form_produto_id">id</label>
-                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_id" name="cadastro_pedidos_edit_form_produto_id"/>
-                        </div>
-                        <div class="col-md-4 col-xs-4">
-                            <label for="cadastro_pedidos_edit_form_produto_nome">produto</label>
-                            <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_nome" name="cadastro_pedidos_edit_form_produto_nome"/>
-                        </div>
-                        <div class="col-md-2 col-xs-2">
-                            <label for="cadastro_pedidos_edit_form_produto_qt">qt</label>
-                            <input type="number" class="form-control" id="cadastro_pedidos_edit_form_produto_qt" name="cadastro_pedidos_edit_form_produto_qt"/>
+                <span id="cadastro_pedidos_produtos_form">
+                    <span id="" class="produtos_dinamico" style="">
+                        <!-- <div class="form-group row produto">
+                            <div class="col-md-2 col-xs-4">
+                                <label for="cadastro_pedidos_edit_form_produto_id">id</label>
+                                <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_id" name="cadastro_pedidos_edit_form_produto_id"/>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                                <label for="cadastro_pedidos_edit_form_produto_nome">produto</label>
+                                <input type="text" class="form-control" id="cadastro_pedidos_edit_form_produto_nome" name="cadastro_pedidos_edit_form_produto_nome"/>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <label for="cadastro_pedidos_edit_form_produto_qt">qt</label>
+                                <input type="number" class="form-control" id="cadastro_pedidos_edit_form_produto_qt" name="cadastro_pedidos_edit_form_produto_qt"/>
 
-                        </div>
-                        <div class="col-md-2 col-xs-2">
-                            <label for="cadastro_pedidos_edit_form_produto_preco">preço</label>
-                            <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco" name="cadastro_pedidos_edit_form_produto_preco" readonly/>
-                        </div>
-                        <div class="col-md-2 col-xs-2">
-                            <label for="cadastro_pedidos_edit_form_produto_preco_sub">subtotal</label>
-                            <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco_sub" name="cadastro_pedidos_edit_form_produto_preco_sub" readonly/>
-                        </div>
-                    </div> -->
-                </span>
-                <div class="form-group row">
-                    <div class="col-xs-3 col-md-3">
-                    
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <label for="cadastro_pedidos_edit_form_produto_preco">preço</label>
+                                <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco" name="cadastro_pedidos_edit_form_produto_preco" readonly/>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <label for="cadastro_pedidos_edit_form_produto_preco_sub">subtotal</label>
+                                <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_produto_preco_sub" name="cadastro_pedidos_edit_form_produto_preco_sub" readonly/>
+                            </div>
+                        </div> -->
+                    </span>
+                    <div class="form-group row">
+                        <div class="col-xs-3 col-md-3">
                         
-                        <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
+                            
+                            <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <label>Total</label>
+                            <input type="text" class="form-control" id="vendas_nova_venda_total" name="vendas_nova_venda_total"/>
+                        </div>
                     </div>
-                    <div class="col-xs-3 col-md-3">
-                    </div>
-                    <div class="col-xs-3 col-md-3">
-                    </div>
-                    <div class="col-xs-3 col-md-3">
-                        <label>Total</label>
-                        <input type="text" class="form-control" id="vendas_nova_venda_total" name="vendas_nova_venda_total"/>
-                    </div>
-                </div>
+                </span>
             </form>
         </div>
     </div>
@@ -179,6 +181,25 @@
 
 <script type="text/javascript">
     t = '';
+    $(document).ready(function(){
+        $.jMaskGlobals.watchDataMask = true;
+        // window.onerror = function(){
+        //    return true;
+        // }
+        MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
+
+
+        PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
+        console.log('populando');
+        $('.produtos_dinamico').load('content/pages/movimentacoes/pedidos/PedidosSistema/produtos_dinamico.php');
+
+
+
+    });
+
+
+
+
     function BuscaProdutoGatilho(element, busca, alvo = false){
         clearTimeout(t);
         t = setTimeout(function(){
@@ -209,22 +230,6 @@
     function Log(val){
         console.log(val);
     }
-    $(document).ready(function(){
-        $.jMaskGlobals.watchDataMask = true;
-        // window.onerror = function(){
-        //    return true;
-        // }
-        MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
-
-
-        PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
-        console.log('populando');
-        $('.produtos_dinamico').load('content/pages/movimentacoes/pedidos/PedidosSistema/produtos_dinamico.php');
-
-
-
-    });
-
     function GetUserList(){
         $('.cadastro_pedidos_lista').html('');
         // console.log('getting');
@@ -249,7 +254,6 @@
 
 
     }
-
     function CadastroPedidosSalvar() {
 
         var dados = $('#cadastro_pedidos_edit_form').serializeArray();
@@ -257,7 +261,7 @@
         var produtos = $('#cadastro_pedidos_produtos_form').serializeArray();
         var action = 'novo';
 
-        // console.log(dados);
+        // console.log(produtos);
         $.ajax({
             type: 'POST',
             url: 'content/pages/movimentacoes/pedidos/PedidosSistema/post.php',
@@ -265,19 +269,17 @@
             success: function (data)
             {
                 console.log(data);
-                toastr.success('Cadastro Realizado');
-                // if (data == 0) {
-                //     toastr.success('Cadastro Realizado');
-                //     $('#cadastro_pedidos_middle_form').hide();
+                if (data == 0) {
+                    toastr.success('Cadastro Realizado');
+                    CarregaPagina('content/pages/movimentacoes/pedidos/PedidosSistema/cadastro_pedidos.html')
 
-                // } else {
-                //     toastr.error('Erro: ' + data);
-                // }
+                } else {
+                    toastr.error('Erro: ' + data);
+                }
             }
         });
 
     }
-
     function MascaraCpfCnpj(campo){
         $(campo).keydown(function(event){
             // console.log(event.originalEvent.code);
@@ -324,7 +326,6 @@
 
         var tamanho = $(campo).text().length;
     }
-
     function MascaraCpfCnpjManual(campo){
         try {
             $(campo).unmask();
@@ -338,7 +339,6 @@
             $(campo).mask("99.999.999/9999-99");
         }
     }
-
     function MascaraTelefone(campo){
         $(campo).unmask();
         $(campo)
@@ -357,10 +357,6 @@
         });
 
     }
-
-
-
-
     function PopularEmpresas(campo, id = 0){
         var action = 'GetEmpresas';
         $(campo + ' option').remove();
@@ -415,7 +411,10 @@
             });
         }
     }
-
+    function CadastroPedidosIrParaProdutos(){
+        $('#cadastro_pedidos_middle_form').hide();
+        $('#cadastro_pedidos_produtos_form').show();
+    }
     function CadastroPedidosContinuar(){
         var action = 'continuar';
         var cpfcnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();
@@ -442,11 +441,13 @@
                     $('#cadastro_pedidos_middle_form').show();
 
                     GetTabelaPrecos(empresa, '#cadastro_pedidos_edit_form_tabela_preco');
+                    GetCondPgto(empresa, '#cadastro_pedidos_edit_form_cond_pagto');
+                    GetTransportadoras(empresa, '#cadastro_pedidos_edit_form_transportadora');
+                    GetNaturezaOperacao(empresa, '#cadastro_pedidos_edit_form_natureza_operacao');
                 }
             }
         });
     }
-
     function CarregaCadastroClientesPedidos(){
         toastr.warning('Cliente não encontrado, carregando tela para cadastramento.');
         $.ajax({
@@ -470,7 +471,6 @@
         });
 
     }
-
     function CadastroPedidosPosCliente(){
         $('#cadastro_clientes').html('');
         $('#cadastro_clientes').hide();
@@ -479,7 +479,7 @@
     }
     function GetTabelaPrecos(empresa, campo){
         var action = 'get_tabelas_precos';
-        var empresa = 1;
+        // var empresa = $('#cadastro_pedidos_edit_form_empresa');
         $(campo + ' option').remove();
         $.ajax({
             type: 'POST',
@@ -498,6 +498,96 @@
                     .attr("value", v.id_tabela)
                     .attr("selected", v.ativo)
                     .text(v.descricao_tabela));
+                });
+
+
+
+            }
+        });
+        //cadastro_pedidos_edit_form_tabela_preco
+    }
+    function GetCondPgto(empresa, campo){
+        var action = 'get_cond_pagto';
+        // var empresa = $('#cadastro_pedidos_edit_form_empresa');
+        $(campo + ' option').remove();
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/sql_integration.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'empresa':empresa},
+            success: function (data)
+            {
+                console.log('condicoes de pagto');
+                console.log(data);
+                $(data).each(function(k,v){
+
+                    // console.log(v);
+                    $(campo)
+                    .append($("<option></option>")
+                    .attr("value", v.id)
+                    .attr("selected", v.ativo)
+                    .text(v.descricao + '(' + v.minimo + ')'));
+                });
+
+
+
+            }
+        });
+        //cadastro_pedidos_edit_form_tabela_preco
+    }
+    function GetTransportadoras(empresa, campo){
+        var action = 'get_transportadoras';
+        // var empresa = $('#cadastro_pedidos_edit_form_empresa');
+        $(campo + ' option').remove();
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/sql_integration.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'empresa':empresa},
+            success: function (data)
+            {
+                console.log('condicoes de pagto');
+                console.log(data);
+                $(data).each(function(k,v){
+
+                    // console.log(v);
+                    $(campo)
+                    .append($("<option></option>")
+                    .attr("value", v.id)
+                    .attr("selected", v.ativo)
+                    .text(v.descricao));
+                });
+
+
+
+            }
+        });
+        //cadastro_pedidos_edit_form_tabela_preco
+    }
+    function GetNaturezaOperacao(empresa, campo){
+        var action = 'get_natureza_operacao';
+        // var empresa = $('#cadastro_pedidos_edit_form_empresa');
+        $(campo + ' option').remove();
+        $.ajax({
+            type: 'POST',
+            url: 'dist/php/controllers/sql_integration.api.php',
+            dataType: 'json',
+            async: 'false',
+            data: {'action': action, 'empresa':empresa},
+            success: function (data)
+            {
+                console.log('condicoes de pagto');
+                console.log(data);
+                $(data).each(function(k,v){
+
+                    // console.log(v);
+                    $(campo)
+                    .append($("<option></option>")
+                    .attr("value", v.id)
+                    .attr("selected", v.ativo)
+                    .text(v.descricao));
                 });
 
 
@@ -566,10 +656,10 @@
     }
 
 }
-function RemoveBuscaCombo(){
-    $('#busca_box').remove();
-}
-function PreencheProduto(valor, target, preco, nome){
+    function RemoveBuscaCombo(){
+        $('#busca_box').remove();
+    }
+    function PreencheProduto(valor, target, preco, nome){
     console.log('id:');
     console.log(valor);
     var elemento = target;
@@ -593,8 +683,6 @@ function PreencheProduto(valor, target, preco, nome){
     
     RemoveBuscaCombo();
 }
-
-
     function RecalculaValor(elemento, valor){
         if(valor != ''){
             var alvo = $(elemento).parent().parent();

@@ -11,11 +11,11 @@ if($_POST['action'] == "busca_produtos"){
     if(@$busca[0]){
         $retorno['fetch'] = $busca;
         $retorno['status'] = 'ok';
-        echo json_encode($retorno);
+        echo json_encode(utf8ize($retorno));
     }
     else {
         $retorno['status'] = 'erro';
-        echo json_encode($retorno);
+        echo json_encode(utf8ize($retorno));
     }
     exit;
 }
@@ -35,4 +35,14 @@ if($_POST['action'] == "busca_produtos_id"){
         echo json_encode($retorno);
     }
     exit;
+}
+function utf8ize( $mixed ) {
+    if (is_array($mixed)) {
+        foreach ($mixed as $key => $value) {
+            $mixed[$key] = utf8ize($value);
+        }
+    } elseif (is_string($mixed)) {
+        return mb_convert_encoding($mixed, "UTF-8", "UTF-8");
+    }
+    return $mixed;
 }

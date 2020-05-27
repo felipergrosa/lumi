@@ -41,6 +41,38 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function BuscaCondicoesPagamento($empresa){
+        $con = $this->con;
+        $sql = "SELECT BusinessCadCondPgto.CdCondPgto as id,
+        BusinessCadCondPgto.DsCondPgto as descricao,
+        BusinessCadCondPgto.Minimo as minimo
+        FROM BusinessCadCondPgto
+        WHERE BusinessCadCondPgto.CdEmpresa = $empresa";
+        $sql = $con->prepare($sql);
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function BuscaTransportadoras($empresa){
+        $con = $this->con;
+        $sql = "SELECT BusinessCadTransportadora.CdTransportadora as id,
+        BusinessCadTransportadora.FsTransportadora as descricao
+        FROM BusinessCadTransportadora";
+        $sql = $con->prepare($sql);
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function BuscaNaturezaOperacao($empresa){
+        $con = $this->con;
+        $sql = "SELECT BusinessCadNatOperacao.CdNatureza as id,
+        BusinessCadNatOperacao.DsNatureza as descricao
+        FROM BusinessCadNatOperacao";
+        $sql = $con->prepare($sql);
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
     function BuscaEmpresas(){
         $con = $this->con;
         $sql = "SELECT BusinessCadEmpresa.FsEmpresa as nome,

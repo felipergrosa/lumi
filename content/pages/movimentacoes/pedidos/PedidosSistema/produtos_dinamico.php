@@ -1,18 +1,18 @@
 <div class="form-group row" id="cadastro_pedidos_produtos_form2">
                         <div class="col-xs-2 col-md-2">
-                            Código
+                            <label>Código</label>
                         </div>
                         <div class="col-xs-3 col-md-3">
-                            Nome (Digite para buscar)
+                            <label>Nome (Digite para buscar)</label>
                         </div>
                         <div class="col-xs-2 col-md-2">
-                            Valor    
+                            <label>Valor</label>
                         </div>
                         <div class="col-xs-2 col-md-2">
-                            Qt
+                            <label>Qt</label>
                         </div>
                         <div class="col-xs-2 col-md-2">
-                            Subt.
+                            <label>Subt.</label>
                         </div>
                         <div class="col-xs-1 text-center">
                             <span class="fa fa-trash" style="font-size: 2.2em; cursor:pointer;"></span>

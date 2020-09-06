@@ -25,6 +25,6 @@ if(@$_POST['action'] == 'GetEmpresas'){
         $cont++;
     }
 
-    echo json_encode($row);
+    echo json_encode(utf8ize($row));
     exit;
 }

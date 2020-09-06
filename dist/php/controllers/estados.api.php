@@ -7,7 +7,7 @@ if(@$_POST['action'] == 'GetEstados'){
     $sql = "SELECT * FROM dados_estados ORDER BY sigla ASC";
     $sql = $con->query($sql);
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($row);
+    echo json_encode(utf8ize($row));
     exit;
 }
 if(@$_POST['action'] == 'GetEstadoSigla'){

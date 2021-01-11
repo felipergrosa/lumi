@@ -357,13 +357,13 @@
                 $(UserList).each(function(k,v){
                     // console.log(UserList);
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'' + v.Cnpj_Cnpf + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
                 });
                 MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
             }
         });
     }
-    function GetUserInfoEdit(id, action){
+    function GetUserInfoEdit(CdRepresentante, Cnpj_Cnpf, action){
         $('#cadastro_clientes_userlist').hide();
         $('#cadastro_clientes_edit').fadeIn(500);
 
@@ -375,11 +375,13 @@
             $.ajax({
                 type: 'POST',
                 url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-                data: {'action':'GetUserData', 'id':id},
+                data: {'action':'GetUserData', 'CdRepresentante':CdRepresentante, 'Cnpj_Cnpf':Cnpj_Cnpf},
                 dataType: 'json',
                 async: false,
                 success: function (User)
                 {
+                    console.log("User");
+                    console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
                     var UserKeys = Object.keys(User);
                     $(UserKeys).each(function(k,v){

@@ -5,54 +5,98 @@ require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
 $prefix = "cadastro_clientes_edit_form_";
+$con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
 if($_POST['action'] == 'GetUserList'){
-    $sql = "SELECT a.* ,
-    b.endereco as endereco_endereco,
-    b.cidade as endereco_cidade,
-    c.nome as endereco_estado
-
-    FROM clientes a
-    LEFT JOIN dados_enderecos b ON a.endereco=b.id
-    LEFT JOIN dados_estados c ON b.estado=c.id";
-    $sql = $con->query($sql);
+    // $sql = "SELECT a.* ,
+    // b.endereco as endereco_endereco,
+    // b.cidade as endereco_cidade,
+    // c.nome as endereco_estado
+    //
+    // FROM clientes a
+    // LEFT JOIN dados_enderecos b ON a.endereco=b.id
+    // LEFT JOIN dados_estados c ON b.estado=c.id";
+    $sql = "SELECT TOP 100 *,
+    RzCliente as nome,
+    Cnpj_Cnpf as cpfcnpj,
+    F_Cidade as endereco_cidade,
+    F_Estado as endereco_estado
+    FROM BusinessCadCliente";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){
-    $id = (int) $_POST['id'];
-    $sql = "SELECT a.*,
-    DATE_FORMAT(a.data_cadastro, '%d-%m-%Y') as data_cadastro,
-    b.cep as endereco_cep,
-    b.endereco as endereco_endereco,
-    b.complemento as endereco_complemento,
-    b.bairro as endereco_bairro,
-    b.cidade as endereco_cidade,
-    b.estado as endereco_estado,
-    b.numero as endereco_numero,
+    // $id = (int) $_POST['id'];
+    $CdRepresentante = $_POST['CdRepresentante'];
+    $Cnpj_Cnpf = $_POST['Cnpj_Cnpf'];
 
-    c.cep as endereco_cobranca_cep,
-    c.endereco as endereco_cobranca_endereco,
-    c.complemento as endereco_cobranca_complemento,
-    c.bairro as endereco_cobranca_bairro,
-    c.cidade as endereco_cobranca_cidade,
-    c.estado as endereco_cobranca_estado,
-    c.numero as endereco_cobranca_numero,
+    // $sql = "SELECT a.*,
+    // DATE_FORMAT(a.data_cadastro, '%d-%m-%Y') as data_cadastro,
+    // b.cep as endereco_cep,
+    // b.endereco as endereco_endereco,
+    // b.complemento as endereco_complemento,
+    // b.bairro as endereco_bairro,
+    // b.cidade as endereco_cidade,
+    // b.estado as endereco_estado,
+    // b.numero as endereco_numero,
+    //
+    // c.cep as endereco_cobranca_cep,
+    // c.endereco as endereco_cobranca_endereco,
+    // c.complemento as endereco_cobranca_complemento,
+    // c.bairro as endereco_cobranca_bairro,
+    // c.cidade as endereco_cobranca_cidade,
+    // c.estado as endereco_cobranca_estado,
+    // c.numero as endereco_cobranca_numero,
+    //
+    // d.cep as endereco_entrega_cep,
+    // d.endereco as endereco_entrega_endereco,
+    // d.complemento as endereco_entrega_complemento,
+    // d.bairro as endereco_entrega_bairro,
+    // d.cidade as endereco_entrega_cidade,
+    // d.estado as endereco_entrega_estado,
+    // d.numero as endereco_entrega_numero
+    //
+    // FROM clientes a
+    // LEFT JOIN dados_enderecos b ON a.endereco=b.id
+    // LEFT JOIN dados_enderecos c ON a.endereco_cobranca=c.id
+    // LEFT JOIN dados_enderecos d ON a.endereco_entrega=d.id
+    // WHERE a.id = :id";
+    // $sql = $con->prepare($sql);
+    // $sql->bindParam('id', $id);
 
-    d.cep as endereco_entrega_cep,
-    d.endereco as endereco_entrega_endereco,
-    d.complemento as endereco_entrega_complemento,
-    d.bairro as endereco_entrega_bairro,
-    d.cidade as endereco_entrega_cidade,
-    d.estado as endereco_entrega_estado,
-    d.numero as endereco_entrega_numero
+    $sql = "SELECT
+    Cnpj_Cnpf as cpfcnpj,
+    FsCliente as nome,
+    RzCliente as razao_social,
+    F_Cep as endereco_cep,
+    F_Endereco as endereco_endereco,
+    F_Complemento as endereco_complemento,
+    F_Bairro as endereco_bairro,
+    F_Cidade as endereco_cidade,
+    F_Estado as endereco_estado,
+    F_Numero as endereco_numero,
+    C_Cep as endereco_cobranca_cep,
+    C_Endereco as endereco_cobranca_endereco,
+    C_Complemento as endereco_cobranca_complemento,
+    C_Bairro as endereco_cobranca_bairro,
+    C_Cidade as endereco_cobranca_cidade,
+    C_Estado as endereco_cobranca_estado,
+    C_Numero as endereco_cobranca_numero,
+    E_cep as endereco_entrega_cep,
+    E_Endereco as endereco_entrega_endereco,
+    E_Complemento as endereco_entrega_complemento,
+    E_Bairro as endereco_entrega_bairro,
+    E_Cidade as endereco_entrega_cidade,
+    E_Estado as endereco_entrega_estado,
+    E_Numero as endereco_entrega_numero
 
-    FROM clientes a
-    LEFT JOIN dados_enderecos b ON a.endereco=b.id
-    LEFT JOIN dados_enderecos c ON a.endereco_cobranca=c.id
-    LEFT JOIN dados_enderecos d ON a.endereco_entrega=d.id
-    WHERE a.id = :id";
-    $sql = $con->prepare($sql);
-    $sql->bindParam('id', $id);
+    FROM BusinessCadCliente
+    WHERE CdRepresentante = :CdRepresentante AND
+    Cnpj_Cnpf = :Cnpj_Cnpf";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('CdRepresentante', $CdRepresentante);
+    $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
     $row['resposta'] = $row;

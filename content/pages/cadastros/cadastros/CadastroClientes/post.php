@@ -15,8 +15,9 @@ if($_POST['action'] == 'GetUserList'){
     // FROM clientes a
     // LEFT JOIN dados_enderecos b ON a.endereco=b.id
     // LEFT JOIN dados_estados c ON b.estado=c.id";
-    $sql = "SELECT TOP 100 *,
+    $sql = "SELECT TOP 1000
     RzCliente as nome,
+    CdRepresentante, Cnpj_Cnpf, 
     Cnpj_Cnpf as cpfcnpj,
     F_Cidade as endereco_cidade,
     F_Estado as endereco_estado

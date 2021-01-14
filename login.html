@@ -30,7 +30,7 @@
                                             <span>Entre com nome de usuário e senha.</span>
                                         </h4>
                                     </div>
-                                    <form class="">
+                                    <form class="" onsubmit="" id="login_form">
                                         <div class="form-row">
                                             <div class="col-md-12">
                                                 <div class="position-relative form-group"><input name="user" id="user" placeholder="Email" type="email" class="form-control"></div>
@@ -47,7 +47,8 @@
                                 <div class="modal-footer clearfix">
                                     <!-- <div class="float-left"><a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a></div> -->
                                     <div class="float-right">
-                                        <button class="btn btn-primary btn-lg" id="login-btn" onclick="Login(); return false;">Entrar</button>
+                                        <input type="submit" style="display: none" />
+                                        <button class="btn btn-primary btn-lg" id="login-btn" onclick="Login();">Entrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -58,9 +59,16 @@
             </div>
         </div>
 </div>
-<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script></body>
-<script type="text/javascript" src="./assets/jquery/jquery.min.js"></script></body>
-<script type="text/javascript" src="./assets/js/toastr.min.js"></script></body>
-<script type="text/javascript" src="./dist/js/login.js"></script></body>
-
+<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>
+<script type="text/javascript" src="./assets/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="./assets/js/toastr.min.js"></script>
+<script type="text/javascript" src="./dist/js/login.js"></script>
+<script type="text/javascript">
+$('#login_form').keypress(function(event) {
+    if (event.keyCode == 13 || event.which == 13) {
+        $("#login-btn").click();
+    }
+});
+</script>
+</body>
 </html>

@@ -5,14 +5,17 @@ require __DIR__.'/../general.inc.php';
 ini_set('display_errors', 'on');
 $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
 if(@$_POST['action'] == 'GetEmpresas'){
-    $id = $_POST['id'];
-    if($id != 0){
-        $sql = "SELECT * FROM clientes_empresas WHERE cliente = :id";
-        $sql = $con->prepare($sql);
-        $sql->bindParam('id', $id);
+    // $id = $_POST['id'];
+    $Cnpj_Cnpf = $_POST['Cnpj_Cnpf'];
+    $CdRepresentante = $_POST['CdRepresentante'];
+    if($Cnpj_Cnpf != 0){
+        $sql = "SELECT * FROM BusinessCadClienteLC WHERE CdRepresentante = :CdRepresentante AND Cnpj_Cnpf = :Cnpj_Cnpf";
+        $sql = $con_sql_server->prepare($sql);
+        $sql->bindParam('CdRepresentante', $CdRepresentante);
+        $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
         $sql->execute();
         while($row = $sql->fetch(PDO::FETCH_ASSOC)){
-            $empresa_ativa[$row['empresa']] = true;
+            $empresa_ativa[$row['CdEmpresa']] = true;
         }
 
     }

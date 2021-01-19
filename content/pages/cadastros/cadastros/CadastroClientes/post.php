@@ -17,7 +17,7 @@ if($_POST['action'] == 'GetUserList'){
     // LEFT JOIN dados_estados c ON b.estado=c.id";
     $sql = "SELECT TOP 1000
     RzCliente as nome,
-    CdRepresentante, Cnpj_Cnpf, 
+    CdRepresentante, Cnpj_Cnpf,
     Cnpj_Cnpf as cpfcnpj,
     F_Cidade as endereco_cidade,
     F_Estado as endereco_estado
@@ -66,35 +66,41 @@ if($_POST['action'] == 'GetUserData'){
     // $sql = $con->prepare($sql);
     // $sql->bindParam('id', $id);
 
-    $sql = "SELECT
-    Cnpj_Cnpf as cpfcnpj,
-    FsCliente as nome,
-    RzCliente as razao_social,
-    F_Cep as endereco_cep,
-    F_Endereco as endereco_endereco,
-    F_Complemento as endereco_complemento,
-    F_Bairro as endereco_bairro,
-    F_Cidade as endereco_cidade,
-    F_Estado as endereco_estado,
-    F_Numero as endereco_numero,
-    C_Cep as endereco_cobranca_cep,
-    C_Endereco as endereco_cobranca_endereco,
-    C_Complemento as endereco_cobranca_complemento,
-    C_Bairro as endereco_cobranca_bairro,
-    C_Cidade as endereco_cobranca_cidade,
-    C_Estado as endereco_cobranca_estado,
-    C_Numero as endereco_cobranca_numero,
-    E_cep as endereco_entrega_cep,
-    E_Endereco as endereco_entrega_endereco,
-    E_Complemento as endereco_entrega_complemento,
-    E_Bairro as endereco_entrega_bairro,
-    E_Cidade as endereco_entrega_cidade,
-    E_Estado as endereco_entrega_estado,
-    E_Numero as endereco_entrega_numero
+    $sql = "SELECT b.*,
+    a.Cnpj_Cnpf as cpfcnpj,
+    a.FsCliente as nome,
+    a.RzCliente as razao_social,
+    a.F_Cep as endereco_cep,
+    a.F_Endereco as endereco_endereco,
+    a.F_Complemento as endereco_complemento,
+    a.F_Bairro as endereco_bairro,
+    a.F_Cidade as endereco_cidade,
+    a.F_Estado as endereco_estado,
+    a.F_Numero as endereco_numero,
+    a.C_Cep as endereco_cobranca_cep,
+    a.C_Endereco as endereco_cobranca_endereco,
+    a.C_Complemento as endereco_cobranca_complemento,
+    a.C_Bairro as endereco_cobranca_bairro,
+    a.C_Cidade as endereco_cobranca_cidade,
+    a.C_Estado as endereco_cobranca_estado,
+    a.C_Numero as endereco_cobranca_numero,
+    a.E_cep as endereco_entrega_cep,
+    a.E_Endereco as endereco_entrega_endereco,
+    a.E_Complemento as endereco_entrega_complemento,
+    a.E_Bairro as endereco_entrega_bairro,
+    a.E_Cidade as endereco_entrega_cidade,
+    a.E_Estado as endereco_entrega_estado,
+    a.E_Numero as endereco_entrega_numero,
+    c.FsEmpresa as empresa_nome,
+    c.CdEmpresa as empresa
 
-    FROM BusinessCadCliente
-    WHERE CdRepresentante = :CdRepresentante AND
-    Cnpj_Cnpf = :Cnpj_Cnpf";
+    FROM BusinessCadCliente a
+    LEFT JOIN BusinessCadClienteLC b ON a.CdRepresentante=b.CdRepresentante AND a.Cnpj_Cnpf=b.Cnpj_Cnpf
+    LEFT JOIN BusinessCadEmpresa c ON b.CdEmpresa=c.CdEmpresa
+    WHERE a.CdRepresentante = :CdRepresentante AND
+    a.Cnpj_Cnpf = :Cnpj_Cnpf AND
+    b.CdEmpresa is not null
+    ";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('CdRepresentante', $CdRepresentante);
     $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);

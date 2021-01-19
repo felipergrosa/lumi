@@ -298,7 +298,7 @@
                       </select>
                   </div>
               </div>
-              <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick="CadastroClientesSave();">Salvar</button>
+              <!-- <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick="CadastroClientesSave();">Salvar</button> -->
             </form>
         </div>
     </div>
@@ -408,7 +408,7 @@
                     MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
-                    PopularEmpresas('#cadastro_clientes_edit_form_empresa', User.id);
+                    PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, CdRepresentante);
 
 
                 }
@@ -616,7 +616,7 @@
           }
 
       }
-      function PopularEmpresas(campo, id = 0){
+      function PopularEmpresas(campo, id = 0, Cnpj_Cnpf = 0, CdRepresentante = 0){
           var action = 'GetEmpresas';
           $(campo + ' option').remove();
           $.ajax({
@@ -624,7 +624,7 @@
               url: 'dist/php/controllers/empresas.api.php',
               dataType: 'json',
               async: 'false',
-              data: {'action': action, 'id':id},
+              data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
               success: function (data)
               {
                   console.log(data);

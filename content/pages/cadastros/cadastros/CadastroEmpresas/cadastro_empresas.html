@@ -87,7 +87,7 @@
                   </div>
 
               </div>
-              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+              <!-- <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button> -->
             </form>
         </div>
     </div>
@@ -129,7 +129,7 @@
             {
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome_fantasia + '</td><td>' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
                 });
             }
         });

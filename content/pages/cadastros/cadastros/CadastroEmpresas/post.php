@@ -6,15 +6,29 @@ ini_set('display_errors', 'on');
 @session_start();
 $prefix = "cadastro_empresas_edit_form_";
 if($_POST['action'] == 'GetUserList'){
-    $sql = "SELECT * FROM empresas";
-    $sql = $con->query($sql);
+    $sql = "SELECT
+    CdEmpresa as id,
+    FsEmpresa as nome_fantasia,
+    RzEmpresa as razao_social
+
+    FROM BusinessCadEmpresa";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){
     $id = (int) $_POST['id'];
-    $sql = "SELECT * FROM empresas WHERE id = :id";
-    $sql = $con->prepare($sql);
+    // $sql = "SELECT * FROM empresas WHERE id = :id";
+    $sql = "SELECT *,
+    CdEmpresa as id,
+    FsEmpresa as nome_fantasia,
+    FsEmpresa as nome,
+    RzEmpresa as razao_social
+
+    FROM BusinessCadEmpresa WHERE
+    CdEmpresa = :id";
+    $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('id', $id);
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);

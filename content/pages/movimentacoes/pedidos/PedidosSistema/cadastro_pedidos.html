@@ -153,7 +153,7 @@
                     </span>
                     <div class="form-group row">
                         <div class="col-xs-3 col-md-3">
-                        
+
                             <label>-</label>
                             <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
                         </div>
@@ -355,7 +355,7 @@
         });
 
     }
-    function PopularEmpresas(campo, id = 0){
+    function PopularEmpresas(campo, id = 0, Cnpj_Cnpf = 0, CdRepresentante = 0){
         var action = 'GetEmpresas';
         $(campo + ' option').remove();
         $.ajax({
@@ -363,7 +363,7 @@
             url: 'dist/php/controllers/empresas.api.php',
             dataType: 'json',
             async: 'false',
-            data: {'action': action, 'id':id},
+            data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
             success: function (data)
             {
                 console.log(data);
@@ -371,16 +371,17 @@
 
                     // console.log(v);
                     $(campo)
-                    .append($("<option></option>")
-                    .attr("value", v.id)
-                    .attr("selected", v.ativo)
-                    .text(v.nome));
+                       .append($("<option></option>")
+                       .attr("value", v.id)
+                       .attr("selected", v.ativo)
+                       .text(v.nome));
                 });
 
 
 
             }
         });
+
 
     }
     function BuscaCPFCNPJ(valor){
@@ -395,12 +396,15 @@
                 data: {'action': action, 'cpfcnpj':valor},
                 success: function (data)
                 {
-                    // console.log(data);
+                    console.log(data);
                     if(data.erro == 1){
                         toastr.error(data.resposta);
                     }
                     else {
                         toastr.success(data.resposta);
+                        if(data.existe == 1){
+                            $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.FsCliente);
+                        }
                     }
 
 
@@ -644,7 +648,7 @@
                             console.log(newvalue); */
                         });
                         $('#busca_box').html(retorno);
-                    
+
                     }
                     if(data['status'] == 'erro'){
                         $('#busca_box').html('<span onclick="RemoveBuscaCombo();">Nenhum resultado para "' + busca + '" encontrado.</span>');
@@ -678,9 +682,9 @@
         var qt = $('#' + target + ' #vendas_nova_venda_produto_qt').val();
         var subtot = qt*valor;
         $('#' + target + ' #vendas_nova_venda_produto_subtot').val( subtot.toFixed(2) );
-        
+
     }
-    
+
     RemoveBuscaCombo();
 }
     function RecalculaValor(elemento, valor){
@@ -691,7 +695,7 @@
                 valor = 1;
                 $('#' + classalvo + ' #vendas_nova_venda_produto_qt').val(1);
             }
-            
+
             var qt = valor;
             var valor_original = $('#' + classalvo + ' #vendas_nova_venda_produto_valor').val();
             var valor_novo = valor_original*qt;

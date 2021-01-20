@@ -35,6 +35,23 @@ catch(Exception $e){
 	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
 	exit;
 }
+catch(PDOException $pdo){
+	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+	exit;
+}
+
+try {
+    $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
+}
+catch(Exception $e){
+	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+	exit;
+}
+catch(PDOException $pdo){
+	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+	exit;
+}
+
 function utf8ize( $mixed ) {
     if (is_array($mixed)) {
         foreach ($mixed as $key => $value) {

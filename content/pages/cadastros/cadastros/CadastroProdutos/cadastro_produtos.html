@@ -14,10 +14,10 @@
             <table style="width: 100%;" id="cadastro_clientes_userlist_table" class="table table-hover table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Doc</th>
-                        <th>Cidade</th>
-                        <th>Estado</th>
+                        <th>Cod</th>
+                        <th>Desc</th>
+                        <th>Empresa</th>
+                        <th>Valor</th>
                     </tr>
                 </thead>
                 <tbody class="cadastro_clientes_lista pointer">
@@ -129,7 +129,7 @@
             {
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.empresa + '</td><td>' + v.valor + '</td></tr>');
                 });
             }
         });

@@ -7,10 +7,12 @@ ini_set('display_errors', 'on');
 $prefix = "cadastro_produtos_edit_form_";
 if($_POST['action'] == 'GetUserList'){
     $sql = "SELECT TOP 50 *,
-    DsProduto as nome,
-    CdProduto as id
-
-    FROM BusinessCadProduto";
+    a.DsProduto as nome,
+    a.CdProduto as id,
+    b.FsEmpresa as empresa,
+    0 as valor
+    FROM BusinessCadProduto a
+    LEFT JOIN BusinessCadEmpresa b ON a.CdEmpresa=b.CdEmpresa";
     $sql = $con_sql_server->prepare($sql);
     $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);

@@ -37,17 +37,28 @@ if(@$_POST['action'] == 'continuar'){
         exit;
     }
 
-    $sql = "SELECT a.*, b.nome as cliente_nome, c.nome_fantasia as empresa_nome
-    FROM clientes_empresas a
-    LEFT JOIN clientes b ON a.cliente=b.id
-    LEFT JOIN empresas c ON a.empresa=c.id
-    WHERE b.cpfcnpj = :cpfcnpj && a.empresa = :empresa";
-    $sql = $con->prepare($sql);
-    $sql->bindParam('cpfcnpj', $cpfcnpj);
-    $sql->bindParam('empresa', $empresa);
+    // Verifica se cliente tem acesso a esta empresa
+    // $sql = "SELECT a.*, b.nome as cliente_nome, c.nome_fantasia as empresa_nome
+    // FROM clientes_empresas a
+    // LEFT JOIN clientes b ON a.cliente=b.id
+    // LEFT JOIN empresas c ON a.empresa=c.id
+    // WHERE b.cpfcnpj = :cpfcnpj && a.empresa = :empresa";
+    // $sql = $con->prepare($sql);
+    // $sql->bindParam('cpfcnpj', $cpfcnpj);
+    // $sql->bindParam('empresa', $empresa);
+    $sql = "SELECT TOP 100 * FROM BusinessCadCliente
+    WHERE Cnpj_Cnpf = :cpfcnpj";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('cpfcnpj', $_POST['cpfcnpj']);
     $sql->execute();
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
 
-    if($sql->rowCount() == 0){
+    if(!$row){
+        $retorno['erro'] = 2;
+        $retorno['mensagem'] = 'Cliente não encontrado';
+        echo json_encode($retorno);
+        exit;
+
         $sql = "SELECT * FROM clientes WHERE cpfcnpj = :cpfcnpj";
         $sql = $con->prepare($sql);
         $sql->bindParam('cpfcnpj', $cpfcnpj);
@@ -63,7 +74,6 @@ if(@$_POST['action'] == 'continuar'){
     }
     else {
         $retorno['erro'] = 0;
-        $row = $sql->fetch(PDO::FETCH_ASSOC);
         $retorno['dados'] = $row;
     }
 
@@ -107,7 +117,7 @@ if($_POST['action'] == 'novo'){
 
     }
 
-    
+
 
     $error_message = "";
     $error = 0;

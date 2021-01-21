@@ -438,7 +438,7 @@
                 }
                 else {
                     $('#cadastro_pedidos_edit_form_empresa_nome').val($('#cadastro_pedidos_edit_form_empresa :selected').text());
-                    $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.cliente_nome);
+                    $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.FsCliente);
                     $('#cadastro_pedidos_top_form').hide();
                     $('#cadastro_pedidos_middle_form').show();
 
@@ -552,7 +552,7 @@
             data: {'action': action, 'empresa':empresa},
             success: function (data)
             {
-                console.log('condicoes de pagto');
+                console.log('transportadoras');
                 console.log(data);
                 $(data).each(function(k,v){
 

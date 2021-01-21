@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Cadastro de Produtos</nome>
+        <descricao>Cadastro de Produtos</descricao>
+        <atividade>1</atividade>
+        <link>cadastro_produtos.html</link>
+        <class>btn-outline-primary</class>
+        <style>pe-7s-box1</style>
+    </display>
+</menu>

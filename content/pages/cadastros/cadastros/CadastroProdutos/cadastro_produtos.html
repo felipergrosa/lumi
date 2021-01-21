@@ -1,0 +1,316 @@
+<div class="app-main__inner">
+    <div class="mb-3 card" id="cadastro_clientes_userlist">
+        <div class="card-header-tab card-header" style="display:block; margin-top: 15px; margin-bottom: -10px;">
+
+
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                Cadastro de Produtos
+                <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <table style="width: 100%;" id="cadastro_clientes_userlist_table" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Doc</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody class="cadastro_clientes_lista pointer">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="mb-3 card" id="cadastro_clientes_edit" style="display:none;">
+        <div class="card-header-tab card-header">
+            <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
+                <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                <span id="cadastro_clientes_edit_nome"></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
+                <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <div class="form-group row">
+                  <div class="col-md-2 col-xs-4">
+                      <label for="cadastro_produtos_edit_form_id">ID</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_id" name="cadastro_produtos_edit_form_id" readonly/>
+                  </div>
+                  <div class="col-md-10 col-xs-8">
+                      <label for="cadastro_produtos_edit_form_nome">Nome</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_nome" name="cadastro_produtos_edit_form_nome" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_produtos_edit_form_cpfcnpj">CPF/CNPJ</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_cpfcnpj" name="cadastro_produtos_edit_form_cpfcnpj" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_produtos_edit_form_email1">E-mail</label>
+                      <input type="email" class="form-control" id="cadastro_produtos_edit_form_email1" name="cadastro_produtos_edit_form_email1" />
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                      <label for="cadastro_produtos_edit_form_endereco">Endereço (Logradouro)</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco" name="cadastro_produtos_edit_form_endereco" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_endereco_numero">Endereço (Número)</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_numero" name="cadastro_produtos_edit_form_endereco_numero" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_endereco_bairro">Endereço (Bairro)</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_bairro" name="cadastro_produtos_edit_form_endereco_bairro" />
+                  </div>
+
+                  <div class="col-md-6 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_endereco_cidade">Endereço (Cidade)</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_cidade" name="cadastro_produtos_edit_form_endereco_cidade" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_endereco_estado">Endereço (Estado)</label>
+                      <select class="form-control" id="cadastro_produtos_edit_form_endereco_estado" name="cadastro_produtos_edit_form_endereco_estado">
+                      </select>
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_endereco_cep">Endereço (CEP) <span id="cadastro_produtos_edit_form_endereco_cep_resultado"></span></label>
+                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_cep" name="cadastro_produtos_edit_form_endereco_cep" onchange="BuscaCep(this.value, '#cadastro_produtos_edit_form_endereco_cep_resultado');"/>
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                      <label for="cadastro_produtos_edit_form_observacoes">Observações</label>
+                      <textarea class="form-control" id="cadastro_produtos_edit_form_observacoes" name="cadastro_produtos_edit_form_observacoes"></textarea>
+                  </div>
+
+              </div>
+              <!-- <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button> -->
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $.jMaskGlobals.watchDataMask = true;
+        // window.onerror = function(){
+        //    return true;
+        // }
+        $('#cadastro_produtos_edit_form_endereco_cep').mask("99999-999");
+        PopularEstados('#cadastro_produtos_edit_form_endereco_estado');
+        MascaraCpfCnpj('#cadastro_produtos_edit_form_cpfcnpj');
+        GetUserList();
+        $('#cadastro_clientes_userlist_table').DataTable({
+                "language": {
+                    "url": "assets/datatables/Portuguese-Brasil.json"
+                }
+            }
+
+        );
+
+    });
+
+    function GetUserList(){
+        $('.cadastro_clientes_lista').html('');
+        console.log('getting');
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
+            data: {'action':'GetUserList'},
+            dataType: 'json',
+            async: false,
+            success: function (UserList)
+            {
+                $(UserList).each(function(k,v){
+
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                });
+            }
+        });
+    }
+    function GetUserInfoEdit(id, action){
+        $('#cadastro_clientes_userlist').hide();
+        $('#cadastro_clientes_edit').fadeIn(500);
+
+        $('#cadastro_clientes_edit_form :input').each(function(k,v){
+            $(v).val('');
+        });
+        if(action == 'editar'){
+            $.ajax({
+                type: 'POST',
+                url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
+                data: {'action':'GetUserData', 'id':id},
+                dataType: 'json',
+                async: false,
+                success: function (User)
+                {
+                    console.log(User.endereco_estado);
+                    $('#cadastro_produtos_edit_form_id').val(User.id);
+                    $('#cadastro_produtos_edit_form_nome').val(User.nome);
+                    $('#cadastro_produtos_edit_form_cpfcnpj').val(User.cpfcnpj);
+                    MascaraCpfCnpjManual('#cadastro_produtos_edit_form_cpfcnpj');
+                    $('#cadastro_produtos_edit_form_email1').val(User.email1);
+                    $('#cadastro_produtos_edit_form_endereco_estado').val(User.endereco_estado);
+                    $('#cadastro_produtos_edit_form_endereco').val(User.endereco);
+                    $('#cadastro_produtos_edit_form_endereco_numero').val(User.endereco_numero);
+                    $('#cadastro_produtos_edit_form_endereco_bairro').val(User.endereco_bairro);
+                    $('#cadastro_produtos_edit_form_endereco_cidade').val(User.endereco_cidade);
+                    $('#cadastro_produtos_edit_form_endereco_cep').val(User.endereco_cep);
+                    $('#cadastro_produtos_edit_form_endereco_cep').unmask();
+                    $('#cadastro_produtos_edit_form_endereco_cep').mask("99999-999");
+                    $('#cadastro_produtos_edit_form_observacoes').val(User.observacoes);
+                    $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.nome);
+                    $('#action_for_form').val(action);
+
+
+                }
+            });
+        }
+        else {
+            $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroProdutos/acessos.php');
+            $('#cadastro_produtos_edit_form_id').val(id);
+            $('#cadastro_clientes_edit_nome').html('Nova empresa');
+            $('#action_for_form').val(action);
+        }
+    }
+
+    function Save() {
+
+          var dados = $('#cadastro_clientes_edit_form').serializeArray();
+          var action = $('#action_for_form').val();
+
+          // console.log(dados);
+          $.ajax({
+              type: 'POST',
+              url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
+              data: {'dados': dados, 'action': action},
+              success: function (data)
+              {
+                  console.log(data);
+                  if (data == 0) {
+                      toastr.success('Sucesso! Empresa atualizada.');
+                      GetUserList();
+                      $('#cadastro_clientes_userlist').fadeIn(500);
+                      $('#cadastro_clientes_edit').hide();
+
+                  } else {
+                      toastr.error('Erro: ' + data);
+                  }
+              }
+          });
+
+     }
+
+      function MascaraCpfCnpj(campo){
+          $(campo).keydown(function(){
+                try {
+                    $(campo).unmask();
+                } catch (e) {}
+
+                var tamanho = $(campo).val().length;
+
+                if(tamanho < 11){
+                    $(campo).mask("999.999.999-99");
+                } else {
+                    $(campo).mask("99.999.999/9999-99");
+                }
+
+                // ajustando foco
+                var elem = this;
+                setTimeout(function(){
+                    // mudo a posição do seletor
+                    elem.selectionStart = elem.selectionEnd = 10000;
+                }, 0);
+                // reaplico o valor para mudar o foco
+                var currentValue = $(this).val();
+                $(this).val('');
+                $(this).val(currentValue);
+            });
+      }
+      function MascaraCpfCnpjManual(campo){
+          try {
+              $(campo).unmask();
+          } catch (e) {}
+
+          var tamanho = $(campo).val().length;
+
+          if(tamanho <= 11){
+              $(campo).mask("999.999.999-99");
+          } else {
+              $(campo).mask("99.999.999/9999-99");
+          }
+      }
+
+      function PopularEstados(campo){
+          var action = 'GetEstados';
+          $(campo + ' input').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/estados.api.php',
+              dataType: 'json',
+              async: 'false',
+              data: {'action': action},
+              success: function (data)
+              {
+                  $(data).each(function(k,v){
+                      console.log(v);
+                      $(campo)
+                         .append($("<option></option>")
+                         .attr("value", v.sigla)
+                         .text(v.nome));
+                  });
+
+
+
+              }
+          });
+
+      }
+
+
+      function BuscaCep(cep, retorno_erro){
+          cep = cep.replace("-", "");
+          var tamanho = cep.length;
+          console.log(tamanho);
+          if(tamanho == 8){
+              $.ajax({
+                  type: 'GET',
+                  url: 'https://viacep.com.br/ws/' + cep + '/json/',
+                  dataType: 'json',
+                  async: 'false',
+                  success: function (data)
+                  {
+                      console.log(data);
+                      $('#cadastro_produtos_edit_form_endereco').val(data.logradouro);
+                      $('#cadastro_produtos_edit_form_endereco_bairro').val(data.bairro);
+                      $('#cadastro_produtos_edit_form_endereco_cidade').val(data.localidade);
+                      $('#cadastro_produtos_edit_form_endereco_estado').val(data.uf);
+                      $(retorno_erro).attr('style', 'color: green;');
+                      $(retorno_erro).html('Cep retornado da base de dados');
+
+
+
+
+                  }
+              });
+          }
+          else {
+              $(retorno_erro).html('Cep invalido');
+              $(retorno_erro).attr('style', 'color: red;');
+          }
+
+      }
+
+</script>
+<style type="text/css">
+    .pointer {
+        cursor:pointer;
+    }
+</style>
+<script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>

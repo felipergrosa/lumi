@@ -84,6 +84,7 @@ if(@$_POST['action'] == 'continuar'){
 
 
 if($_POST['action'] == 'novo'){
+    echo "<pre>";
     $Valida = new Valida();
     $obrigatorios = Array('cpfcnpj', 'empresa');
 
@@ -96,18 +97,25 @@ if($_POST['action'] == 'novo'){
             $dd['value'] = null;
         }
 
-        if($dd['name'] == "vendas_nova_venda_produto_id"){
+        if($dd['name'] == "vendas_nova_venda_produto_id" && $dd["value"] != ""){
             for($i=0; $i<5; $i++){
                 if($dados[$cont+$i]['value'] == ""){
                     $dados[$cont+$i]['value'] = null;
                 }
             }
 
+            $sql = "SELECT * FROM BusinessCadProduto WHERE CdProduto = :CdProduto";
+            $sql = $con_sql_server->prepare($sql);
+            $sql->bindParam('CdProduto', $dados[$cont]['value']);
+            $sql->execute();
+            $prod_sql = $sql->fetch(PDO::FETCH_ASSOC);
+
             $prod[$cont_pd]['id'] = $dados[$cont]['value'];
             $prod[$cont_pd]['nome'] = $dados[$cont+1]['value'];
             $prod[$cont_pd]['valor'] = $dados[$cont+2]['value'];
             $prod[$cont_pd]['qt'] = $dados[$cont+3]['value'];
             $prod[$cont_pd]['subtotal'] = $dados[$cont+4]['value'];
+            $prod[$cont_pd]['sql'] = $prod_sql;
             $total_produtos = $total_produtos+$prod[$cont_pd]['subtotal'];
 
             $cont_pd++;
@@ -116,8 +124,37 @@ if($_POST['action'] == 'novo'){
         $cont++;
 
     }
-
-
+    if($info['cadastro_pedidos_edit_form_data_pedido'] == NULL or $info['cadastro_pedidos_edit_form_data_pedido'] == ""){
+        $info['cadastro_pedidos_edit_form_data_pedido'] = date("Y-m-d");
+    }
+    var_dump($info);
+    //produto
+    $FlEspecificacao = "";
+    $FlFalha = "";
+    $Gramatura = "";
+    $Observacao = "";
+    $PeDesconto4 = "";
+    $PeDesconto5 = "";
+    $Negociado = "";
+    $PeDesconto = "";
+    $PeDesconto2 = "";
+    $PeDesconto3 = "";
+    //pedido
+    $XML = "";
+    $FlStatu = "R";
+    $FlEnvRecEmpresa = "N";
+    $FlEnvRecRepre = "S";
+    $DtCancelamento = "";
+    $MotivoCancelamento = "";
+    $Observacao = "";
+    $PeDesconto = "";
+    $PeDesconto2 = "";
+    $PeDesconto3 = "";
+    $PeDesconto4 = "";
+    $PeDesconto5 = "";
+    $FlFrete = "F";
+    $DtEntrega = "";
+    $RefCliente = "";
 
     $error_message = "";
     $error = 0;
@@ -160,105 +197,199 @@ if($_POST['action'] == 'novo'){
     $sql_cliente->execute();
 
     $row_cliente = $sql_cliente->fetch(PDO::FETCH_ASSOC);
-    $info[$prefix.'cliente'] = $row_cliente['id'];
-
-    $sql = "INSERT INTO pedidos
-        (
-            representante,
-            empresa,
-            cliente,
-            prioridade,
-            frete,
-            num_pedido_representante,
-            data_pedido,
-            data_previsao_faturamento,
-            num_pedido_compra,
-            tabela_preco,
-            cond_pagto,
-            transportadora,
-            desconto_padrao,
-            desconto_adic1,
-            desconto_adic2,
-            desconto_adic3,
-            desconto_part_com,
-            natureza_operacao,
-            total_produtos,
-            observacao,
-            data_cadastro,
-            usuario_cadastro
-        )
-
-        VALUES (
-            1,
-            :empresa,
-            :cliente,
-            :prioridade,
-            :frete,
-            :num_pedido_representante,
-            :data_pedido,
-            :data_previsao_faturamento,
-            :num_pedido_compra,
-            :tabela_preco,
-            :cond_pagto,
-            :transportadora,
-            :desconto_padrao,
-            :desconto_adic1,
-            :desconto_adic2,
-            :desconto_adic3,
-            :desconto_part_com,
-            :natureza_operacao,
-            :total_produtos,
-            :observacao,
-            NOW(),
-            1
-            )";
     try {
-    $sql = $con->prepare($sql);
-
-    $sql->bindParam('empresa', $info[$prefix.'empresa']);
-    $sql->bindParam('cliente', $info[$prefix.'cliente']);
-    $sql->bindParam('prioridade', $info[$prefix.'prioridade']);
-    $sql->bindParam('frete', $info[$prefix.'frete']);
-    $sql->bindParam('num_pedido_representante', $info[$prefix.'num_pedido_representante']);
-    $sql->bindParam('data_pedido', $info[$prefix.'data_pedido']);
-    $sql->bindParam('data_previsao_faturamento', $info[$prefix.'data_previsao_faturamento']);
-    $sql->bindParam('num_pedido_compra', $info[$prefix.'num_pedido_compra']);
-    $sql->bindParam('tabela_preco', $info[$prefix.'tabela_preco']);
-    $sql->bindParam('cond_pagto', $info[$prefix.'cond_pagto']);
-    $sql->bindParam('transportadora', $info[$prefix.'transportadora']);
-    $sql->bindParam('desconto_padrao', $info[$prefix.'desconto_padrao']);
-    $sql->bindParam('desconto_adic1', $info[$prefix.'desconto_adic1']);
-    $sql->bindParam('desconto_adic2', $info[$prefix.'desconto_adic2']);
-    $sql->bindParam('desconto_adic3', $info[$prefix.'desconto_adic3']);
-    $sql->bindParam('desconto_part_com', $info[$prefix.'desconto_part_com']);
-    $sql->bindParam('natureza_operacao', $info[$prefix.'natureza_operacao']);
-    $sql->bindParam('total_produtos', $total_produtos);
-    $sql->bindParam('observacao', $info[$prefix.'observacao']);
-
-    $sql->execute();
-
-    }
-    catch(PDOException $e){
-        $error_message = $e->getMessage();
-        echo $error_message;
+        $sql = "INSERT INTO BusinessMovPedidoVenda
+        (
+            CdRepresentante,
+            CdEmpresa,
+            CdPedidoRepre,
+            CdPedidoEmpre,
+            Cnpj_Cnpf,
+            DtPedido,
+            PRIORIDADE,
+            CdNatureza,
+            XML,
+            FlStatus,
+            FlEnvRecEmpresa,
+            FlEnvRecRepre,
+            DtCancelamento,
+            MotivoCancelamento,
+            Observacao,
+            PeDesconto,
+            PeDesconto2,
+            PeDesconto3,
+            PeDesconto4,
+            PeDesconto5,
+            FlFrete,
+            DtEntrega,
+            CdTabela,
+            CdCondPgto,
+            CdTransportadora,
+            RefRepresentante,
+            RefCliente
+        )
+        VALUES (
+            :CdRepresentante,
+            :CdEmpresa,
+            :CdPedidoRepre,
+            :CdPedidoEmpre,
+            :Cnpj_Cnpf,
+            :DtPedido,
+            :PRIORIDADE,
+            :CdNatureza,
+            :XML,
+            :FlStatus,
+            :FlEnvRecEmpresa,
+            :FlEnvRecRepre,
+            :DtCancelamento,
+            :MotivoCancelamento,
+            :Observacao,
+            :PeDesconto,
+            :PeDesconto2,
+            :PeDesconto3,
+            :PeDesconto4,
+            :PeDesconto5,
+            :FlFrete,
+            :DtEntrega,
+            :CdTabela,
+            :CdCondPgto,
+            :CdTransportadora,
+            :RefRepresentante,
+            :RefCliente
+        )";
+        $sql = $con_sql_server->prepare($sql);
+        $sql->bindParam('CdRepresentante', $CdRepresentante);
+        $sql->bindParam('CdEmpresa', $info['cadastro_pedidos_edit_form_empresa']);
+        $sql->bindParam('CdPedidoRepre', $info['cadastro_pedidos_edit_form_num_pedido_representante']);
+        $sql->bindParam('CdPedidoEmpre', $CdPedidoEmpre);
+        $sql->bindParam('Cnpj_Cnpf', $info['cadastro_pedidos_edit_form_cpfcnpj']);
+        $sql->bindParam('DtPedido', $info['cadastro_pedidos_edit_form_data_pedido']);
+        $sql->bindParam('PRIORIDADE', $info['cadastro_pedidos_edit_form_prioridade']);
+        $sql->bindParam('CdNatureza', $info['cadastro_pedidos_edit_form_natureza_operacao']);
+        $sql->bindParam('XML', $XML);
+        $sql->bindParam('FlStatus', $FlStatus);
+        $sql->bindParam('FlEnvRecEmpresa', $FlEnvRecEmpresa);
+        $sql->bindParam('FlEnvRecRepre', $FlEnvRecRepre);
+        $sql->bindParam('DtCancelamento', $DtCancelamento);
+        $sql->bindParam('MotivoCancelamento', $MotivoCancelamento);
+        $sql->bindParam('Observacao', $Observacao);
+        $sql->bindParam('PeDesconto', $PeDesconto);
+        $sql->bindParam('PeDesconto2', $PeDesconto2);
+        $sql->bindParam('PeDesconto3', $PeDesconto3);
+        $sql->bindParam('PeDesconto4', $PeDesconto4);
+        $sql->bindParam('PeDesconto5', $PeDesconto5);
+        $sql->bindParam('FlFrete', $FlFrete);
+        $sql->bindParam('DtEntrega', $DtEntrega);
+        $sql->bindParam('CdTabela', $info['cadastro_pedidos_edit_form_tabela_preco']);
+        $sql->bindParam('CdCondPgto', $info['cadastro_pedidos_edit_form_cond_pagto']);
+        $sql->bindParam('CdTransportadora', $info['cadastro_pedidos_edit_form_transportadora']);
+        $sql->bindParam('RefRepresentante', $info['cadastro_pedidos_edit_form_num_pedido_representante']);
+        $sql->bindParam('RefCliente', $RefCliente);
+        $sql->execute();
+    } catch(Exception $e){
+        echo $e->getMessage();
         exit;
     }
+    catch(PDOException $pdo){
+        echo $pdo->getMessage();
+    	exit;
+    }
 
-    $id_pedido = $con->lastInsertId();
+
+
+
 
     foreach($prod as $pd){
-        if($pd['id'] != ""){
-            $sql = "INSERT INTO pedidos_produtos (pedido, produto_id, produto_nome, produto_valor, produto_qt) VALUES
-            (:pedido, :produto_id, :produto_nome, :produto_valor, :produto_qt)";
-            $sql = $con->prepare($sql);
-            $sql->bindParam('pedido', $id_pedido);
-            $sql->bindParam('produto_id', $pd['id']);
-            $sql->bindParam('produto_nome', $pd['nome']);
-            $sql->bindParam('produto_valor', $pd['valor']);
-            $sql->bindParam('produto_qt', $pd['qt']);
+        try {
+            $sql = "INSERT INTO BusinessMovPedidoVendaItem
+            (
+                CdRepresentante,
+                CdEmpresa,
+                CdPedidoRepre,
+                CdPedidoEmpre,
+                CdProduto,
+                RefCliente,
+                FlEspecificacao,
+                FlFalha,
+                Gramatura,
+                DsProCompl,
+                Observacao,
+                PeDesconto4,
+                PeDesconto5,
+                Negociado,
+                PeIpi,
+                PeIcms,
+                PeReducao,
+                QtProduto,
+                QtBaixado,
+                Unitario,
+                PeDesconto,
+                PeDesconto2,
+                PeDesconto3
+            )
+            VALUES (
+                :CdRepresentante,
+                :CdEmpresa,
+                :CdPedidoRepre,
+                :CdPedidoEmpre,
+                :CdProduto,
+                :RefCliente,
+                :FlEspecificacao,
+                :FlFalha,
+                :Gramatura,
+                :DsProCompl,
+                :Observacao,
+                :PeDesconto4,
+                :PeDesconto5,
+                :Negociado,
+                :PeIpi,
+                :PeIcms,
+                :PeReducao,
+                :QtProduto,
+                :QtBaixado,
+                :Unitario,
+                :PeDesconto,
+                :PeDesconto2,
+                :PeDesconto3
+            )";
+
+            $sql = $con_sql_server->prepare($sql);
+            $sql->bindParam('CdRepresentante', $CdRepresentante);
+            $sql->bindParam('CdEmpresa', $info['cadastro_pedidos_edit_form_empresa']);
+            $sql->bindParam('CdPedidoRepre', $info['cadastro_pedidos_edit_form_num_pedido_representante']);
+            $sql->bindParam('CdPedidoEmpre', $CdPedidoEmpre);
+            $sql->bindParam('CdProduto', $pd['id']);
+            $sql->bindParam('RefCliente', $RefCliente);
+            $sql->bindParam('FlEspecificacao', $FlEspecificacao);
+            $sql->bindParam('FlFalha', $FlFalha);
+            $sql->bindParam('Gramatura', $Gramatura);
+            $sql->bindParam('DsProCompl', $pd['nome']);
+            $sql->bindParam('Observacao', $Observacao);
+            $sql->bindParam('PeDesconto4', $PeDesconto4);
+            $sql->bindParam('PeDesconto5', $PeDesconto5);
+            $sql->bindParam('Negociado', $Negociado);
+            $sql->bindParam('PeIpi', $pd['sql']['PeIpi']);
+            $sql->bindParam('PeIcms', $pd['sql']['PeIcms']);
+            $sql->bindParam('PeReducao', $pd['sql']['PeReducao']);
+            $sql->bindParam('QtProduto', $pd['qt']);
+            $sql->bindParam('QtBaixado', $pd['qt']);
+            $sql->bindParam('Unitario', $pd['valor']);
+            $sql->bindParam('PeDesconto', $PeDesconto);
+            $sql->bindParam('PeDesconto2', $PeDesconto2);
+            $sql->bindParam('PeDesconto3', $PeDesconto3);
             $sql->execute();
+        } catch(Exception $e){
+            echo $e->getMessage();
+            exit;
+        }
+        catch(PDOException $pdo){
+            echo $pdo->getMessage();
+            exit;
         }
     }
+    exit;
+
+    //Remover exit para concluir
 
     echo 0;
     exit;

@@ -62,3 +62,6 @@ function utf8ize( $mixed ) {
     }
     return $mixed;
 }
+
+
+@$representante_id = $_SESSION["nobre_usuario_id"];

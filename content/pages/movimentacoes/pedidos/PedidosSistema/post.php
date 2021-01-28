@@ -170,7 +170,7 @@ if($_POST['action'] == 'novo'){
         echo $error_message;
         exit;
     }
-
+    $info[$prefix.'cpfcnpj_old'] = $info[$prefix.'cpfcnpj'];
     $info[$prefix.'cpfcnpj'] = trim(str_replace('.', '', str_replace('-', '', str_replace('/', '', $info[$prefix.'cpfcnpj']))));
     $cpfcnpj = $info[$prefix.'cpfcnpj'];
     if(strlen($cpfcnpj) == 11){
@@ -192,6 +192,7 @@ if($_POST['action'] == 'novo'){
         exit;
     }
 
+    $info[$prefix.'cpfcnpj'] = $info[$prefix.'cpfcnpj_old'];
 
     $info['cadastro_pedidos_edit_form_prioridade'] = (int) $info['cadastro_pedidos_edit_form_prioridade'];
     $info['cadastro_pedidos_edit_form_prioridade'] = 1;
@@ -391,7 +392,6 @@ if($_POST['action'] == 'novo'){
             exit;
         }
     }
-    exit;
 
     //Remover exit para concluir
 

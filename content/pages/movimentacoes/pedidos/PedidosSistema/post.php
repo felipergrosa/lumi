@@ -196,12 +196,6 @@ if($_POST['action'] == 'novo'){
     $info['cadastro_pedidos_edit_form_prioridade'] = (int) $info['cadastro_pedidos_edit_form_prioridade'];
     $info['cadastro_pedidos_edit_form_prioridade'] = 1;
 
-    $sql_cliente = "SELECT id FROM clientes WHERE cpfcnpj = :cpfcnpj";
-    $sql_cliente = $con->prepare($sql_cliente);
-    $sql_cliente->bindParam('cpfcnpj', $cpfcnpj);
-    $sql_cliente->execute();
-
-    $row_cliente = $sql_cliente->fetch(PDO::FETCH_ASSOC);
     try {
         $sql = "INSERT INTO BusinessMovPedidoVenda
         (

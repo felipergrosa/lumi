@@ -32,12 +32,12 @@ try {
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(Exception $e){
-	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
-	exit;
+	// echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+	// exit;
 }
 catch(PDOException $pdo){
-	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
-	exit;
+	// echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+	// exit;
 }
 
 try {

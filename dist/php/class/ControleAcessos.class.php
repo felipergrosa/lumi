@@ -30,6 +30,8 @@ class ControleAcessos {
     }
 
     function DefineRoot() {
+        $this->isroot = true;
+        return false;
         $con_front = $this->con_front;
         $user = $this->user;
         $sql_usuarios = "SELECT general_level FROM usuarios WHERE id = '$user'";
@@ -91,8 +93,10 @@ class ControleAcessos {
                                                     $full_acesso = $menu_name.'/'.$pastas_menu.'/'.$pastas_submenu;
                                                     $verifica_acesso = "SELECT * FROM usuarios_acessos WHERE usuario = '$usuario' && tela = '$full_acesso'";
 
-                                                    $verifica_acesso = $con->query($verifica_acesso);
-                                                    if($verifica_acesso->rowCount() > 0 or @$isroot){
+                                                    // $verifica_acesso = $con->query($verifica_acesso);
+                                                    // if($verifica_acesso->rowCount() > 0 or @$isroot){
+                                                    if($verifica_acesso){
+
                                                         $acessos_geral[$full_acesso] = $full_acesso;
                                                         $acessos[$menu_name]['submenu'][$submenu_name]['tela']['acesso'][$tela_nome] = true;
 

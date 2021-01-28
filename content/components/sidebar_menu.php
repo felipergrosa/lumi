@@ -5,7 +5,7 @@
 $user_code = $_SESSION['nobre_usuario_id'];
 require_once __DIR__.'/../../dist/php/general.inc.php';
 $path =  __DIR__.'/../..';
-$menu = new ControleAcessos($con, $user_code, $path);
+@$menu = new ControleAcessos($con, $user_code, $path);
 $menu->ExibeMenu();
 
 ?>

@@ -92,23 +92,23 @@
 
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_padrao">Padrao</label>
-                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_padrao" name="cadastro_pedidos_edit_form_desconto_padrao" />
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_desconto_padrao" name="cadastro_pedidos_edit_form_desconto_padrao" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-4">
                         <label for="cadastro_pedidos_edit_form_desconto_adic1">Adic 1</label>
-                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic1" name="cadastro_pedidos_edit_form_desconto_adic1" />
+                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic1" name="cadastro_pedidos_edit_form_desconto_adic1" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_adic2">Adic 2</label>
-                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic2" name="cadastro_pedidos_edit_form_desconto_adic2" />
+                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic2" name="cadastro_pedidos_edit_form_desconto_adic2" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_adic3">Adic 3</label>
-                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic3" name="cadastro_pedidos_edit_form_desconto_adic3" />
+                        <input  step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic3" name="cadastro_pedidos_edit_form_desconto_adic3" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-4">
                         <label for="cadastro_pedidos_edit_form_desconto_part_com">Part.com.</label>
-                        <input type="number" step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_part_com" name="cadastro_pedidos_edit_form_desconto_part_com" />
+                        <input  class="form-control" id="cadastro_pedidos_edit_form_desconto_part_com" name="cadastro_pedidos_edit_form_desconto_part_com" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-6 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_natureza_operacao">Natureza de operação</label>
@@ -186,8 +186,9 @@
         // }
         MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
 
-
-        PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
+        $('#cadastro_pedidos_edit_form_data_pedido').val(new Date().toDateInputValue());
+        $('#cadastro_pedidos_edit_form_data_previsao_faturamento').val(new Date().toDateInputValue());
+        // PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
         console.log('populando');
         $('.produtos_dinamico').load('content/pages/movimentacoes/pedidos/PedidosSistema/produtos_dinamico.php');
 
@@ -386,6 +387,8 @@
     }
     function BuscaCPFCNPJ(valor){
         // console.log(valor);
+        var campo_empresas = "#cadastro_pedidos_edit_form_empresa";
+        $(campo_empresas + ' option').remove();
         if(valor != ""){
             var action = 'valida';
             $.ajax({
@@ -403,8 +406,18 @@
                     else {
                         toastr.success(data.resposta);
                         if(data.existe == 1){
+                            $(data.dados.empresas).each(function(k,v){
+
+                                // console.log(v);
+                                $(campo_empresas)
+                                   .append($("<option></option>")
+                                   .attr("value", v.empresa)
+                                   .attr("selected", v.ativo)
+                                   .text(v.empresa_nome));
+                            });
                             $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.FsCliente);
                         }
+
                     }
 
 
@@ -414,6 +427,10 @@
         }
     }
     function CadastroPedidosIrParaProdutos(){
+        if($('#cadastro_pedidos_edit_form_num_pedido_representante').val() == "" || $('#cadastro_pedidos_edit_form_num_pedido_representante').val() == "cadastro_pedidos_edit_form_num_pedido_compra"){
+            toastr.error('N° pedido repres e N° ped comp são obrigatórios');
+            return false;
+        }
         $('#cadastro_pedidos_middle_form').hide();
         $('#cadastro_pedidos_produtos_form').show();
     }
@@ -742,6 +759,18 @@
                 }
         });
     }
+    Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+function percent(z) {
+    v = z.value;
+    v = v.replace(/\D/g, "")  //permite digitar apenas números
+    v = v.replace(/[0-9]{7}/, "inválido")   //limita pra máximo 999.999.999,99
+    v = v.replace(/(\d{1})(\d{1,2})$/, "$1.$2")        //coloca virgula antes dos ultimos 2 digitos
+    z.value = v;
+}
 </script>
 <style type="text/css">
 #busca_box {

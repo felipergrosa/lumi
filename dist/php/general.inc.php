@@ -42,6 +42,7 @@ catch(PDOException $pdo){
 
 try {
     $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
+    $con_sql_server->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
 }
 catch(Exception $e){
 	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';

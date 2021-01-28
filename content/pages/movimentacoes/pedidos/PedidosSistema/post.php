@@ -1,10 +1,12 @@
 <?php
+@session_start();
+
 header("Access-Control-Allow-Origin: *");
 // header("Content-Type: application/json; charset=UTF-8");
 require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
-@session_start();
 $prefix = "cadastro_pedidos_edit_form_";
+$CdRepresentante = $representante_id;
 if(@$_POST['action'] == 'continuar'){
     $Valida = new Valida();
     $obrigatorios = null;
@@ -84,7 +86,6 @@ if(@$_POST['action'] == 'continuar'){
 
 
 if($_POST['action'] == 'novo'){
-    echo "<pre>";
     $Valida = new Valida();
     $obrigatorios = Array('cpfcnpj', 'empresa');
 
@@ -127,34 +128,34 @@ if($_POST['action'] == 'novo'){
     if($info['cadastro_pedidos_edit_form_data_pedido'] == NULL or $info['cadastro_pedidos_edit_form_data_pedido'] == ""){
         $info['cadastro_pedidos_edit_form_data_pedido'] = date("Y-m-d");
     }
-    var_dump($info);
-    //produto
-    $FlEspecificacao = "";
-    $FlFalha = "";
-    $Gramatura = "";
-    $Observacao = "";
-    $PeDesconto4 = "";
-    $PeDesconto5 = "";
-    $Negociado = "";
-    $PeDesconto = "";
-    $PeDesconto2 = "";
-    $PeDesconto3 = "";
+        //produto
+    $FlEspecificacao = null;
+    $FlFalha = null;
+    $Gramatura = null;
+    $Observacao = null;
+    $Negociado = null;
     //pedido
-    $XML = "";
+    $XML = null;
     $FlStatu = "R";
     $FlEnvRecEmpresa = "N";
     $FlEnvRecRepre = "S";
-    $DtCancelamento = "";
-    $MotivoCancelamento = "";
-    $Observacao = "";
-    $PeDesconto = "";
-    $PeDesconto2 = "";
-    $PeDesconto3 = "";
-    $PeDesconto4 = "";
-    $PeDesconto5 = "";
+    $DtCancelamento = null;
+    $MotivoCancelamento = null;
+    $Observacao = $info["cadastro_pedidos_edit_form_observacao"];
+    $PeDesconto = $info["cadastro_pedidos_edit_form_desconto_padrao"];
+    $PeDesconto2 = $info["cadastro_pedidos_edit_form_desconto_adic1"];
+    $PeDesconto3 = $info["cadastro_pedidos_edit_form_desconto_adic2"];
+    $PeDesconto4 = $info["cadastro_pedidos_edit_form_desconto_adic3"];
+    $PeDesconto5 = $info["cadastro_pedidos_edit_form_desconto_part_com"];
     $FlFrete = "F";
-    $DtEntrega = "";
-    $RefCliente = "";
+    $DtEntrega = null;
+    $RefCliente = null;
+    $CdPedidoEmpre = $info["cadastro_pedidos_edit_form_num_pedido_compra"];
+
+
+    if($info['cadastro_pedidos_edit_form_num_pedido_representante'] == ""){
+        $info['cadastro_pedidos_edit_form_num_pedido_representante'] = "9999";
+    }
 
     $error_message = "";
     $error = 0;
@@ -190,6 +191,10 @@ if($_POST['action'] == 'novo'){
         echo 'Formato CPF/CNPJ Inválido';
         exit;
     }
+
+
+    $info['cadastro_pedidos_edit_form_prioridade'] = (int) $info['cadastro_pedidos_edit_form_prioridade'];
+    $info['cadastro_pedidos_edit_form_prioridade'] = 1;
 
     $sql_cliente = "SELECT id FROM clientes WHERE cpfcnpj = :cpfcnpj";
     $sql_cliente = $con->prepare($sql_cliente);
@@ -285,7 +290,11 @@ if($_POST['action'] == 'novo'){
         $sql->bindParam('CdTransportadora', $info['cadastro_pedidos_edit_form_transportadora']);
         $sql->bindParam('RefRepresentante', $info['cadastro_pedidos_edit_form_num_pedido_representante']);
         $sql->bindParam('RefCliente', $RefCliente);
-        $sql->execute();
+        $executar = $sql->execute();
+        if(!$executar){
+            echo "Erro na inserção do pedido (SQL)";
+            exit;
+        }
     } catch(Exception $e){
         echo $e->getMessage();
         exit;
@@ -294,9 +303,6 @@ if($_POST['action'] == 'novo'){
         echo $pdo->getMessage();
     	exit;
     }
-
-
-
 
 
     foreach($prod as $pd){
@@ -377,7 +383,11 @@ if($_POST['action'] == 'novo'){
             $sql->bindParam('PeDesconto', $PeDesconto);
             $sql->bindParam('PeDesconto2', $PeDesconto2);
             $sql->bindParam('PeDesconto3', $PeDesconto3);
-            $sql->execute();
+            $executar = $sql->execute();
+            if(!$executar){
+                echo "Erro na inserção do item do pedido (SQL)";
+                exit;
+            }
         } catch(Exception $e){
             echo $e->getMessage();
             exit;

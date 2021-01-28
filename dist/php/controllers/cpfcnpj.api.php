@@ -41,14 +41,40 @@ if(@$_POST['action'] == 'valida'){
 
     if($continuar){
         //$con_sql_server
-        $sql = "SELECT * FROM BusinessCadCliente WHERE Cnpj_Cnpf = :cpfcnpj";
+        $sql = "SELECT * FROM BusinessCadCliente WHERE Cnpj_Cnpf = :cpfcnpj AND CdRepresentante = :CdRepresentante";
         $sql = $con_sql_server->prepare($sql);
         $sql->bindParam('cpfcnpj', $_POST['cpfcnpj']);
+        $sql->bindParam('CdRepresentante', $representante_id);
+
         $sql->execute();
         $row = $sql->fetch(PDO::FETCH_ASSOC);
         if($row){
             $resultado['existe'] = 1;
             $resultado['dados'] = $row;
+
+            $sql_complementar = "SELECT
+            c.FsEmpresa as empresa_nome,
+                b.CdEmpresa as empresa
+
+                 FROM BusinessCadClienteLC b
+            LEFT JOIN BusinessCadEmpresa c ON b.CdEmpresa=c.CdEmpresa
+
+            WHERE b.Cnpj_Cnpf = :cpfcnpj AND b.CdRepresentante = :CdRepresentante
+            AND c.CdEmpresa is not null";
+            $sql_complementar = $con_sql_server->prepare($sql_complementar);
+            $sql_complementar->bindParam('cpfcnpj', $_POST['cpfcnpj']);
+            $sql_complementar->bindParam('CdRepresentante', $representante_id);
+
+            $sql_complementar->execute();
+            $cont_empresas = 0;
+            while($row_complemetar = $sql_complementar->fetch(PDO::FETCH_ASSOC)){
+                $empresas[$cont_empresas]["empresa"] = $row_complemetar['empresa'];
+                $empresas[$cont_empresas]["empresa_nome"] = $row_complemetar['empresa_nome'];
+                $cont_empresas++;
+            }
+            $resultado['dados']['empresas'] = $empresas;
+
+
         }
         else {
             $resultado['existe'] = 0;

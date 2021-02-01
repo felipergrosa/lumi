@@ -274,6 +274,8 @@
 
                 } else {
                     toastr.error('Erro: ' + data);
+                    $('#cadastro_pedidos_middle_form').show();
+
                 }
             }
         });
@@ -428,8 +430,8 @@
     }
     function CadastroPedidosIrParaProdutos(){
         if($('#cadastro_pedidos_edit_form_num_pedido_representante').val() == "" || $('#cadastro_pedidos_edit_form_num_pedido_representante').val() == "cadastro_pedidos_edit_form_num_pedido_compra"){
-            toastr.error('N° pedido repres e N° ped comp são obrigatórios');
-            return false;
+            // toastr.error('N° pedido repres e N° ped comp são obrigatórios');
+            // return false;
         }
         $('#cadastro_pedidos_middle_form').hide();
         $('#cadastro_pedidos_produtos_form').show();

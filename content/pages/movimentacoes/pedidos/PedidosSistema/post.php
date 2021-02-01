@@ -151,7 +151,7 @@ if($_POST['action'] == 'novo'){
     $DtEntrega = null;
     $RefCliente = null;
     if($info["cadastro_pedidos_edit_form_num_pedido_compra"] == ""){
-        $info["cadastro_pedidos_edit_form_num_pedido_compra"] = "XXXXXXX";
+        $info["cadastro_pedidos_edit_form_num_pedido_compra"] = "XXXXXX";
     }
     $CdPedidoEmpre = $info["cadastro_pedidos_edit_form_num_pedido_compra"];
 
@@ -199,6 +199,32 @@ if($_POST['action'] == 'novo'){
 
     $info['cadastro_pedidos_edit_form_prioridade'] = (int) $info['cadastro_pedidos_edit_form_prioridade'];
     $info['cadastro_pedidos_edit_form_prioridade'] = 1;
+
+    $sql_verifica_duplicate = "SELECT * FROM BusinessMovPedidoVenda WHERE
+    CdRepresentante = :CdRepresentante AND
+    CdEmpresa = :CdEmpresa AND
+    CdPedidoRepre = :CdPedidoRepre AND
+    CdPedidoEmpre = :CdPedidoEmpre";
+
+    $sql_verifica_duplicate = $con_sql_server->prepare($sql_verifica_duplicate);
+    $sql_verifica_duplicate->bindParam('CdRepresentante', $CdRepresentante);
+    $sql_verifica_duplicate->bindParam('CdEmpresa', $info['cadastro_pedidos_edit_form_empresa']);
+    $sql_verifica_duplicate->bindParam('CdPedidoRepre', $info['cadastro_pedidos_edit_form_num_pedido_representante']);
+    $sql_verifica_duplicate->bindParam('CdPedidoEmpre', $CdPedidoEmpre);
+    $sql_verifica_duplicate->execute();
+
+    //
+    // var_dump($CdRepresentante);
+    // var_dump($info['cadastro_pedidos_edit_form_empresa']);
+    // var_dump($info['cadastro_pedidos_edit_form_num_pedido_representante']);
+    // var_dump($CdPedidoEmpre);
+    //
+    //
+    // exit;
+    if($sql_verifica_duplicate->rowCount() != 0){
+        echo "Combinação de Num. Ped. Repres. e Ped. Comp. ja existem na base e devem ser únicos.";
+        exit;
+    }
 
     try {
         $sql = "INSERT INTO BusinessMovPedidoVenda

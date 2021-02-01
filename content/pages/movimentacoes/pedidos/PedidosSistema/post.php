@@ -136,8 +136,8 @@ if($_POST['action'] == 'novo'){
     $Negociado = null;
     //pedido
     $XML = null;
-    $FlStatu = "R";
-    $FlEnvRecEmpresa = "N";
+    $FlStatu = "";
+    $FlEnvRecEmpresa = "S";
     $FlEnvRecRepre = "S";
     $DtCancelamento = null;
     $MotivoCancelamento = null;
@@ -150,11 +150,14 @@ if($_POST['action'] == 'novo'){
     $FlFrete = "F";
     $DtEntrega = null;
     $RefCliente = null;
+    if($info["cadastro_pedidos_edit_form_num_pedido_compra"] == ""){
+        $info["cadastro_pedidos_edit_form_num_pedido_compra"] = "XXXXXXX";
+    }
     $CdPedidoEmpre = $info["cadastro_pedidos_edit_form_num_pedido_compra"];
 
 
     if($info['cadastro_pedidos_edit_form_num_pedido_representante'] == ""){
-        $info['cadastro_pedidos_edit_form_num_pedido_representante'] = "9999";
+        $info['cadastro_pedidos_edit_form_num_pedido_representante'] = "XXXXXX";
     }
 
     $error_message = "";

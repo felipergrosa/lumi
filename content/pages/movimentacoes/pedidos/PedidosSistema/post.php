@@ -213,6 +213,8 @@ if($_POST['action'] == 'novo'){
     $sql_verifica_duplicate->bindParam('CdPedidoEmpre', $CdPedidoEmpre);
     $sql_verifica_duplicate->execute();
 
+
+
     //
     // var_dump($CdRepresentante);
     // var_dump($info['cadastro_pedidos_edit_form_empresa']);
@@ -223,6 +225,10 @@ if($_POST['action'] == 'novo'){
     // exit;
     if($sql_verifica_duplicate->rowCount() != 0){
         echo "Combinação de Num. Ped. Repres. e Ped. Comp. ja existem na base e devem ser únicos.";
+        exit;
+    }
+    if(@$info["cadastro_pedidos_edit_form_cond_pagto"] == ""){
+        echo "É necessário informar uma forma de pagamento VALIDA.";
         exit;
     }
 

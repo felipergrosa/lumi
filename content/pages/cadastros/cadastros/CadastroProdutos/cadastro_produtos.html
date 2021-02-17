@@ -45,55 +45,70 @@
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <div class="form-group row">
                   <div class="col-md-2 col-xs-4">
-                      <label for="cadastro_produtos_edit_form_id">ID</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_id" name="cadastro_produtos_edit_form_id" readonly/>
+                      <label for="cadastro_produtos_edit_form_CdProduto">ID</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CdProduto" name="cadastro_produtos_edit_form_CdProduto" readonly/>
                   </div>
                   <div class="col-md-8 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_descricao">Descrição</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_descricao" name="cadastro_produtos_edit_form_descricao" />
+                      <label for="cadastro_produtos_edit_form_DsProduto">Descrição</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DsProduto" name="cadastro_produtos_edit_form_DsProduto" />
                   </div>
                   <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_empresa">Empresa</label>
-                      <select class="form-control" id="cadastro_produtos_edit_form_empresa" name="cadastro_produtos_edit_form_empresa">
+                      <label for="cadastro_produtos_edit_form_CdEmpresa">Empresa</label>
+                      <select class="form-control" id="cadastro_produtos_edit_form_CdEmpresa" name="cadastro_produtos_edit_form_CdEmpresa">
                       </select>
                   </div>
                   <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_produtos_edit_form_cpfcnpj">CPF/CNPJ</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_cpfcnpj" name="cadastro_produtos_edit_form_cpfcnpj" />
+                      <label for="cadastro_produtos_edit_form_Unidade">Unidade</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unidade" name="cadastro_produtos_edit_form_Unidade" />
                   </div>
                   <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_produtos_edit_form_email1">E-mail</label>
-                      <input type="email" class="form-control" id="cadastro_produtos_edit_form_email1" name="cadastro_produtos_edit_form_email1" />
+                      <label for="cadastro_produtos_edit_form_QtdeEmbalagem">QtdeEmbalagem</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_QtdeEmbalagem" name="cadastro_produtos_edit_form_QtdeEmbalagem" />
                   </div>
                   <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_produtos_edit_form_endereco">Endereço (Logradouro)</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco" name="cadastro_produtos_edit_form_endereco" />
+                      <label for="cadastro_produtos_edit_form_CustoReal">CustoReal</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CustoReal" name="cadastro_produtos_edit_form_CustoReal" />
                   </div>
                   <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_endereco_numero">Endereço (Número)</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_numero" name="cadastro_produtos_edit_form_endereco_numero" />
+                      <label for="cadastro_produtos_edit_form_DtSincronizar">DtSincronizar</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DtSincronizar" name="cadastro_produtos_edit_form_DtSincronizar" />
                   </div>
                   <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_endereco_bairro">Endereço (Bairro)</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_bairro" name="cadastro_produtos_edit_form_endereco_bairro" />
+                      <label for="cadastro_produtos_edit_form_FlStatus">FlStatus</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlStatus" name="cadastro_produtos_edit_form_FlStatus" />
                   </div>
 
                   <div class="col-md-6 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_endereco_cidade">Endereço (Cidade)</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_cidade" name="cadastro_produtos_edit_form_endereco_cidade" />
+                      <label for="cadastro_produtos_edit_form_FlEspecial">FlEspecial</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlEspecial" name="cadastro_produtos_edit_form_FlEspecial" />
                   </div>
                   <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_endereco_estado">Endereço (Estado)</label>
-                      <select class="form-control" id="cadastro_produtos_edit_form_endereco_estado" name="cadastro_produtos_edit_form_endereco_estado">
-                      </select>
+                      <label for="cadastro_produtos_edit_form_PeIcms">PeIcms</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIcms" name="cadastro_produtos_edit_form_PeIcms" />
                   </div>
                   <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_endereco_cep">Endereço (CEP) <span id="cadastro_produtos_edit_form_endereco_cep_resultado"></span></label>
-                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_produtos_edit_form_endereco_cep" name="cadastro_produtos_edit_form_endereco_cep" onchange="BuscaCep(this.value, '#cadastro_produtos_edit_form_endereco_cep_resultado');"/>
+                      <label for="cadastro_produtos_edit_form_PeIpi">PeIpi</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIpi" name="cadastro_produtos_edit_form_PeIpi" />
                   </div>
-                  <div class="col-md-12 col-xs-12">
-                      <label for="cadastro_produtos_edit_form_observacoes">Observações</label>
-                      <textarea class="form-control" id="cadastro_produtos_edit_form_observacoes" name="cadastro_produtos_edit_form_observacoes"></textarea>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_PeReducao">PeReducao</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeReducao" name="cadastro_produtos_edit_form_PeReducao" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_PeMargemLucro">PeMargemLucro</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeMargemLucro" name="cadastro_produtos_edit_form_PeMargemLucro" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_Unitario">Unitario</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unitario" name="cadastro_produtos_edit_form_Unitario" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_Medio">Medio</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Medio" name="cadastro_produtos_edit_form_Medio" />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_Saldo">Saldo</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Saldo" name="cadastro_produtos_edit_form_Saldo" />
                   </div>
 
               </div>
@@ -161,11 +176,14 @@
                 async: false,
                 success: function (User)
                 {
-                    PopularEmpresas('#cadastro_produtos_edit_form_empresa');
+                    PopularEmpresas('#cadastro_produtos_edit_form_CdEmpresa');
                     var prefix = '#cadastro_produtos_edit_form_';
                         var UserKeys = Object.keys(User);
-                        console.log(UserKeys);
+                        // console.log(UserKeys);
                         $(UserKeys).each(function(k,v){
+                            // console.log(v);
+                            // console.log(User[v]);
+                            // console.log($((prefix + v)));
                             $(prefix + v).val(User[v]);
                         });
                     $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.descricao);

@@ -4,7 +4,7 @@ ini_set('display_errors', 'on');
 $user_code = $_SESSION['nobre_usuario_id'];
 require_once __DIR__.'/../../../dist/php/general.inc.php';
 $path =  __DIR__.'/../../..';
-$ControleAcessos = new ControleAcessos($con, $user_code, $path);
+@$ControleAcessos = new ControleAcessos($con, $user_code, $path);
 $menu_controle = $ControleAcessos->menu;
 $codigo_submenu = $_GET['cm'];
 $codigo_submenu = explode('/',$codigo_submenu);

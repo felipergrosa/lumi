@@ -207,4 +207,17 @@ if($_POST['action'] == 'editar'){
 
     echo 0;
 }
+
+if(@$_POST['action'] == "CarregaFotoDoProduto"){
+    $id = $_POST['id'];
+    $CdEmpresa = $_POST['CdEmpresa'];
+    if(@file_exists(__DIR__.'/docs/'.$CdEmpresa.'-'.$id.'.jpg')){
+        echo 1;
+    }
+    else {
+        echo 0;
+    }
+
+    exit;
+}
 exit;

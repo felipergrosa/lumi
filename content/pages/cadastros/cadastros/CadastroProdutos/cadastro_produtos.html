@@ -110,6 +110,11 @@
                       <label for="cadastro_produtos_edit_form_Saldo">Saldo</label>
                       <input type="text" class="form-control" id="cadastro_produtos_edit_form_Saldo" name="cadastro_produtos_edit_form_Saldo" />
                   </div>
+                  <div class="col-md-12 col-xs-12">
+                      <label for="cadastro_produtos_edit_form_foto">Foto do Produto</label>
+                      <span class="produto_foto_exibir">Produto sem foto</span>
+                      <input type="file" class="form-control" id="cadastro_produtos_edit_form_foto" name="cadastro_produtos_edit_form_foto" />
+                  </div>
 
               </div>
               <!-- <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button> -->
@@ -188,6 +193,8 @@
                         });
                     $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.descricao);
                     $('#action_for_form').val(action);
+
+                    CarregaFotoDoProduto(id, empresa);
 
 
                 }
@@ -322,6 +329,27 @@
 
       }
 
+      function CarregaFotoDoProduto(id, CdEmpresa){
+          var action = "CarregaFotoDoProduto";
+          $.ajax({
+              type: 'POST',
+              url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
+              data: {'id': id, 'action': action, 'CdEmpresa':CdEmpresa},
+              success: function (data)
+              {
+
+                  if (data != 0) {
+                      $('.produto_foto_exibir').html('<img src="content/pages/cadastros/cadastros/CadastroProdutos/docs/' + CdEmpresa + '-' + id + '.jpg" />');
+
+                  } else {
+                      $('.produto_foto_exibir').html("Produto sem foto");
+
+                  }
+              }
+          });
+
+      }
+
 
       function BuscaCep(cep, retorno_erro){
           cep = cep.replace("-", "");
@@ -360,6 +388,11 @@
 <style type="text/css">
     .pointer {
         cursor:pointer;
+    }
+    .produto_foto_exibir img {
+        max-width: 400px;
+        max-height: 150px;
+        padding: 10px;
     }
 </style>
 <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>

@@ -679,7 +679,7 @@
                             /* console.log(v); */
                             console.log(v.produto_id + 'Nome :' + v.produto_descricao);
                             if(cont<=maximo){
-                                retorno = retorno + '<div class="busca_item" onclick="PreencheProduto(\'' + v.produto_id.trim() + '\', \'' + alvo + '\', \'' + v.produto_preco + '\', \'' + v.produto_descricao + '\');">' + v.produto_descricao + ' (' + v.produto_id + ')</div>';
+                                retorno = retorno + '<div class="busca_item" onclick="PreencheProduto(\'' + v.produto_id.trim() + '\', \'' + alvo + '\', \'' + v.produto_preco + '\', \'' + v.produto_descricao + '\');">' + v.produto_descricao + ' (' + v.produto_id + ') ' + v.produto_imagem + '</div>';
                             }
                             cont++;
                             /* console.log(k); */

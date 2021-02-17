@@ -117,7 +117,7 @@
                   </div>
 
               </div>
-              <!-- <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button> -->
+              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
             </form>
         </div>
     </div>
@@ -210,26 +210,35 @@
 
     function Save() {
 
-          var dados = $('#cadastro_clientes_edit_form').serializeArray();
+          var dados = JSON.stringify($('#cadastro_clientes_edit_form').serializeArray());
           var action = $('#action_for_form').val();
+          var formData = new FormData();
+          if ($('#cadastro_produtos_edit_form_foto')[0].files[0]) {
+              formData.append('file', $('#cadastro_produtos_edit_form_foto')[0].files[0]);
+          }
+          formData.append('action', action);
+          formData.append('dados', dados);
+
 
           // console.log(dados);
           $.ajax({
               type: 'POST',
               url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
-              data: {'dados': dados, 'action': action},
+              data: formData,
+              processData: false, // tell jQuery not to process the data
+              contentType: false, // tell jQuery not to set contentType
               success: function (data)
               {
                   console.log(data);
-                  if (data == 0) {
-                      toastr.success('Sucesso! Empresa atualizada.');
-                      GetProdList();
-                      $('#cadastro_clientes_userlist').fadeIn(500);
-                      $('#cadastro_clientes_edit').hide();
-
-                  } else {
-                      toastr.error('Erro: ' + data);
-                  }
+                  // if (data == 0) {
+                  //     toastr.success('Sucesso! Produto atualizado.');
+                  //     GetProdList();
+                  //     $('#cadastro_clientes_userlist').fadeIn(500);
+                  //     $('#cadastro_clientes_edit').hide();
+                  //
+                  // } else {
+                  //     toastr.error('Erro: ' + data);
+                  // }
               }
           });
 

@@ -128,14 +128,28 @@ if($_POST['action'] == 'novo'){
 
 }
 if($_POST['action'] == 'editar'){
+
     $obrigatorios = array(
         'nome',
         'email1'
     );
-    $dados = $_POST['dados'];
+    $dados = json_decode($_POST['dados'], 1);
     foreach ($dados as $dd) {
         $info[$dd['name']] = $dd['value'];
     }
+
+    if(@$_FILES['file']){
+        $upload_dir = __DIR__.'/docs/';
+        $filename = $info[$prefix.'CdEmpresa'].'-'.$info[$prefix.'CdProduto'].'.jpg';
+        try {
+            move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir.$filename);
+        } catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    var_dump($info);
+    exit;
     $error_message = "";
     $error = 0;
     foreach($obrigatorios as $ob){

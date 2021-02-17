@@ -43,10 +43,12 @@
         <div class="card-body">
             <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
+                <input type="hidden" name="old_CdProduto" id="old_CdProduto" value="" />
+
                 <div class="form-group row">
                   <div class="col-md-2 col-xs-4">
                       <label for="cadastro_produtos_edit_form_CdProduto">ID</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CdProduto" name="cadastro_produtos_edit_form_CdProduto" readonly/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CdProduto" name="cadastro_produtos_edit_form_CdProduto"/>
                   </div>
                   <div class="col-md-8 col-xs-6">
                       <label for="cadastro_produtos_edit_form_DsProduto">Descrição</label>
@@ -191,6 +193,8 @@
                             // console.log($((prefix + v)));
                             $(prefix + v).val(User[v]);
                         });
+
+                        $('#old_CdProduto').val(User.CdProduto);
                     $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.descricao);
                     $('#action_for_form').val(action);
 
@@ -202,8 +206,10 @@
         }
         else {
             $('#cadastro_produtos_edit_form_id').val(id);
-            $('#cadastro_clientes_edit_nome').html('Nova empresa');
+            $('#cadastro_clientes_edit_nome').html('Novo produto');
             $('#action_for_form').val(action);
+            PopularEmpresas('#cadastro_produtos_edit_form_CdEmpresa');
+
         }
 
     }

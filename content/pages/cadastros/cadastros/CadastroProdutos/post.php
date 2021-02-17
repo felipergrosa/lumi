@@ -140,11 +140,15 @@ if($_POST['action'] == 'editar'){
 
     if(@$_FILES['file']){
         $upload_dir = __DIR__.'/docs/';
+        if(!is_dir(__DIR__.'/docs/')){
+            mkdir(__DIR__.'/docs/');
+        }
         $filename = $info[$prefix.'CdEmpresa'].'-'.$info[$prefix.'CdProduto'].'.jpg';
         try {
-            move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir.$filename);
+            @move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir.$filename);
         } catch(Exception $e){
             echo $e->getMessage();
+            exit;
         }
     }
 

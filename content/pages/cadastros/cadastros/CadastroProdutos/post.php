@@ -155,7 +155,24 @@ if($_POST['action'] == 'editar'){
         // }
         $filename = $info[$prefix.'CdEmpresa'].'-'.$info[$prefix.'CdProduto'].'.jpg';
         try {
-            @move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir.$filename);
+            $fn = $_FILES['file']['tmp_name'];
+            $size = getimagesize($fn);
+            $ratio = $size[0]/$size[1]; // width/height
+            if( $ratio > 1) {
+                $width = 500;
+                $height = 500/$ratio;
+            }
+            else {
+                $width = 500*$ratio;
+                $height = 500;
+            }
+
+            echo $width.'-'.$height;
+            $src = imagecreatefromstring(file_get_contents($fn));
+            $dst = imagecreatetruecolor($width,$height);
+            imagecopyresampled($dst,$src,0,0,0,0,$width,$height,$size[0],$size[1]);
+            imagedestroy($src);
+            imagejpeg($dst,$upload_dir.$filename);
         } catch(Exception $e){
             echo $e->getMessage();
             exit;

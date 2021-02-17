@@ -5,7 +5,7 @@ require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
 $prefix = "cadastro_produtos_edit_form_";
-if($_POST['action'] == 'GetUserList'){
+if($_POST['action'] == 'GetProdList'){
     $empresa = $_POST['empresa'];
     $sql = "SELECT TOP 50 *,
     a.DsProduto as nome,

@@ -9,7 +9,7 @@
 
                 <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
                 <div class="col-3 float-right">
-                    <select class="form-control" id="selecao_empresa" onchange="GetUserList();">
+                    <select class="form-control" id="selecao_empresa" onchange="GetProdList();">
                     </select>
                 </div>
             </div>
@@ -116,7 +116,7 @@
         $('#cadastro_produtos_edit_form_endereco_cep').mask("99999-999");
         PopularEstados('#cadastro_produtos_edit_form_endereco_estado');
         MascaraCpfCnpj('#cadastro_produtos_edit_form_cpfcnpj');
-        GetUserList();
+        GetProdList();
         $('#cadastro_clientes_userlist_table').DataTable({
                 "language": {
                     "url": "assets/datatables/Portuguese-Brasil.json"
@@ -127,14 +127,13 @@
 
     });
 
-    function GetUserList(){
+    function GetProdList(){
         $('.cadastro_clientes_lista').html('');
         var empresa = $('#selecao_empresa').val();
-        console.log('getting');
         $.ajax({
             type: 'POST',
             url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
-            data: {'action':'GetUserList', 'empresa':empresa},
+            data: {'action':'GetProdList', 'empresa':empresa},
             dataType: 'json',
             async: false,
             success: function (UserList)
@@ -199,7 +198,7 @@
                   console.log(data);
                   if (data == 0) {
                       toastr.success('Sucesso! Empresa atualizada.');
-                      GetUserList();
+                      GetProdList();
                       $('#cadastro_clientes_userlist').fadeIn(500);
                       $('#cadastro_clientes_edit').hide();
 

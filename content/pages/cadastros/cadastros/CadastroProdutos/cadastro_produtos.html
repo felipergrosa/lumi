@@ -7,7 +7,7 @@
                 <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
                 Cadastro de Produtos
 
-                <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+                <button onclick="GetProdInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
                 <div class="col-3 float-right">
                     <select class="form-control" id="selecao_empresa" onchange="GetProdList();">
                     </select>
@@ -140,12 +140,12 @@
             {
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td></tr>');
                 });
             }
         });
     }
-    function GetUserInfoEdit(id, empresa, action){
+    function GetProdInfoEdit(id, empresa, action){
         $('#cadastro_clientes_userlist').hide();
         $('#cadastro_clientes_edit').fadeIn(500);
 
@@ -156,7 +156,7 @@
             $.ajax({
                 type: 'POST',
                 url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
-                data: {'action':'GetUserData', 'id':id, 'empresa':empresa},
+                data: {'action':'GetProdData', 'id':id, 'empresa':empresa},
                 dataType: 'json',
                 async: false,
                 success: function (User)

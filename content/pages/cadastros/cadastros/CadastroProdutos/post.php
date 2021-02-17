@@ -23,7 +23,7 @@ if($_POST['action'] == 'GetProdList'){
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($row);
 }
-if($_POST['action'] == 'GetUserData'){
+if($_POST['action'] == 'GetProdData'){
     $id = $_POST['id'];
     $empresa = $_POST['empresa'];
     // $sql = "SELECT * FROM empresas WHERE id = :id";

@@ -6,31 +6,39 @@ ini_set('display_errors', 'on');
 @session_start();
 $prefix = "cadastro_produtos_edit_form_";
 if($_POST['action'] == 'GetUserList'){
+    $empresa = $_POST['empresa'];
     $sql = "SELECT TOP 50 *,
     a.DsProduto as nome,
     a.CdProduto as id,
     b.FsEmpresa as empresa,
+    a.CdEmpresa,
     0 as valor
     FROM BusinessCadProduto a
-    LEFT JOIN BusinessCadEmpresa b ON a.CdEmpresa=b.CdEmpresa";
+    LEFT JOIN BusinessCadEmpresa b ON a.CdEmpresa=b.CdEmpresa
+
+    WHERE a.CdEmpresa = :empresa";
     $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('empresa', $empresa);
     $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){
-    $id = (int) $_POST['id'];
+    $id = $_POST['id'];
+    $empresa = $_POST['empresa'];
     // $sql = "SELECT * FROM empresas WHERE id = :id";
     $sql = "SELECT *,
-    CdEmpresa as id,
-    FsEmpresa as nome_fantasia,
-    FsEmpresa as nome,
-    RzEmpresa as razao_social
+    DsProduto as descricao,
+    CdProduto as id,
+    CdEmpresa as empresa
 
-    FROM BusinessCadEmpresa WHERE
-    CdEmpresa = :id";
+
+    FROM BusinessCadProduto WHERE
+    CdEmpresa = :empresa AND CdProduto = :id";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('id', $id);
+    $sql->bindParam('empresa', $empresa);
+
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
     $row['resposta'] = $row;

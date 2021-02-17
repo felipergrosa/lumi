@@ -6,7 +6,12 @@
             <div class="card-header-title font-size-lg text-capitalize font-weight-normal" style="display:block;">
                 <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
                 Cadastro de Produtos
+
                 <button onclick="GetUserInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+                <div class="col-3 float-right">
+                    <select class="form-control" id="selecao_empresa" onchange="GetUserList();">
+                    </select>
+                </div>
             </div>
 
         </div>
@@ -43,9 +48,13 @@
                       <label for="cadastro_produtos_edit_form_id">ID</label>
                       <input type="text" class="form-control" id="cadastro_produtos_edit_form_id" name="cadastro_produtos_edit_form_id" readonly/>
                   </div>
-                  <div class="col-md-10 col-xs-8">
-                      <label for="cadastro_produtos_edit_form_nome">Nome</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_nome" name="cadastro_produtos_edit_form_nome" />
+                  <div class="col-md-8 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_descricao">Descrição</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_descricao" name="cadastro_produtos_edit_form_descricao" />
+                  </div>
+                  <div class="col-md-2 col-xs-6">
+                      <label for="cadastro_produtos_edit_form_empresa">Descrição</label>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_empresa" name="cadastro_produtos_edit_form_empresa" />
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_produtos_edit_form_cpfcnpj">CPF/CNPJ</label>
@@ -98,6 +107,7 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+        PopularEmpresas('#selecao_empresa')
         $.jMaskGlobals.watchDataMask = true;
         // window.onerror = function(){
         //    return true;
@@ -118,23 +128,24 @@
 
     function GetUserList(){
         $('.cadastro_clientes_lista').html('');
+        var empresa = $('#selecao_empresa').val();
         console.log('getting');
         $.ajax({
             type: 'POST',
             url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
-            data: {'action':'GetUserList'},
+            data: {'action':'GetUserList', 'empresa':empresa},
             dataType: 'json',
             async: false,
             success: function (UserList)
             {
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td></tr>');
                 });
             }
         });
     }
-    function GetUserInfoEdit(id, action){
+    function GetUserInfoEdit(id, empresa, action){
         $('#cadastro_clientes_userlist').hide();
         $('#cadastro_clientes_edit').fadeIn(500);
 
@@ -145,7 +156,7 @@
             $.ajax({
                 type: 'POST',
                 url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
-                data: {'action':'GetUserData', 'id':id},
+                data: {'action':'GetUserData', 'id':id, 'empresa':empresa},
                 dataType: 'json',
                 async: false,
                 success: function (User)
@@ -245,6 +256,34 @@
           } else {
               $(campo).mask("99.999.999/9999-99");
           }
+      }
+
+      function PopularEmpresas(campo, id = 0, Cnpj_Cnpf = 0, CdRepresentante = 0){
+          var action = 'GetEmpresas';
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/empresas.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
+              success: function (data)
+              {
+                  console.log(data);
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                         .append($("<option></option>")
+                         .attr("value", v.id)
+                         .attr("selected", v.ativo)
+                         .text(v.nome));
+                  });
+
+
+
+              }
+          });
       }
 
       function PopularEstados(campo){

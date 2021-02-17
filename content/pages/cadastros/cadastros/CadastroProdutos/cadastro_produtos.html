@@ -53,8 +53,9 @@
                       <input type="text" class="form-control" id="cadastro_produtos_edit_form_descricao" name="cadastro_produtos_edit_form_descricao" />
                   </div>
                   <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_produtos_edit_form_empresa">Descrição</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_empresa" name="cadastro_produtos_edit_form_empresa" />
+                      <label for="cadastro_produtos_edit_form_empresa">Empresa</label>
+                      <select class="form-control" id="cadastro_produtos_edit_form_empresa" name="cadastro_produtos_edit_form_empresa">
+                      </select>
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_produtos_edit_form_cpfcnpj">CPF/CNPJ</label>
@@ -161,22 +162,30 @@
                 async: false,
                 success: function (User)
                 {
+                    PopularEmpresas('#cadastro_produtos_edit_form_empresa');
+
                     console.log(User.endereco_estado);
-                    $('#cadastro_produtos_edit_form_id').val(User.id);
-                    $('#cadastro_produtos_edit_form_nome').val(User.nome);
-                    $('#cadastro_produtos_edit_form_cpfcnpj').val(User.cpfcnpj);
-                    MascaraCpfCnpjManual('#cadastro_produtos_edit_form_cpfcnpj');
-                    $('#cadastro_produtos_edit_form_email1').val(User.email1);
-                    $('#cadastro_produtos_edit_form_endereco_estado').val(User.endereco_estado);
-                    $('#cadastro_produtos_edit_form_endereco').val(User.endereco);
-                    $('#cadastro_produtos_edit_form_endereco_numero').val(User.endereco_numero);
-                    $('#cadastro_produtos_edit_form_endereco_bairro').val(User.endereco_bairro);
-                    $('#cadastro_produtos_edit_form_endereco_cidade').val(User.endereco_cidade);
-                    $('#cadastro_produtos_edit_form_endereco_cep').val(User.endereco_cep);
-                    $('#cadastro_produtos_edit_form_endereco_cep').unmask();
-                    $('#cadastro_produtos_edit_form_endereco_cep').mask("99999-999");
-                    $('#cadastro_produtos_edit_form_observacoes').val(User.observacoes);
-                    $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.nome);
+                    var prefix = '#cadastro_produtos_edit_form_';
+                        var UserKeys = Object.keys(User);
+                        console.log(UserKeys);
+                        $(UserKeys).each(function(k,v){
+                            $(prefix + v).val(User[v]);
+                        });
+                    // $('#cadastro_produtos_edit_form_id').val(User.id);
+                    // $('#cadastro_produtos_edit_form_nome').val(User.nome);
+                    // $('#cadastro_produtos_edit_form_cpfcnpj').val(User.cpfcnpj);
+                    // MascaraCpfCnpjManual('#cadastro_produtos_edit_form_cpfcnpj');
+                    // $('#cadastro_produtos_edit_form_email1').val(User.email1);
+                    // $('#cadastro_produtos_edit_form_endereco_estado').val(User.endereco_estado);
+                    // $('#cadastro_produtos_edit_form_endereco').val(User.endereco);
+                    // $('#cadastro_produtos_edit_form_endereco_numero').val(User.endereco_numero);
+                    // $('#cadastro_produtos_edit_form_endereco_bairro').val(User.endereco_bairro);
+                    // $('#cadastro_produtos_edit_form_endereco_cidade').val(User.endereco_cidade);
+                    // $('#cadastro_produtos_edit_form_endereco_cep').val(User.endereco_cep);
+                    // $('#cadastro_produtos_edit_form_endereco_cep').unmask();
+                    // $('#cadastro_produtos_edit_form_endereco_cep').mask("99999-999");
+                    // $('#cadastro_produtos_edit_form_observacoes').val(User.observacoes);
+                    $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.descricao);
                     $('#action_for_form').val(action);
 
 
@@ -189,6 +198,7 @@
             $('#cadastro_clientes_edit_nome').html('Nova empresa');
             $('#action_for_form').val(action);
         }
+
     }
 
     function Save() {

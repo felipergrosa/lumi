@@ -159,3 +159,45 @@ function CadProdCalculaMargem(custo, campopreco, campomargem) {
 $(document).ready(function(){
     /* GeneralControl('firstcheck'); */
 });
+function percent(z){
+    v = z.value;
+    if(v.length == 1){
+        v = v.replace(/\D/g, "");
+    }
+    if(v != ""){
+
+        v = v.match(/^\d+\,?\d*/)[0];
+        z.value = v;
+    }
+    else {
+        z.value = v;
+    }
+}
+function percentPoint(z){
+    v = z.value;
+    if(v.length == 1){
+        v = v.replace(/\D/g, "");
+    }
+    if(v != ""){
+
+        v = v.match(/^\d+\.?\d*/)[0];
+        z.value = v;
+    }
+    else {
+        z.value = v;
+    }
+}
+function apenasNumeros(z){
+    v = z.value;
+    if(v.length == 1){
+        v = v.replace(/\D/g, "");
+    }
+    if(v != ""){
+
+        v = v.replace(/\D/g, "");
+        z.value = v;
+    }
+    else {
+        z.value = v;
+    }
+}

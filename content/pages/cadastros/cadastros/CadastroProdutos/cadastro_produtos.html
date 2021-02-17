@@ -23,6 +23,8 @@
                         <th>Cod</th>
                         <th>Desc</th>
                         <th>Valor</th>
+                        <th>Foto</th>
+
                     </tr>
                 </thead>
                 <tbody class="cadastro_clientes_lista pointer">
@@ -44,6 +46,8 @@
             <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <input type="hidden" name="old_CdProduto" id="old_CdProduto" value="" />
+                <input type="hidden" name="old_CdEmpresa" id="old_CdEmpresa" value="" />
+
 
                 <div class="form-group row">
                   <div class="col-md-2 col-xs-4">
@@ -162,7 +166,7 @@
             {
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td><td>'+ v.foto +'</td></tr>');
                 });
             }
         });
@@ -195,6 +199,8 @@
                         });
 
                         $('#old_CdProduto').val(User.CdProduto);
+                        $('#old_CdEmpresa').val(User.CdEmpresa);
+
                     $('#cadastro_clientes_edit_nome').html('Edição de produto - ' + User.descricao);
                     $('#action_for_form').val(action);
 

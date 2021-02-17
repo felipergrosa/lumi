@@ -92,19 +92,19 @@
 
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_padrao">Padrao</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_desconto_padrao" name="cadastro_pedidos_edit_form_desconto_padrao" onkeyup="percent(this);" maxlength="6"/>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_desconto_padrao" placeholder="0,00" name="cadastro_pedidos_edit_form_desconto_padrao" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-4">
                         <label for="cadastro_pedidos_edit_form_desconto_adic1">Adic 1</label>
-                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic1" name="cadastro_pedidos_edit_form_desconto_adic1" onkeyup="percent(this);" maxlength="6"/>
+                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic1" placeholder="0,00" name="cadastro_pedidos_edit_form_desconto_adic1" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_adic2">Adic 2</label>
-                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic2" name="cadastro_pedidos_edit_form_desconto_adic2" onkeyup="percent(this);" maxlength="6"/>
+                        <input class="form-control" id="cadastro_pedidos_edit_form_desconto_adic2" placeholder="0,00" name="cadastro_pedidos_edit_form_desconto_adic2" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-2">
                         <label for="cadastro_pedidos_edit_form_desconto_adic3">Adic 3</label>
-                        <input  step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic3" name="cadastro_pedidos_edit_form_desconto_adic3" onkeyup="percent(this);" maxlength="6"/>
+                        <input  step="any" class="form-control" id="cadastro_pedidos_edit_form_desconto_adic3" placeholder="0,00" name="cadastro_pedidos_edit_form_desconto_adic3" onkeyup="percent(this);" maxlength="6"/>
                     </div>
                     <div class="col-md-2 col-xs-4">
                         <label for="cadastro_pedidos_edit_form_desconto_part_com">Part.com.</label>
@@ -154,8 +154,8 @@
                     <div class="form-group row">
                         <div class="col-xs-3 col-md-3">
 
-                            <label>-</label>
-                            <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
+                            <!-- <label>-</label>
+                            <btn class="btn btn-success btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn> -->
                         </div>
                         <div class="col-xs-3 col-md-3">
                         </div>
@@ -167,6 +167,24 @@
                         <div class="col-xs-3 col-md-3">
                             <label>Total</label>
                             <input type="text" class="form-control" id="vendas_nova_venda_total" name="vendas_nova_venda_total" value="0"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12 col-md-4">
+
+                            <label>-</label>
+                            <btn class="btn btn-warning btn-block" onclick="javascript: CadastroPedidosImprimir();">Imprimir Pedido</btn>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+
+                            <label>-</label>
+                            <btn class="btn btn-success btn-block" onclick="javascript: CadastroPedidosTermo();">Termo Responsabilidade</btn>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+
+                            <label>-</label>
+                            <btn class="btn btn-danger btn-block" id="Finaliza_button" onclick="javascript: CadastroPedidosSalvar();">Finalizar Pedido</btn>
                         </div>
                     </div>
                 </span>
@@ -768,12 +786,28 @@
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
-function percent(z) {
+// function percent(z) {
+//     v = z.value;
+//     v = v.replace(/\D/g, "")  //permite digitar apenas números
+//     v = v.replace(/\D(\d{,})/g, "")  //permite digitar apenas números
+//     v = v.replace(/[0-9]{7}/, "inválido")   //limita pra máximo 999.999.999,99
+//     v = v.replace(/(\d{1})(\d{1,2})$/, "$1.$2")        //coloca virgula antes dos ultimos 2 digitos
+//     z.value = v;
+// }
+
+function percent(z){
     v = z.value;
-    v = v.replace(/\D/g, "")  //permite digitar apenas números
-    v = v.replace(/[0-9]{7}/, "inválido")   //limita pra máximo 999.999.999,99
-    v = v.replace(/(\d{1})(\d{1,2})$/, "$1.$2")        //coloca virgula antes dos ultimos 2 digitos
-    z.value = v;
+    if(v.length == 1){
+        v = v.replace(/\D/g, "");
+    }
+    if(v != ""){
+
+        v = v.match(/^\d+\,?\d*/)[0];
+        z.value = v;
+    }
+    else {
+        z.value = v;
+    }
 }
 </script>
 <style type="text/css">

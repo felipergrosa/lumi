@@ -18,7 +18,7 @@
 
                     <div class="col-md-8 col-xs-12">
                         <label for="cadastro_pedidos_edit_form_cpfcnpj">Busca (Nome, Razao Social, CNPJ)</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj"/>
+                        <input type="text" class="form-control" onkeyup="BuscaClienteGatilho(this, this.value, 'cadastro_pedidos_edit_form_cpfcnpj');" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj"/>
                     </div>
 
                     <div class="col-md-4 col-xs-12">
@@ -215,7 +215,73 @@
     });
 
 
+    function BuscaClienteGatilho(element, busca, alvo = false){
+        clearTimeout(t);
+        t = setTimeout(function(){
+            BuscaCliente(element, busca, alvo);
+        }, 500);
+    }
 
+    function BuscaCliente(element, busca, alvo = false){
+        var tipo = "cliente";
+        if($('#busca_box').length){
+            console.log('existe');
+        }
+        else {
+            console.log('não existe, criando...');
+            $('body').append('<div id="busca_box"></div>');
+        }
+        var left = $(element).offset().left;
+        var top = $(element).offset().top;
+        var altura = $(element).height();
+        var largura = $(element).width();
+        $('#busca_box').css('left', parseInt(left) + 'px');
+        $('#busca_box').css('top', top+(altura*2) + 'px');
+        $('#busca_box').css('width', largura + 'px');
+        $('#busca_box').html('<span onclick="RemoveBuscaCombo();">buscando ' + busca + '...</span>');
+
+        // var tabela_preco = $('#cadastro_pedidos_edit_form_tabela_preco');
+        var empresa = $('#cadastro_pedidos_edit_form_empresa').val();
+        if(busca != "" && empresa != ""){
+            var action = "busca_clientes";
+            $.ajax({
+                type: 'POST',
+                url: 'dist/php/controllers/clientes.api.php',
+                dataType: 'json',
+                async: 'false',
+                data: {'action': action, 'busca':busca, 'empresa':'0'},
+                success: function (data)
+                {
+
+                    console.log(data);
+                    if(data['status'] == 'ok'){
+                        var retorno = '';
+                        var maximo = 5;
+                        var cont = 1;
+                        $(data['fetch']).each(function(k,v){
+                            /* console.log(v); */
+                            console.log(v.produto_id + 'Nome :' + v.produto_descricao);
+                            if(cont<=maximo){
+                                retorno = retorno + '<div class="busca_item" onclick="PreencheCliente(\'' + v.Cnpj_Cnpf.trim() + '\', \'' + alvo + '\');">' + v.FsCliente + ' (' + v.Cnpj_Cnpf + ')</div>';
+                            }
+                            cont++;
+                            /* console.log(k); */
+                            /* var newvalue = JSON.parse(v);
+                            console.log(newvalue); */
+                        });
+                        $('#busca_box').html(retorno);
+
+                    }
+                    if(data['status'] == 'erro'){
+                        $('#busca_box').html('<span onclick="RemoveBuscaCombo();">Nenhum resultado para "' + busca + '" encontrado.</span>');
+                    }
+
+            }
+
+        });
+    }
+
+}
 
     function BuscaProdutoGatilho(element, busca, alvo = false){
         clearTimeout(t);
@@ -701,6 +767,11 @@
 }
     function RemoveBuscaCombo(){
         $('#busca_box').remove();
+    }
+
+    function PreencheCliente(cnpj, alvo){
+        $('#' + alvo).val(cnpj);
+        RemoveBuscaCombo();
     }
     function PreencheProduto(valor, target, preco, nome){
     console.log('id:');

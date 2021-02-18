@@ -31,6 +31,44 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function BuscaCliente($busca, $empresa, $representante, $por_id = false, $limit = 100){
+        $con = $this->con;
+        if($por_id){
+            $sql_search = " AND BusinessCadProduto.CdProduto = '$busca' ";
+        }
+        else {
+            $sql_search = " AND BusinessCadProduto.DsProduto LIKE '%$busca%' ";
+        }
+
+        if($empresa != 0){
+            $sql = "SELECT TOP 5 a.Cnpj_Cnpf, a.FsCliente FROM BusinessCadCliente a
+            LEFT JOIN BusinessCadClienteLC b ON a.Cnpj_Cnpf=b.Cnpj_Cnpf
+            WHERE (a.Cnpj_Cnpf = :busca OR a.FsCliente LIKE :buscalike OR a.RzCliente LIKE :buscalike) AND b.CdEmpresa = :empresa AND a.CdRepresentante = :representante
+            GROUP BY a.Cnpj_Cnpf, a.FsCliente
+            ";
+            $buscalike = '%'.$busca.'%';
+            $sql = $con->prepare($sql);
+            $sql->bindParam('busca', $busca);
+            $sql->bindParam('buscalike', $buscalike);
+            $sql->bindParam('empresa', $empresa);
+            $sql->bindParam('representante', $representante);
+        }
+        else {
+            $sql = "SELECT TOP 5 a.Cnpj_Cnpf, a.FsCliente FROM BusinessCadCliente a
+            WHERE (a.Cnpj_Cnpf = :busca OR a.FsCliente LIKE :buscalike OR a.RzCliente LIKE :buscalike)
+            GROUP BY a.Cnpj_Cnpf, a.FsCliente
+            ";
+            $buscalike = '%'.$busca.'%';
+            $sql = $con->prepare($sql);
+            $sql->bindParam('busca', $busca);
+            $sql->bindParam('buscalike', $buscalike);
+            $sql->bindParam('representante', $representante);
+        }
+
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
     function BuscaTabelas($empresa){
         $con = $this->con;
         $sql = "SELECT BusinessCadTabPreco.CdTabela as id_tabela,

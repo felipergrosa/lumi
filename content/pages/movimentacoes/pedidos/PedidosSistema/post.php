@@ -12,32 +12,32 @@ if(@$_POST['action'] == 'continuar'){
     $obrigatorios = null;
     $cpfcnpj = $_POST['cpfcnpj'];
     $empresa = $_POST['empresa'];
-    $cpfcnpj = trim(str_replace('.', '', str_replace('-', '', str_replace('/', '', $cpfcnpj))));
-    if(strlen($cpfcnpj) == 11){
-        if(!$Valida->validaCPF($cpfcnpj)){
-            $retorno['erro'] = 1;
-            $retorno['mensagem'] = 'CPF Inválido';
-            exit;
-        }
-
-    }
-    elseif(strlen($cpfcnpj) == 14){
-        if(!$Valida->validaCNPJ($cpfcnpj)){
-            $retorno['erro'] = 1;
-            $retorno['mensagem'] = 'CNPJ Inválido';
-        }
-
-    }
-    else {
-        $retorno['erro'] = 1;
-        $retorno['mensagem'] = 'Formato CPF/CNPJ Inválido';
-    }
-
-
-    if(@$retorno['erro'] == 1){
-        echo json_encode($retorno);
-        exit;
-    }
+    // $cpfcnpj = trim(str_replace('.', '', str_replace('-', '', str_replace('/', '', $cpfcnpj))));
+    // if(strlen($cpfcnpj) == 11){
+    //     if(!$Valida->validaCPF($cpfcnpj)){
+    //         $retorno['erro'] = 1;
+    //         $retorno['mensagem'] = 'CPF Inválido';
+    //         exit;
+    //     }
+    //
+    // }
+    // elseif(strlen($cpfcnpj) == 14){
+    //     if(!$Valida->validaCNPJ($cpfcnpj)){
+    //         $retorno['erro'] = 1;
+    //         $retorno['mensagem'] = 'CNPJ Inválido';
+    //     }
+    //
+    // }
+    // else {
+    //     $retorno['erro'] = 1;
+    //     $retorno['mensagem'] = 'Formato CPF/CNPJ Inválido';
+    // }
+    //
+    //
+    // if(@$retorno['erro'] == 1){
+    //     echo json_encode($retorno);
+    //     exit;
+    // }
 
     // Verifica se cliente tem acesso a esta empresa
     // $sql = "SELECT a.*, b.nome as cliente_nome, c.nome_fantasia as empresa_nome
@@ -48,12 +48,16 @@ if(@$_POST['action'] == 'continuar'){
     // $sql = $con->prepare($sql);
     // $sql->bindParam('cpfcnpj', $cpfcnpj);
     // $sql->bindParam('empresa', $empresa);
+    $cpfcnpjlike = '%'.$_POST['cpfcnpj'].'%';
     $sql = "SELECT TOP 100 * FROM BusinessCadCliente
-    WHERE Cnpj_Cnpf = :cpfcnpj";
+    WHERE Cnpj_Cnpf = :cpfcnpj OR FsCliente LIKE :cpfcnpjlike OR RzCliente LIKE :cpfcnpjlike";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('cpfcnpj', $_POST['cpfcnpj']);
+    $sql->bindParam('cpfcnpjlike', $cpfcnpjlike);
+
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
+
 
     if(!$row){
         $retorno['erro'] = 2;

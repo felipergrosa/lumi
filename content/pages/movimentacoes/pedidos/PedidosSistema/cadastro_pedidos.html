@@ -17,7 +17,7 @@
                 <div class="form-group row">
 
                     <div class="col-md-8 col-xs-12">
-                        <label for="cadastro_pedidos_edit_form_cpfcnpj">CPF/CNPJ</label>
+                        <label for="cadastro_pedidos_edit_form_cpfcnpj">Busca (Nome, Razao Social, CNPJ)</label>
                         <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj" onblur="BuscaCPFCNPJ(this.value);"/>
                     </div>
 
@@ -202,7 +202,7 @@
         // window.onerror = function(){
         //    return true;
         // }
-        MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
+        // MascaraCpfCnpj('#cadastro_pedidos_edit_form_cpfcnpj');
 
         $('#cadastro_pedidos_edit_form_data_pedido').val(new Date().toDateInputValue());
         $('#cadastro_pedidos_edit_form_data_previsao_faturamento').val(new Date().toDateInputValue());

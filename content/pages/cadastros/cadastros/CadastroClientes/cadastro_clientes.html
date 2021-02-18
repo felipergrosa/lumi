@@ -460,7 +460,7 @@
                     $('#cadastro_clientes_edit_form_endereco_cep').unmask();
                     $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
                     $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
-                    $('#action_for_form').val(action);
+                    $('#action_for_form').val('editar');
 
                     if(User.restricao == 1){
                         $('#cadastro_clientes_edit_form_restricao').attr('checked', true);
@@ -476,6 +476,9 @@
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
                     PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, CdRepresentante);
+                }
+                else {
+                    $('#action_for_form').val('novo');
                 }
 
             }

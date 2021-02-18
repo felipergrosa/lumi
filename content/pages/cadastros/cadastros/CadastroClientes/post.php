@@ -17,7 +17,7 @@ if($_POST['action'] == 'GetUserList'){
     // FROM clientes a
     // LEFT JOIN dados_enderecos b ON a.endereco=b.id
     // LEFT JOIN dados_estados c ON b.estado=c.id";
-    $sql = "SELECT 
+    $sql = "SELECT
     a.RzCliente as nome,
     a.CdRepresentante, a.Cnpj_Cnpf,
     a.Cnpj_Cnpf as cpfcnpj,
@@ -37,7 +37,12 @@ if($_POST['action'] == 'GetUserList'){
 }
 if($_POST['action'] == 'GetUserData'){
     // $id = (int) $_POST['id'];
-    $CdRepresentante = $_POST['CdRepresentante'];
+    if(@$_POST['CdRepresentante']){
+        $CdRepresentante = $_POST['CdRepresentante'];
+    }
+    else {
+        $CdRepresentante = $representante_id;
+    }
     $Cnpj_Cnpf = $_POST['Cnpj_Cnpf'];
 
     // $sql = "SELECT a.*,
@@ -105,12 +110,10 @@ if($_POST['action'] == 'GetUserData'){
     FROM BusinessCadCliente a
     LEFT JOIN BusinessCadClienteLC b ON a.CdRepresentante=b.CdRepresentante AND a.Cnpj_Cnpf=b.Cnpj_Cnpf
     LEFT JOIN BusinessCadEmpresa c ON b.CdEmpresa=c.CdEmpresa
-    WHERE a.CdRepresentante = :CdRepresentante AND
-    a.Cnpj_Cnpf = :Cnpj_Cnpf AND
-    b.CdEmpresa is not null
+    WHERE
+    a.Cnpj_Cnpf = :Cnpj_Cnpf
     ";
     $sql = $con_sql_server->prepare($sql);
-    $sql->bindParam('CdRepresentante', $CdRepresentante);
     $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);

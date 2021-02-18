@@ -375,14 +375,6 @@ if($_POST['action'] == 'novo'){
 }
 if($_POST['action'] == 'editar'){
 
-        $EnderecosFunc = new Enderecos($con);
-        $Valida = new Valida();
-
-        $obrigatorios = array(
-            'nome',
-            'cpfcnpj'
-        );
-        $info['cadastro_clientes_edit_form_restricao'] = 0;
         $dados = $_POST['dados'];
         foreach ($dados as $dd) {
             if($dd['name'] == "cadastro_clientes_edit_form_restricao"){
@@ -406,6 +398,22 @@ if($_POST['action'] == 'editar'){
             }
 
         }
+
+
+        // var_dump($info);
+        foreach($info as $key=>$value){
+            echo str_replace($prefix, "",$key).'
+';
+        }
+        // var_dump($endereco_entrega);
+        // var_dump($endereco_cobranca);
+        // var_dump($endereco_principal);
+
+        $Fendereco = $endereco_principal;
+        $CEndereco = $endereco_cobranca;
+        $EEndereco = $endereco_entrega;
+
+        exit;
 
 
 

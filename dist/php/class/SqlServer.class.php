@@ -16,7 +16,7 @@ class SqlServer {
             $sql_search = " AND BusinessCadProduto.DsProduto LIKE '%$busca%' ";
         }
         $sql = "SELECT TOP $limit BusinessCadProduto.DsProduto as produto_descricao,
-                BusinessCadProduto.CdEmpresa as empresa, 
+                BusinessCadProduto.CdEmpresa as empresa,
                 BusinessCadProduto.CdProduto as produto_id,
                 BusinessCadTabPrecoItem.Venda as produto_preco,
                 BusinessCadTabPrecoItem.CdTabela as tb_id

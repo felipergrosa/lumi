@@ -167,7 +167,7 @@ if($_POST['action'] == 'editar'){
                 $height = 500;
             }
 
-            echo $width.'-'.$height;
+            // echo $width.'-'.$height;
             $src = imagecreatefromstring(file_get_contents($fn));
             $dst = imagecreatetruecolor($width,$height);
             imagecopyresampled($dst,$src,0,0,0,0,$width,$height,$size[0],$size[1]);

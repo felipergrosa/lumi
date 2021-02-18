@@ -7,7 +7,7 @@
                 <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
                 Cadastro de Produtos
 
-                <button onclick="GetProdInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+                <!-- <button onclick="GetProdInfoEdit(0, 'novo');" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button> -->
                 <div class="col-3 float-right">
                     <select class="form-control" id="selecao_empresa" onchange="GetProdList();">
                     </select>
@@ -45,81 +45,81 @@
         <div class="card-body">
             <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
-                <input type="hidden" name="old_CdProduto" id="old_CdProduto" value="" />
-                <input type="hidden" name="old_CdEmpresa" id="old_CdEmpresa" value="" />
+                <input type="hidden" name="old_CdProduto" id="old_CdProduto" value=""  />
+                <input type="hidden" name="old_CdEmpresa" id="old_CdEmpresa" value=""  />
 
 
                 <div class="form-group row">
                   <div class="col-md-2 col-xs-4">
                       <label for="cadastro_produtos_edit_form_CdProduto">ID</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CdProduto" name="cadastro_produtos_edit_form_CdProduto"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CdProduto" name="cadastro_produtos_edit_form_CdProduto"readonly />
                   </div>
                   <div class="col-md-8 col-xs-6">
                       <label for="cadastro_produtos_edit_form_DsProduto">Descrição</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DsProduto" name="cadastro_produtos_edit_form_DsProduto" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DsProduto" name="cadastro_produtos_edit_form_DsProduto" readonly />
                   </div>
                   <div class="col-md-2 col-xs-6">
                       <label for="cadastro_produtos_edit_form_CdEmpresa">Empresa</label>
-                      <select class="form-control" id="cadastro_produtos_edit_form_CdEmpresa" name="cadastro_produtos_edit_form_CdEmpresa">
+                      <select class="form-control" id="cadastro_produtos_edit_form_CdEmpresa" name="cadastro_produtos_edit_form_CdEmpresa" readonly>
                       </select>
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_produtos_edit_form_Unidade">Unidade</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unidade" name="cadastro_produtos_edit_form_Unidade" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unidade" name="cadastro_produtos_edit_form_Unidade" readonly />
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_produtos_edit_form_QtdeEmbalagem">QtdeEmbalagem</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_QtdeEmbalagem" name="cadastro_produtos_edit_form_QtdeEmbalagem" onkeyup="apenasNumeros(this);" placeholder="0"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_QtdeEmbalagem" name="cadastro_produtos_edit_form_QtdeEmbalagem" onkeyup="apenasNumeros(this);" placeholder="0"readonly />
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_produtos_edit_form_CustoReal">CustoReal</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CustoReal" name="cadastro_produtos_edit_form_CustoReal" onkeyup="percentPoint(this);" placeholder="0.00" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_CustoReal" name="cadastro_produtos_edit_form_CustoReal" onkeyup="percentPoint(this);" placeholder="0.00" readonly />
                   </div>
                   <div class="col-md-2 col-xs-6">
                       <label for="cadastro_produtos_edit_form_DtSincronizar">DtSincronizar</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DtSincronizar" name="cadastro_produtos_edit_form_DtSincronizar" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_DtSincronizar" name="cadastro_produtos_edit_form_DtSincronizar" readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_FlStatus">FlStatus</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlStatus" name="cadastro_produtos_edit_form_FlStatus" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlStatus" name="cadastro_produtos_edit_form_FlStatus" readonly />
                   </div>
 
                   <div class="col-md-6 col-xs-6">
                       <label for="cadastro_produtos_edit_form_FlEspecial">FlEspecial</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlEspecial" name="cadastro_produtos_edit_form_FlEspecial" />
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_FlEspecial" name="cadastro_produtos_edit_form_FlEspecial" readonly />
                   </div>
                   <div class="col-md-2 col-xs-6">
                       <label for="cadastro_produtos_edit_form_PeIcms">PeIcms</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIcms" name="cadastro_produtos_edit_form_PeIcms" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIcms" name="cadastro_produtos_edit_form_PeIcms" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_PeIpi">PeIpi</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIpi" name="cadastro_produtos_edit_form_PeIpi" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeIpi" name="cadastro_produtos_edit_form_PeIpi" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_PeReducao">PeReducao</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeReducao" name="cadastro_produtos_edit_form_PeReducao" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeReducao" name="cadastro_produtos_edit_form_PeReducao" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_PeMargemLucro">PeMargemLucro</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeMargemLucro" name="cadastro_produtos_edit_form_PeMargemLucro" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_PeMargemLucro" name="cadastro_produtos_edit_form_PeMargemLucro" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_Unitario">Unitario</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unitario" name="cadastro_produtos_edit_form_Unitario" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Unitario" name="cadastro_produtos_edit_form_Unitario" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_Medio">Medio</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Medio" name="cadastro_produtos_edit_form_Medio" onkeyup="percentPoint(this);" placeholder="0.00"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Medio" name="cadastro_produtos_edit_form_Medio" onkeyup="percentPoint(this);" placeholder="0.00"readonly />
                   </div>
                   <div class="col-md-4 col-xs-6">
                       <label for="cadastro_produtos_edit_form_Saldo">Saldo</label>
-                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Saldo" name="cadastro_produtos_edit_form_Saldo" onkeyup="apenasNumeros(this);" placeholder="0"/>
+                      <input type="text" class="form-control" id="cadastro_produtos_edit_form_Saldo" name="cadastro_produtos_edit_form_Saldo" onkeyup="apenasNumeros(this);" placeholder="0"readonly />
                   </div>
                   <div class="col-md-12 col-xs-12">
                       <label for="cadastro_produtos_edit_form_foto">Foto do Produto</label>
                       <span class="produto_foto_exibir">Produto sem foto</span>
-                      <input type="file" class="form-control" id="cadastro_produtos_edit_form_foto" name="cadastro_produtos_edit_form_foto" />
+                      <input type="file" class="form-control" id="cadastro_produtos_edit_form_foto" name="cadastro_produtos_edit_form_foto" readonly />
                   </div>
 
               </div>
@@ -241,16 +241,16 @@
               contentType: false, // tell jQuery not to set contentType
               success: function (data)
               {
-                  console.log(data);
-                  // if (data == 0) {
-                  //     toastr.success('Sucesso! Produto atualizado.');
-                  //     GetProdList();
-                  //     $('#cadastro_clientes_userlist').fadeIn(500);
-                  //     $('#cadastro_clientes_edit').hide();
-                  //
-                  // } else {
-                  //     toastr.error('Erro: ' + data);
-                  // }
+                  // console.log(data);
+                  if (data == 0) {
+                      toastr.success('Sucesso! Produto atualizado.');
+                      GetProdList();
+                      $('#cadastro_clientes_userlist').fadeIn(500);
+                      $('#cadastro_clientes_edit').hide();
+
+                  } else {
+                      toastr.error('Erro: ' + data);
+                  }
               }
           });
 
@@ -360,7 +360,7 @@
               {
 
                   if (data != 0) {
-                      $('.produto_foto_exibir').html('<img src="content/pages/cadastros/cadastros/CadastroProdutos/docs/' + CdEmpresa + '-' + id + '.jpg" />');
+                      $('.produto_foto_exibir').html('<img src="content/pages/cadastros/cadastros/CadastroProdutos/docs/' + CdEmpresa + '-' + id + '.jpg" readonly />');
 
                   } else {
                       $('.produto_foto_exibir').html("Produto sem foto");

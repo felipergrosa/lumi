@@ -18,7 +18,7 @@
 
                     <div class="col-md-8 col-xs-12">
                         <label for="cadastro_pedidos_edit_form_cpfcnpj">Busca (Nome, Razao Social, CNPJ)</label>
-                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj" onblur="BuscaCPFCNPJ(this.value);"/>
+                        <input type="text" class="form-control" id="cadastro_pedidos_edit_form_cpfcnpj" name="cadastro_pedidos_edit_form_cpfcnpj"/>
                     </div>
 
                     <div class="col-md-4 col-xs-12">
@@ -206,7 +206,7 @@
 
         $('#cadastro_pedidos_edit_form_data_pedido').val(new Date().toDateInputValue());
         $('#cadastro_pedidos_edit_form_data_previsao_faturamento').val(new Date().toDateInputValue());
-        // PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
+        PopularEmpresas('#cadastro_pedidos_edit_form_empresa');
         console.log('populando');
         $('.produtos_dinamico').load('content/pages/movimentacoes/pedidos/PedidosSistema/produtos_dinamico.php');
 
@@ -383,7 +383,7 @@
             type: 'POST',
             url: 'dist/php/controllers/empresas.api.php',
             dataType: 'json',
-            async: 'false',
+            async: false,
             data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
             success: function (data)
             {

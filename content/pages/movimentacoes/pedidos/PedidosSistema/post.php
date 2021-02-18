@@ -49,11 +49,16 @@ if(@$_POST['action'] == 'continuar'){
     // $sql->bindParam('cpfcnpj', $cpfcnpj);
     // $sql->bindParam('empresa', $empresa);
     $cpfcnpjlike = '%'.$_POST['cpfcnpj'].'%';
-    $sql = "SELECT TOP 100 * FROM BusinessCadCliente
-    WHERE Cnpj_Cnpf = :cpfcnpj OR FsCliente LIKE :cpfcnpjlike OR RzCliente LIKE :cpfcnpjlike";
+    $sql = "SELECT TOP 100 a.* FROM BusinessCadCliente a
+    LEFT JOIN BusinessCadClienteLC b ON a.Cnpj_Cnpf=b.Cnpj_Cnpf 
+    WHERE (a.Cnpj_Cnpf = :cpfcnpj OR a.FsCliente LIKE :cpfcnpjlike OR a.RzCliente LIKE :cpfcnpjlike) AND b.CdEmpresa = :empresa AND a.CdRepresentante = :representante
+    ";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('cpfcnpj', $_POST['cpfcnpj']);
     $sql->bindParam('cpfcnpjlike', $cpfcnpjlike);
+    $sql->bindParam('empresa', $_POST['empresa']);
+    $sql->bindParam('representante', $CdRepresentante);
+
 
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);

@@ -17,7 +17,7 @@ if($_POST['action'] == 'GetUserList'){
     // FROM clientes a
     // LEFT JOIN dados_enderecos b ON a.endereco=b.id
     // LEFT JOIN dados_estados c ON b.estado=c.id";
-    $sql = "SELECT TOP 1000
+    $sql = "SELECT 
     a.RzCliente as nome,
     a.CdRepresentante, a.Cnpj_Cnpf,
     a.Cnpj_Cnpf as cpfcnpj,
@@ -25,7 +25,7 @@ if($_POST['action'] == 'GetUserList'){
     a.F_Estado as endereco_estado
     FROM BusinessCadCliente a
     WHERE a.CdRepresentante = '$CdRepresentante'";
-    
+
     $sql = $con_sql_server->prepare($sql);
     $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);

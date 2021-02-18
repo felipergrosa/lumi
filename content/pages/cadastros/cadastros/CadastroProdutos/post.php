@@ -7,7 +7,7 @@ ini_set('display_errors', 'on');
 $prefix = "cadastro_produtos_edit_form_";
 if($_POST['action'] == 'GetProdList'){
     $empresa = $_POST['empresa'];
-    $sql = "SELECT TOP 50 *,
+    $sql = "SELECT *,
     a.DsProduto as nome,
     a.CdProduto as id,
     b.FsEmpresa as empresa,

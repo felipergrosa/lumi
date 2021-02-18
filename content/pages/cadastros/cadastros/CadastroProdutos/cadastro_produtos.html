@@ -143,13 +143,13 @@
         PopularEstados('#cadastro_produtos_edit_form_endereco_estado');
         MascaraCpfCnpj('#cadastro_produtos_edit_form_cpfcnpj');
         GetProdList();
-        $('#cadastro_clientes_userlist_table').DataTable({
-                "language": {
-                    "url": "assets/datatables/Portuguese-Brasil.json"
-                }
-            }
-
-        );
+        // $('#cadastro_clientes_userlist_table').DataTable({
+        //         "language": {
+        //             "url": "assets/datatables/Portuguese-Brasil.json"
+        //         }
+        //     }
+        //
+        // );
 
     });
 
@@ -164,10 +164,34 @@
             async: false,
             success: function (UserList)
             {
+                // $('#cadastro_clientes_userlist_table').DataTable().destroy();
+                $('#cadastro_clientes_userlist_table').DataTable().destroy();
+                $('.cadastro_clientes_lista').html('');
+                // $('#cadastro_clientes_userlist_table').prepend('<thead>' +
+                //     '<tr>' +
+                //         '<th>Empresa</th>' +
+                //         '<th>Cod</th>' +
+                //         '<th>Desc</th>' +
+                //         '<th>Valor</th>' +
+                //         '<th>Foto</th>' +
+                //
+                //     '</tr>' +
+                // '</thead>' +
+                // '<tbody class="cadastro_clientes_lista pointer">');
                 $(UserList).each(function(k,v){
 
                     $('.cadastro_clientes_lista').append('<tr onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td><td>'+ v.foto +'</td></tr>');
                 });
+
+                // $('#cadastro_clientes_userlist_table').append('</tbody>');
+                console.log($('.cadastro_clientes_lista').html());
+                $('#cadastro_clientes_userlist_table').DataTable({
+                        "language": {
+                            "url": "assets/datatables/Portuguese-Brasil.json"
+                        }
+                    }
+
+                );
             }
         });
     }

@@ -1,9 +1,11 @@
 <?php
+@session_start();
+
 header("Access-Control-Allow-Origin: *");
 // header("Content-Type: application/json; charset=UTF-8");
 require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
-@session_start();
+$CdRepresentante = $representante_id;
 $prefix = "cadastro_clientes_edit_form_";
 $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
 if($_POST['action'] == 'GetUserList'){
@@ -16,15 +18,21 @@ if($_POST['action'] == 'GetUserList'){
     // LEFT JOIN dados_enderecos b ON a.endereco=b.id
     // LEFT JOIN dados_estados c ON b.estado=c.id";
     $sql = "SELECT TOP 1000
-    RzCliente as nome,
-    CdRepresentante, Cnpj_Cnpf,
-    Cnpj_Cnpf as cpfcnpj,
-    F_Cidade as endereco_cidade,
-    F_Estado as endereco_estado
-    FROM BusinessCadCliente";
+    a.RzCliente as nome,
+    a.CdRepresentante, a.Cnpj_Cnpf,
+    a.Cnpj_Cnpf as cpfcnpj,
+    a.F_Cidade as endereco_cidade,
+    a.F_Estado as endereco_estado
+    FROM BusinessCadCliente a
+    WHERE a.CdRepresentante = '$CdRepresentante'";
+    
     $sql = $con_sql_server->prepare($sql);
     $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+    // LEFT JOIN BusinessCadClienteLC b ON a.CdRepresentante=b.CdRepresentante AND a.Cnpj_Cnpf=b.Cnpj_Cnpf
+    // LEFT JOIN BusinessCadEmpresa c ON b.CdEmpresa=c.CdEmpresa
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){

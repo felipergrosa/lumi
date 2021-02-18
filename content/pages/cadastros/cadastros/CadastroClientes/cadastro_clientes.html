@@ -18,6 +18,7 @@
                         <th>Doc</th>
                         <th>Cidade</th>
                         <th>Estado</th>
+
                     </tr>
                 </thead>
                 <tbody class="cadastro_clientes_lista pointer">
@@ -357,7 +358,13 @@
                 $(UserList).each(function(k,v){
                     // console.log(UserList);
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'' + v.Cnpj_Cnpf + '\', \'editar\')"><td>' + v.nome + '</td><td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td><td>' + v.endereco_cidade + '</td><td>' + v.endereco_estado + '</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'' + v.Cnpj_Cnpf + '\', \'editar\')">' +
+                        '<td>' + v.nome + '</td>' +
+                        '<td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td>' +
+                        '<td>' + v.endereco_cidade + '</td>' +
+                        '<td>' + v.endereco_estado + '</td>' +
+                        // '<td>' + v.nome_empresa + '</td>' +
+                    '</tr>');
                 });
                 MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
             }

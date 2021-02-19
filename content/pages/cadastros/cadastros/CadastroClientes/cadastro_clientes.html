@@ -107,7 +107,8 @@
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_natureza_operacao">Natureza de Operação</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_natureza_operacao" name="cadastro_clientes_edit_form_natureza_operacao" />
+                      <select class="form-control" id="cadastro_clientes_edit_form_natureza_operacao" name="cadastro_clientes_edit_form_natureza_operacao">
+                      </select>
                   </div>
                   <div class="col-md-2 col-xs-6">
                       <label for="cadastro_clientes_edit_form_data_cadastro">Data Inicial</label>
@@ -388,6 +389,7 @@
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
                     PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
+                    GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
                     console.log("User");
                     console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
@@ -427,6 +429,7 @@
             // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
             // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
             PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
+            GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
             $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
             // $('#cadastro_clientes_edit_form_id').val(id);
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
@@ -680,10 +683,13 @@
                   type: 'GET',
                   url: 'https://viacep.com.br/ws/' + cep + '/json/',
                   dataType: 'json',
-                  async: 'false',
+                  async: false,
                   success: function (data)
                   {
                       if(data.localidade){
+                          var cidade = data.localidade;
+                          cidade = cidade.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+                          console.log(cidade);
                           // console.log(data);
                            $('#' + prefix + '_estado').val(data.uf);
                           // var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
@@ -691,7 +697,10 @@
                           // console.log('#' + prefix + '_endereco');
                           $('#' + prefix + '_endereco').val(data.logradouro);
                           $('#' + prefix + '_bairro').val(data.bairro);
-                          $('#' + prefix + '_cidade').val(data.localidade);
+                          $('#' + prefix + '_cidade').val(cidade);
+
+
+                          VerificaAcessoMunicipio(cidade);
                           toastr.success('Cep retornado da base de dados.');
                       }
                       else {
@@ -746,6 +755,57 @@
           $('#cadastro_clientes_edit_form_endereco_' + tipo + '_bairro').val($('#cadastro_clientes_edit_form_endereco_bairro').val());
           $('#cadastro_clientes_edit_form_endereco_' + tipo + '_cidade').val($('#cadastro_clientes_edit_form_endereco_cidade').val());
           $('#cadastro_clientes_edit_form_endereco_' + tipo + '_estado').val($('#cadastro_clientes_edit_form_endereco_estado').val());
+      }
+
+
+      function VerificaAcessoMunicipio(municipio){
+          var action = 'verifica_acesso_municipio';
+
+          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/sql_integration.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action, 'municipio':municipio},
+              success: function (data)
+              {
+                  if(data == 0){
+                       toastr.error('Representante nao autorizado para este municipio. Aborte o cadastro e entre em contato com a Nobre.');
+                  }
+
+
+              }
+          });
+      }
+      function GetNaturezaOperacao(empresa, campo, representante = 0){
+          var action = 'get_natureza_operacao';
+          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/sql_integration.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action, 'empresa':empresa, 'representante':representante},
+              success: function (data)
+              {
+                  console.log(data);
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                      .append($("<option></option>")
+                      .attr("value", v.id)
+                      .attr("selected", v.ativo)
+                      .text(v.descricao));
+                  });
+
+
+
+              }
+          });
+          //cadastro_pedidos_edit_form_tabela_preco
       }
       function BuscaCPFCNPJ(valor){
           // console.log(valor);

@@ -685,7 +685,8 @@
                   {
                       if(data.localidade){
                           // console.log(data);
-                          var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
+                           $('#' + prefix + '_estado').val(data.uf);
+                          // var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
                           // console.log(estado);
                           // console.log('#' + prefix + '_endereco');
                           $('#' + prefix + '_endereco').val(data.logradouro);

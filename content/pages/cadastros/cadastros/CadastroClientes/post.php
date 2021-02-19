@@ -86,6 +86,7 @@ if($_POST['action'] == 'GetUserData'){
     a.Ie_Rg as rgie,
     CONCAT('(',a.DddFax,')', a.Fax) as fax,
     CONCAT('(',a.Ddd1,')', a.Telefone1) as tel1,
+    a.CDNATUREZA as natureza_operacao,
     a.F_Cep as endereco_cep,
     a.F_Endereco as endereco_endereco,
     a.F_Complemento as endereco_complemento,

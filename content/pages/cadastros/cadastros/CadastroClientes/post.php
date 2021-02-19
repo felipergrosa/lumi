@@ -83,6 +83,9 @@ if($_POST['action'] == 'GetUserData'){
     a.Cnpj_Cnpf as cpfcnpj,
     a.FsCliente as nome,
     a.RzCliente as razao_social,
+    a.Ie_Rg as rgie,
+    CONCAT('(',a.DddFax,')', a.Fax) as fax,
+    CONCAT('(',a.Ddd1,')', a.Telefone1) as tel1,
     a.F_Cep as endereco_cep,
     a.F_Endereco as endereco_endereco,
     a.F_Complemento as endereco_complemento,
@@ -104,6 +107,8 @@ if($_POST['action'] == 'GetUserData'){
     a.E_Cidade as endereco_entrega_cidade,
     a.E_Estado as endereco_entrega_estado,
     a.E_Numero as endereco_entrega_numero,
+    e.E_Cnpj as endereco_entrega_cnpj,
+    e.E_Ie as endereco_entrega_ie,
     c.FsEmpresa as empresa_nome,
     c.CdEmpresa as empresa
 

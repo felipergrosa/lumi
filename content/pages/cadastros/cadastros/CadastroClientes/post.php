@@ -107,8 +107,8 @@ if($_POST['action'] == 'GetUserData'){
     a.E_Cidade as endereco_entrega_cidade,
     a.E_Estado as endereco_entrega_estado,
     a.E_Numero as endereco_entrega_numero,
-    e.E_Cnpj as endereco_entrega_cnpj,
-    e.E_Ie as endereco_entrega_ie,
+    a.E_Cnpj as endereco_entrega_cnpj,
+    a.E_Ie as endereco_entrega_ie,
     c.FsEmpresa as empresa_nome,
     c.CdEmpresa as empresa
 

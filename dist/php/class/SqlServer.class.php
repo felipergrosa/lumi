@@ -102,12 +102,26 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaNaturezaOperacao($empresa){
+    function BuscaNaturezaOperacao($empresa, $representante = 0){
         $con = $this->con;
-        $sql = "SELECT BusinessCadNatOperacao.CdNatureza as id,
-        BusinessCadNatOperacao.DsNatureza as descricao
-        FROM BusinessCadNatOperacao";
-        $sql = $con->prepare($sql);
+        if($representante == 0){
+            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as id,
+            BusinessCadNatOperacao.DsNatureza as descricao
+            FROM BusinessCadNatOperacao";
+            $sql = $con->prepare($sql);
+
+        }
+        else {
+            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as a.id,
+            BusinessCadNatOperacao.DsNatureza as a.descricao
+            FROM BusinessCadNatOperacao a
+            LEFT JOIN BusinessCadPerminatureza ON a.CdNatureza=b.cd
+
+            WHERE b.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+
+        }
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
@@ -121,5 +135,28 @@ class SqlServer {
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
+    }
+    function VerificaAcessoMunicipio($municipio, $representante){
+        $con = $this->con;
+        $municipio = '%'.$municipio.'%';
+
+        $sql = "SELECT * FROM BusinessCadMunicipio a
+        LEFT JOIN BusinessCadPermiMunicipio b ON a.CdMunicipio=b.Cdmunicipio
+
+        WHERE b.CdRepresentante = :representante AND
+        a.DsMunicipio LIKE :municipio";
+        $sql = $con->prepare($sql);
+
+        $sql->bindParam('representante', $representante);
+        $sql->bindParam('municipio', $municipio);
+
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if(@$row){
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 }

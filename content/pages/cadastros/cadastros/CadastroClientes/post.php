@@ -424,6 +424,100 @@ if($_POST['action'] == 'editar'){
         $CEndereco = $endereco_cobranca;
         $EEndereco = $endereco_entrega;
 
+
+        $campos_sql['CdRepresentante'] = $representante_id;
+        $campos_sql['Cnpj_Cnpf'] = $info[$prefix.'cpfcnpj'];
+        $campos_sql['FsCliente'] = $info[$prefix.'nome'];
+        $campos_sql['RzCliente'] = $info[$prefix.'razao_social'];
+        $campos_sql['FlTipo'] = "J";
+        $campos_sql['Ie_Rg'] = $info[$prefix.'rgie'];
+        $campos_sql['ObsRestricao'] = $info[$prefix.'restricao_texto'];
+        $campos_sql['CDNATUREZA'] = $info[$prefix.'natureza_operacao'];
+        $campos_sql['DescontaSuframa'] = $info[$prefix.'N'];
+        $campos_sql['CdCondPgto'] = null;
+        $campos_sql['CdGrupo'] = null;
+        $campos_sql['CdTabela'] = null;
+        $campos_sql['FlEnvRecEmpresa'] = null;
+        $campos_sql['FlEnvRecRepre'] = null;
+        $campos_sql['Observacao'] = $info[$prefix.'observacoes'];
+        $campos_sql['EstadoForaBrasilFat'] = null;
+        $campos_sql['EstadoForaBrasilCob'] = null;
+        $campos_sql['EstadoForaBrasilEnt'] = null;
+        $campos_sql['CdTransportadora'] = null;
+        $campos_sql['CdRegiao'] = $info[$prefix.'segmento_regiao'];
+        $campos_sql['CdSegmento'] = $info[$prefix.'segmento_mercado'];
+        $campos_sql['Ativo_Inativo_ExCliente'] = $info[$prefix.'status'];
+        $campos_sql['RestricaoSN'] = $info[$prefix.'restricao'];
+        // $campos_sql['Aviso'] = $info[$prefix.'-']; A FAZER
+        $campos_sql['DiaPgto'] = null;
+        $campos_sql['ContaContabil'] = null;
+        $campos_sql['ClienteBrasil'] =null;
+        // $campos_sql['DtAtivacao'] = $info[$prefix.'date']; em cadastro novo
+        $campos_sql['DtAtivacaoFim'] = null;
+        $campos_sql['DtFundacao'] = $info[$prefix.'data_fundacao'];
+        $campos_sql['DtNascimento'] = null;
+        $campos_sql['CapitalSocial'] = 0;
+        $campos_sql['Redespacho'] = null;
+        $campos_sql['E_Email1'] = $info[$prefix.'email'];
+        $campos_sql['PeDesconto'] = $info[$prefix.'desconto'];
+        $campos_sql['Suframa'] = $info[$prefix.'suframa'];
+        $campos_sql['DtValidadeSuframa'] = $info[$prefix.'suframa_validade'];
+        $campos_sql['Site'] = $info[$prefix.'site'];
+        $campos_sql['OrgaoEmissor'] = $info[$prefix.'null'];
+
+        $campos_sql['Contato1'] = $info[$prefix.'contato_compras'];
+        $campos_sql['Funcao1'] = null;
+        $campos_sql['Email1'] = $info[$prefix.'contato_compras_email'];
+        $campos_sql['Funcao3'] = $info[$prefix.'contato_cobranca_funcao'];
+        $campos_sql['Email3'] = $info[$prefix.'contato_cobranca_email'];
+        $campos_sql['Contato3'] = $info[$prefix.'contato_cobranca'];
+        $campos_sql['Contato2'] = $info[$prefix.'endereco_entrega_contato'];
+        $campos_sql['Funcao2'] = null;
+        $campos_sql['Email2'] = $info[$prefix.'endereco_entrega_contato_email'];
+        $campos_sql['E_Cnpj'] = $info[$prefix.'endereco_entrega_cnpj'];
+        $campos_sql['E_Ie'] = $info[$prefix.'endereco_entrega_ie'];
+
+
+        $campos_sql['F_Cep'] = $info[$prefix.'endereco_cep'];
+        $campos_sql['F_Endereco'] = $info[$prefix.'endereco_endereco'];
+        $campos_sql['F_Complemento'] = $info[$prefix.'endereco_complemento'];
+        $campos_sql['F_Bairro'] = $info[$prefix.'endereco_bairro'];
+        $campos_sql['F_Cidade'] = $info[$prefix.'endereco_cidade'];
+        $campos_sql['F_Estado'] = $info[$prefix.'endereco_estado'];
+        $campos_sql['F_Numero'] = $info[$prefix.'endereco_numero'];
+        $campos_sql['C_Cep'] = $info[$prefix.'endereco_cobranca_cep'];
+        $campos_sql['C_Endereco'] = $info[$prefix.'endereco_cobranca_endereco'];
+        $campos_sql['C_Complemento'] = $info[$prefix.'endereco_cobranca_complemento'];
+        $campos_sql['C_Bairro'] = $info[$prefix.'endereco_cobranca_bairro'];
+        $campos_sql['C_Cidade'] = $info[$prefix.'endereco_cobranca_cidade'];
+        $campos_sql['C_Estado'] = $info[$prefix.'endereco_cobranca_estado'];
+        $campos_sql['C_Numero'] = $info[$prefix.'endereco_cobranca_numero'];
+        $campos_sql['E_cep'] = $info[$prefix.'endereco_entrega_cep'];
+        $campos_sql['E_Endereco'] = $info[$prefix.'endereco_entrega_endereco'];
+        $campos_sql['E_Complemento'] = $info[$prefix.'endereco_entrega_complemento'];
+        $campos_sql['E_Bairro'] = $info[$prefix.'endereco_entrega_bairro'];
+        $campos_sql['E_Cidade'] = $info[$prefix.'endereco_entrega_cidade'];
+        $campos_sql['E_Estado'] = $info[$prefix.'endereco_entrega_estado'];
+        $campos_sql['E_Numero'] = $info[$prefix.'endereco_entrega_numero'];
+
+
+
+
+        $campos_sql['Ddd3'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
+        $campos_sql['Telefone3'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_cobranca_fone'])));
+        $campos_sql['Ddd2'] = substr($info[$prefix.'endereco_entrega_contato_telefone'], 1, 2);
+        $campos_sql['Telefone2'] = trim(substr($info[$prefix.'endereco_entrega_contato_telefone'], 5, strlen($info[$prefix.'endereco_entrega_contato_telefone'])));
+        $campos_sql['Ddd1'] = substr($info[$prefix.'contato_compras_fone'], 1, 2);
+        $campos_sql['Telefone1'] = trim(substr($info[$prefix.'contato_compras_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
+        $campos_sql['E_Ddd1'] = substr($info[$prefix.'tel1'], 1, 2);
+        $campos_sql['E_Telefone1'] = trim(substr($info[$prefix.'tel1'], 5, strlen($info[$prefix.'tel1'])));
+        $campos_sql['DddFax'] = substr($info[$prefix.'fax'], 1, 2);
+        $campos_sql['Fax'] = trim(substr($info[$prefix.'fax'], 5, strlen($info[$prefix.'fax'])));
+
+
+
+
+
         exit;
 
 

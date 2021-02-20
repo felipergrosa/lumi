@@ -87,6 +87,8 @@ if($_POST['action'] == 'GetUserData'){
     CONCAT('(',a.DddFax,')', a.Fax) as fax,
     CONCAT('(',a.Ddd1,')', a.Telefone1) as tel1,
     a.CDNATUREZA as natureza_operacao,
+    a.CdRegiao as segmento_regiao,
+    a.CdSegmento as segmento_mercado,
     a.DtAtivacao as data_cadastro,
     a.PeDesconto as desconto,
     a.Ativo_Inativo_ExCliente as status,
@@ -411,7 +413,7 @@ if($_POST['action'] == 'editar'){
 
         // var_dump($info);
         foreach($info as $key=>$value){
-            echo str_replace($prefix, "",$key).'
+            echo str_replace($prefix, "",$key).'e
 ';
         }
         // var_dump($endereco_entrega);

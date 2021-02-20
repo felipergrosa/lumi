@@ -177,4 +177,21 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function BuscaRegiao($representante){
+        $con = $this->con;
+        if($representante != 0){
+            $sql = "SELECT a.* FROM BusinessCadRegiao a
+            LEFT JOIN BusinessPermiRegiao b ON a.CdRegiao=b.CdRegiao
+            WHERE b.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+        }
+        else {
+            $sql = "SELECT a.* FROM BusinessCadRegiao a ";
+            $sql = $con->prepare($sql);
+        }
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

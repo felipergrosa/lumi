@@ -172,7 +172,8 @@
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_segmento_regiao">Região</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_segmento_regiao" name="cadastro_clientes_edit_form_segmento_regiao" />
+                      <select class="form-control" id="cadastro_clientes_edit_form_segmento_regiao" name="cadastro_clientes_edit_form_segmento_regiao">
+                      </select>
                   </div>
 
 
@@ -392,6 +393,8 @@
                     PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
                     GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
                     GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
+                    GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
+
                     console.log("User");
                     console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
@@ -433,6 +436,8 @@
             PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
             GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
             GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
+            GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
+
             $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
             // $('#cadastro_clientes_edit_form_id').val(id);
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
@@ -799,6 +804,32 @@
                       .append($("<option></option>")
                       .attr("value", v.CdSegmento)
                       .text(v.DsSegmento));
+                  });
+
+
+
+              }
+          });
+          //cadastro_pedidos_edit_form_tabela_preco
+      }
+      function GetRegiao(campo){
+          var action = 'get_regiao';
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/sql_integration.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action},
+              success: function (data)
+              {
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                      .append($("<option></option>")
+                      .attr("value", v.CdRegiao)
+                      .text(v.DsRegiao));
                   });
 
 

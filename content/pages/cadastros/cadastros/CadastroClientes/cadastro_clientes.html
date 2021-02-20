@@ -41,16 +41,16 @@
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <input type="hidden" name="post_screen" id="post_screen" value="" />
                 <div class="form-group row">
-                  <div class="col-md-1 col-xs-2">
+                  <!-- <div class="col-md-1 col-xs-2">
                       <label for="cadastro_clientes_edit_form_id">ID</label>
                       <input type="text" class="form-control" id="cadastro_clientes_edit_form_id" name="cadastro_clientes_edit_form_id" readonly/>
-                  </div>
+                  </div> -->
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_cpfcnpj">CPF/CNPJ</label>
                       <input type="text" class="form-control" id="cadastro_clientes_edit_form_cpfcnpj" name="cadastro_clientes_edit_form_cpfcnpj" onchange="BuscaCPFCNPJ(this.value);"/>
                   </div>
 
-                  <div class="col-md-4 col-xs-8">
+                  <div class="col-md-5 col-xs-10">
                       <label for="cadastro_clientes_edit_form_nome">Nome Fantasia</label>
                       <input type="text" class="form-control" id="cadastro_clientes_edit_form_nome" name="cadastro_clientes_edit_form_nome" />
                   </div>
@@ -86,11 +86,11 @@
 
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cidade" name="cadastro_clientes_edit_form_endereco_cidade" />
+                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cidade" name="cadastro_clientes_edit_form_endereco_cidade" readonly />
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_estado" name="cadastro_clientes_edit_form_endereco_estado">
+                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_estado" name="cadastro_clientes_edit_form_endereco_estado" readonly>
                       </select>
                   </div>
                   <div class="col-md-3 col-xs-6">
@@ -167,7 +167,8 @@
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_segmento_mercado">Seg. Mercado</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_segmento_mercado" name="cadastro_clientes_edit_form_segmento_mercado" />
+                      <select class="form-control" id="cadastro_clientes_edit_form_segmento_mercado" name="cadastro_clientes_edit_form_segmento_mercado">
+                      </select>
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_segmento_regiao">Região</label>
@@ -204,11 +205,11 @@
 
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_cobranca_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cidade" name="cadastro_clientes_edit_form_endereco_cobranca_cidade" />
+                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cidade" name="cadastro_clientes_edit_form_endereco_cobranca_cidade" readonly />
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_cobranca_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_estado" name="cadastro_clientes_edit_form_endereco_cobranca_estado">
+                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_estado" name="cadastro_clientes_edit_form_endereco_cobranca_estado" readonly>
                       </select>
                   </div>
                   <div class="col-md-4 col-xs-6">
@@ -251,11 +252,11 @@
 
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_entrega_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cidade" name="cadastro_clientes_edit_form_endereco_entrega_cidade" />
+                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cidade" name="cadastro_clientes_edit_form_endereco_entrega_cidade" readonly />
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_endereco_entrega_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_estado" name="cadastro_clientes_edit_form_endereco_entrega_estado">
+                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_estado" name="cadastro_clientes_edit_form_endereco_entrega_estado" readonly>
                       </select>
                   </div>
                   <div class="col-md-6 col-xs-6">
@@ -293,7 +294,7 @@
                       <label for="cadastro_clientes_edit_form_observacoes">Observações</label>
                       <textarea class="form-control" id="cadastro_clientes_edit_form_observacoes" name="cadastro_clientes_edit_form_observacoes"></textarea>
                   </div>
-                  <div class="col-md-12 col-xs-12">
+                  <div class="col-md-12 col-xs-12" style="display:none;">
                       <label for="cadastro_clientes_edit_form_empresa">Empresas</label>
                       <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_clientes_edit_form_empresa" name="cadastro_clientes_edit_form_empresa">
 
@@ -390,6 +391,7 @@
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
                     PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
                     GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
+                    GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
                     console.log("User");
                     console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
@@ -430,6 +432,7 @@
             // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
             PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
             GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
+            GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
             $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
             // $('#cadastro_clientes_edit_form_id').val(id);
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
@@ -777,6 +780,32 @@
 
               }
           });
+      }
+      function GetSegmentoMercado(campo){
+          var action = 'get_segmento_mercado';
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/sql_integration.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action},
+              success: function (data)
+              {
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                      .append($("<option></option>")
+                      .attr("value", v.CdSegmento)
+                      .text(v.DsSegmento));
+                  });
+
+
+
+              }
+          });
+          //cadastro_pedidos_edit_form_tabela_preco
       }
       function GetNaturezaOperacao(empresa, campo, representante = 0){
           var action = 'get_natureza_operacao';

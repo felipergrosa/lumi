@@ -159,4 +159,22 @@ class SqlServer {
             return 0;
         }
     }
+
+    function BuscaSegmentoMercado($representante){
+        $con = $this->con;
+        if($representante != 0){
+            $sql = "SELECT a.* FROM BusinessCadSegMercado a
+            LEFT JOIN BusinessCadPermiSegMercado b ON a.CdSegmento=b.CdSegmento
+            WHERE b.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+        }
+        else {
+            $sql = "SELECT a.* FROM BusinessCadSegMercado a ";
+            $sql = $con->prepare($sql);
+        }
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

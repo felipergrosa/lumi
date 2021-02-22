@@ -16,9 +16,13 @@
 
 <link href="./assets/css/main.87c0748b313a1dda75f5.css" rel="stylesheet">
 <link href="./assets/datatables/datatables.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+
 <link href="./dist/css/style.css" rel="stylesheet">
 </head>
 <body>
+
+
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
     <div class="app-header header-shadow">
@@ -505,4 +509,26 @@
 <script type="text/javascript">
 </script>
 </body>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 </html>
+<div id="modal_general" class="modal bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_general_titulo">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_general').hide();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_general_body">
+                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_general').hide();" rel="modal:close">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

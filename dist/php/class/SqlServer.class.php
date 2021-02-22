@@ -102,13 +102,26 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaNaturezaOperacao($empresa, $representante = 0){
+    function BuscaNaturezaOperacao($empresa, $representante = 0, $CdNatureza = 0){
         $con = $this->con;
         if($representante == 0){
             $sql = "SELECT BusinessCadNatOperacao.CdNatureza as id,
             BusinessCadNatOperacao.DsNatureza as descricao
             FROM BusinessCadNatOperacao";
             $sql = $con->prepare($sql);
+
+        }
+        elseif($representante != 0 && $CdNatureza != 0){
+            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as a.id,
+            BusinessCadNatOperacao.DsNatureza as a.descricao
+            FROM BusinessCadNatOperacao a
+            LEFT JOIN BusinessCadPerminatureza ON a.CdNatureza=b.cd
+
+            WHERE b.CdRepresentante = :representante AND
+            a.CdNatureza = :CdNatureza";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+            $sql->bindParam('CdNatureza', $CdNatureza);
 
         }
         else {
@@ -160,14 +173,23 @@ class SqlServer {
         }
     }
 
-    function BuscaSegmentoMercado($representante){
+    function BuscaSegmentoMercado($representante, $CdSegmento = 0){
         $con = $this->con;
-        if($representante != 0){
+        if($representante != 0 && $CdSegmento == 0){
             $sql = "SELECT a.* FROM BusinessCadSegMercado a
             LEFT JOIN BusinessCadPermiSegMercado b ON a.CdSegmento=b.CdSegmento
             WHERE b.CdRepresentante = :representante";
             $sql = $con->prepare($sql);
             $sql->bindParam('representante', $representante);
+        }
+        elseif($representante != 0 && $CdSegmento != 0){
+            $sql = "SELECT a.* FROM BusinessCadSegMercado a
+            LEFT JOIN BusinessCadPermiSegMercado b ON a.CdSegmento=b.CdSegmento
+            WHERE b.CdRepresentante = :representante AND a.CdSegmento = :CdSegmento";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+            $sql->bindParam('CdSegmento', $CdSegmento);
+
         }
         else {
             $sql = "SELECT a.* FROM BusinessCadSegMercado a ";
@@ -177,14 +199,23 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaRegiao($representante){
+    function BuscaRegiao($representante, $CdRegiao = 0){
         $con = $this->con;
-        if($representante != 0){
+        if($representante != 0 && $CdRegiao == 0){
             $sql = "SELECT a.* FROM BusinessCadRegiao a
             LEFT JOIN BusinessPermiRegiao b ON a.CdRegiao=b.CdRegiao
             WHERE b.CdRepresentante = :representante";
             $sql = $con->prepare($sql);
             $sql->bindParam('representante', $representante);
+        }
+        elseif($representante != 0 && $CdRegiao != 0){
+            $sql = "SELECT a.* FROM BusinessCadRegiao a
+            LEFT JOIN BusinessPermiRegiao b ON a.CdRegiao=b.CdRegiao
+            WHERE b.CdRepresentante = :representante AND a.CdRegiao = :CdRegiao";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+            $sql->bindParam('CdRegiao', $CdRegiao);
+
         }
         else {
             $sql = "SELECT a.* FROM BusinessCadRegiao a ";

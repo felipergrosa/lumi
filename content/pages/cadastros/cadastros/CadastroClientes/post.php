@@ -40,14 +40,15 @@ if(@$_POST['action'] == 'VerificaAcessosEdicao'){
     $CdRegiao = $row['CdRegiao'];
     $CdMunicipio = $row['CdMunicipio'];
 
+
     $erro = 0;
     $erro_mensagem = "";
 
     $SqlServer = new SqlServer($con_sql_server);
     $PermNatureza = $SqlServer->BuscaNaturezaOperacao(0, $representante_matriz_id, $CdNatureza);
-    if(@!$PermNatureza){
+    if(@!$PermNatureza && trim($CdNatureza) != ""){
         $erro++;
-        $erro_mensagem .= "Representante não tem acesso a natureza de operação ".$CdNatureza." (".$row['DsRegiao'].") <br />";
+        $erro_mensagem .= "Representante não tem acesso a natureza de operação ".$CdNatureza." (".$row['DsNatureza'].") <br />";
     }
     $PermSegmento = $SqlServer->BuscaSegmentoMercado($representante_matriz_id, $CdNatureza);
     if(@!$PermSegmento){

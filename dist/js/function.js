@@ -90,10 +90,12 @@ function CarregaModal(titulo, conteudo, tipo = 'texto', post = false, backdrop =
         });
     }
     if(backdrop){
-        $('#modal_general').modal({backdrop:'static'});
+        // $('#modal_general').modal({backdrop:'static'});
+        $('#modal_abrir').click();
+
     }
     else {
-        $('#modal_general').modal();
+        $('#modal_abrir').click();
     }
 }
 function SomenteNumeros(evt) {

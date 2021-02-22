@@ -387,6 +387,7 @@
                 async: false,
                 success: function (User)
                 {
+                    VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf)
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_estado');
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
@@ -464,6 +465,12 @@
 
                 console.log(User);
                 if(User.nome){
+                    var acessos = VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf);
+                    console.log(acessos);
+                    if(acessos === false){
+                        return false;
+                    }
+
                     console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
                     var UserKeys = Object.keys(User);
@@ -754,6 +761,29 @@
           });
 
 
+      }
+
+      function VerificaAcessoCliente(CdRepresentante, Cnpj_Cnpf){
+          $.ajax({
+              type: 'POST',
+              url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
+              data: {'action':'VerificaAcessosEdicao', 'CdRepresentante': CdRepresentante, 'Cnpj_Cnpf': Cnpj_Cnpf},
+              dataType: 'json',
+              async: false,
+              success: function (AcessoEdicao)
+              {
+                  if(AcessoEdicao.erro > 0){
+                      toastr.error(AcessoEdicao.erro_mensagem + "<br /> Entre em contato com a NOBRE.", "Erro", {closeButton: true,
+                        extendedTimeOut: 0,
+                        timeOut: 0,
+                        tapToDismiss: false});
+                  CarregaPagina('content/pages/movimentacoes/pedidos/PedidosSistema/cadastro_pedidos.html');
+                  return false;
+
+                  }
+
+              }
+          });
       }
       function RepetirEndereco(tipo){
           $('#cadastro_clientes_edit_form_endereco_' + tipo + '_endereco').val($('#cadastro_clientes_edit_form_endereco_endereco').val());

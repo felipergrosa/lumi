@@ -8,6 +8,71 @@ ini_set('display_errors', 'on');
 $CdRepresentante = $representante_id;
 $prefix = "cadastro_clientes_edit_form_";
 $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
+if(@$_POST['action'] == 'VerificaAcessosEdicao'){
+    $representante_matriz_id = $representante_id;
+    @$CdRepresentante = $_POST['CdRepresentante'];
+    $Cnpj_Cnpf = $_POST['Cnpj_Cnpf'];
+
+    $sql = "SELECT a.*, b.CdMunicipio as CdMunicipio,
+    c.DsNatureza,
+    d.DsSegmento,
+    e.DsRegiao
+
+
+
+    FROM BusinessCadCliente a
+    LEFT JOIN BusinessCadMunicipio b ON a.F_Cidade=b.DsMunicipio
+    LEFT JOIN BusinessCadNatOperacao c ON a.CDNATUREZA=c.CdNatureza
+    LEFT JOIN BusinessCadSegMercado d ON a.CdSegmento=d.CdSegmento
+    LEFT JOIN BusinessCadRegiao e ON a.CdRegiao=e.CdRegiao
+    WHERE a.Cnpj_Cnpf = :Cnpj_Cnpf";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
+    $sql->execute();
+
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+    //Buscas:
+    // Natureza Operação, Seg Mercado, Regiao, Municipio,
+    //F_Cidade
+
+    $CdNatureza = $row['CDNATUREZA'];
+    $CdSegmento = $row['CdSegmento'];
+    $CdRegiao = $row['CdRegiao'];
+    $CdMunicipio = $row['CdMunicipio'];
+
+    $erro = 0;
+    $erro_mensagem = "";
+
+    $SqlServer = new SqlServer($con_sql_server);
+    $PermNatureza = $SqlServer->BuscaNaturezaOperacao(0, $representante_matriz_id, $CdNatureza);
+    if(@!$PermNatureza){
+        $erro++;
+        $erro_mensagem .= "Representante não tem acesso a natureza de operação ".$CdNatureza." (".$row['DsRegiao'].") <br />";
+    }
+    $PermSegmento = $SqlServer->BuscaSegmentoMercado($representante_matriz_id, $CdNatureza);
+    if(@!$PermSegmento){
+        $erro++;
+        $erro_mensagem .= "Representante não tem acesso ao Segmento ".$CdSegmento." (".$row['DsSegmento'].") <br />";
+    }
+    $PermRegiao = $SqlServer->BuscaRegiao($representante_matriz_id, $CdRegiao);
+    if(@!$PermRegiao){
+        $erro++;
+        $erro_mensagem .= "Representante não tem acesso a regiao ".$CdRegiao." (".$row['DsRegiao'].") <br />";
+    }
+    $PermMunicipio = $SqlServer->VerificaAcessoMunicipio($row['F_Cidade'], $representante_matriz_id);
+    if(@!$PermMunicipio){
+        $erro++;
+        $erro_mensagem .= "Representante não tem acesso ao municipio ".$row["F_Cidade"]." <br />";
+    }
+
+    $resposta["erro"] = $erro;
+    $resposta["erro_mensagem"] = $erro_mensagem;
+    echo json_encode($resposta);
+    exit;
+    var_dump($row);
+    exit;
+
+}
 if($_POST['action'] == 'GetUserList'){
     // $sql = "SELECT a.* ,
     // b.endereco as endereco_endereco,
@@ -29,6 +94,9 @@ if($_POST['action'] == 'GetUserList'){
     $sql = $con_sql_server->prepare($sql);
     $sql->execute();
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 
     // LEFT JOIN BusinessCadClienteLC b ON a.CdRepresentante=b.CdRepresentante AND a.Cnpj_Cnpf=b.Cnpj_Cnpf

@@ -112,10 +112,10 @@ class SqlServer {
 
         }
         elseif($representante != 0 && $CdNatureza != 0){
-            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as a.id,
-            BusinessCadNatOperacao.DsNatureza as a.descricao
+            $sql = "SELECT a.CdNatureza as id,
+            a.DsNatureza as descricao
             FROM BusinessCadNatOperacao a
-            LEFT JOIN BusinessCadPerminatureza ON a.CdNatureza=b.cd
+            LEFT JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.CdNatureza
 
             WHERE b.CdRepresentante = :representante AND
             a.CdNatureza = :CdNatureza";

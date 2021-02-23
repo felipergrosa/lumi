@@ -723,7 +723,7 @@
                           $('#' + prefix + '_cidade').val(cidade);
 
 
-                          VerificaAcessoMunicipio(cidade);
+                          VerificaAcessoMunicipio(cidade, data.uf);
                           toastr.success('Cep retornado da base de dados.');
                           HideLoading();
                       }
@@ -808,7 +808,7 @@
       }
 
 
-      function VerificaAcessoMunicipio(municipio){
+      function VerificaAcessoMunicipio(municipio, estado){
           var action = 'verifica_acesso_municipio';
 
           // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
@@ -817,7 +817,7 @@
               url: 'dist/php/controllers/sql_integration.api.php',
               dataType: 'json',
               async: false,
-              data: {'action': action, 'municipio':municipio},
+              data: {'action': action, 'municipio':municipio, 'estado': estado},
               success: function (data)
               {
                   if(data == 0){

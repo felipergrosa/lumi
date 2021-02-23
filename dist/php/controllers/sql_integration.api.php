@@ -66,9 +66,10 @@ if($_POST['action'] == "get_natureza_operacao"){
 
 if($_POST['action'] == 'verifica_acesso_municipio'){
     $municipio = $_POST['municipio'];
+    $estado = $_POST['estado'];
     $representante = $representante_id;
     $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
     $sql = new SqlServer($con_sql_server);
-    $busca = $sql->VerificaAcessoMunicipio($municipio, $representante);
+    $busca = $sql->VerificaAcessoMunicipio($municipio, $representante, $estado);
     echo json_encode(utf8ize($busca));
 }

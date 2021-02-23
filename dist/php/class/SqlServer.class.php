@@ -196,19 +196,23 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function VerificaAcessoMunicipio($municipio, $representante){
+    function VerificaAcessoMunicipio($municipio, $representante, $estado){
         $con = $this->con;
         $municipio = '%'.$municipio.'%';
+        $estado = '%'.$estado.'%';
 
         $sql = "SELECT * FROM BusinessCadMunicipio a
         LEFT JOIN BusinessCadPermiMunicipio b ON a.CdMunicipio=b.Cdmunicipio
 
         WHERE b.CdRepresentante = :representante AND
-        a.DsMunicipio LIKE :municipio";
+        a.DsMunicipio LIKE :municipio
+        AND a.Estado LIKE :estado ";
         $sql = $con->prepare($sql);
 
         $sql->bindParam('representante', $representante);
         $sql->bindParam('municipio', $municipio);
+        $sql->bindParam('estado', $estado);
+
 
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);

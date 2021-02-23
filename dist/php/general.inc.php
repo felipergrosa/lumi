@@ -45,12 +45,17 @@ try {
     $con_sql_server->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
 }
 catch(Exception $e){
-	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
+    $retorno['erro'] = 1;
+    $retorno['erro_mensagem'] = "Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.";
+    echo json_encode($retorno);
+	// echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
 	exit;
 }
 catch(PDOException $pdo){
-	echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
-	exit;
+    $retorno['erro'] = 1;
+    $retorno['erro_mensagem'] = "Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.";
+    echo json_encode($retorno);
+    	exit;
 }
 
 function utf8ize( $mixed ) {

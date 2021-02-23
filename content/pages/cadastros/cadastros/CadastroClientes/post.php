@@ -35,10 +35,10 @@ if(@$_POST['action'] == 'VerificaAcessosEdicao'){
     // Natureza Operação, Seg Mercado, Regiao, Municipio,
     //F_Cidade
 
-    $CdNatureza = $row['CDNATUREZA'];
-    $CdSegmento = $row['CdSegmento'];
-    $CdRegiao = $row['CdRegiao'];
-    $CdMunicipio = $row['CdMunicipio'];
+    @$CdNatureza = $row['CDNATUREZA'];
+    @$CdSegmento = $row['CdSegmento'];
+    @$CdRegiao = $row['CdRegiao'];
+    @$CdMunicipio = $row['CdMunicipio'];
 
 
     $erro = 0;

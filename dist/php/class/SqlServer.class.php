@@ -69,25 +69,72 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaTabelas($empresa){
+    function BuscaTabelas($empresa, $representante = 0, $tabela = 0){
         $con = $this->con;
-        $sql = "SELECT BusinessCadTabPreco.CdTabela as id_tabela,
-        BusinessCadTabPreco.DsTabela as descricao_tabela
-        FROM BusinessCadTabPreco
-        WHERE BusinessCadTabPreco.cdEmpresa = $empresa";
-        $sql = $con->prepare($sql);
+        if($representante == 0 AND $tabela == 0){
+            $sql = "SELECT BusinessCadTabPreco.CdTabela as id_tabela,
+            BusinessCadTabPreco.DsTabela as descricao_tabela
+            FROM BusinessCadTabPreco
+            WHERE BusinessCadTabPreco.cdEmpresa = :empresa";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('empresa', $empresa);
+        }
+        elseif($representante != 0 && $tabela == 0){
+            $sql = "SELECT a.CdTabela as id_tabela,
+            a.DsTabela as descricao_tabela
+            FROM BusinessCadTabPreco a
+            LEFT JOIN BusinessCadPermiTabela b ON a.CdTabela=b.CdTabela
+            WHERE a.cdEmpresa = :empresa AND
+            b.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('empresa', $empresa);
+            $sql->bindParam('representante', $representante);
+
+        }
+        else {
+            $sql = "SELECT a.CdTabela as id_tabela,
+            a.DsTabela as descricao_tabela
+            FROM BusinessCadTabPreco a
+            LEFT JOIN BusinessCadPermiTabela b ON a.CdTabela=b.CdTabela
+            WHERE a.cdEmpresa = :empresa AND
+            b.CdRepresentante = :representante
+            AND a.CdTabela = :tabela";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('empresa', $empresa);
+            $sql->bindParam('representante', $representante);
+            $sql->bindParam('tabela', $tabela);
+
+        }
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaCondicoesPagamento($empresa){
+    function BuscaCondicoesPagamento($empresa, $representante = 0){
         $con = $this->con;
-        $sql = "SELECT BusinessCadCondPgto.CdCondPgto as id,
-        BusinessCadCondPgto.DsCondPgto as descricao,
-        BusinessCadCondPgto.Minimo as minimo
-        FROM BusinessCadCondPgto
-        WHERE BusinessCadCondPgto.CdEmpresa = $empresa";
-        $sql = $con->prepare($sql);
+        if($representante == 0){
+            $sql = "SELECT a.CdCondPgto as id,
+            a.DsCondPgto as descricao,
+            a.Minimo as minimo
+            FROM BusinessCadCondPgto a
+            WHERE a.CdEmpresa = :empresa";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('empresa', $empresa);
+
+        }
+        else {
+            $sql = "SELECT a.CdCondPgto as id,
+            a.DsCondPgto as descricao,
+            a.Minimo as minimo
+            FROM BusinessCadCondPgto a
+            LEFT JOIN BusinessCadPermiCondPgto b ON a.CdCondPgto=b.CdCondPgto
+            WHERE a.CdEmpresa = :empresa AND
+            b.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('empresa', $empresa);
+            $sql->bindParam('representante', $representante);
+
+
+        }
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;

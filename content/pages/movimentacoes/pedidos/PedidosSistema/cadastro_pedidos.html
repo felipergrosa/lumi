@@ -522,6 +522,7 @@
         $('#cadastro_pedidos_produtos_form').show();
     }
     function CadastroPedidosContinuar(){
+        ShowLoading();
         var action = 'continuar';
         var cpfcnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();
         var empresa = $('#cadastro_pedidos_edit_form_empresa').val();
@@ -535,12 +536,14 @@
                 console.log(data);
                 if(data.erro == 1){
                     toastr.error('Erro: ' + data.mensagem);
+                    HideLoading();
                 }
                 else if(data.erro == 2){
                     console.log(data);
                     CarregaCadastroClientesPedidos();
                 }
                 else {
+                    HideLoading();
                     $('#cadastro_pedidos_edit_form_empresa_nome').val($('#cadastro_pedidos_edit_form_empresa :selected').text());
                     $('#cadastro_pedidos_edit_form_cliente_nome').val(data.dados.FsCliente);
                     $('#cadastro_pedidos_top_form').hide();
@@ -577,6 +580,7 @@
 
                 $('#post_screen').val('cadastro_pedidos');
                 $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
+                HideLoading();
             }
         });
 

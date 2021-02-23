@@ -7,14 +7,14 @@ if($_POST['action'] == "get_tabelas_precos"){
     $empresa = $_POST['empresa'];
     $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
     $sql = new SqlServer($con_sql_server);
-    $busca = $sql->BuscaTabelas($empresa);
+    $busca = $sql->BuscaTabelas($empresa, $representante_id);
     echo json_encode(utf8ize($busca));
 }
 if($_POST['action'] == "get_cond_pagto"){
     $empresa = $_POST['empresa'];
     $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
     $sql = new SqlServer($con_sql_server);
-    $busca = $sql->BuscaCondicoesPagamento($empresa);
+    $busca = $sql->BuscaCondicoesPagamento($empresa, $representante_id);
     echo json_encode(utf8ize($busca));
 }
 if($_POST['action'] == "get_transportadoras"){

@@ -1,6 +1,6 @@
 IntervalMaster = '';
 function ShowLoading(){
-    $("#loading_animation").fadeIn(500);
+    $("#loading_animation").show();
     $("#conteudo_dinamico").addClass('blur_loading');
 }
 function HideLoading(){
@@ -8,7 +8,6 @@ function HideLoading(){
     $("#conteudo_dinamico").removeClass('blur_loading');
 }
 function CarregaPagina(pagina) {
-    console.log(pagina);
     ShowLoading();
     clearInterval(IntervalMaster);
     $.ajax({

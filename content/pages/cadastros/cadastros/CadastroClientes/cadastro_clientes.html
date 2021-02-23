@@ -371,6 +371,7 @@
         });
     }
     function GetUserInfoEdit(CdRepresentante, Cnpj_Cnpf, action){
+        ShowLoading();
         $('#cadastro_clientes_userlist').hide();
         $('#cadastro_clientes_edit').fadeIn(500);
 
@@ -426,6 +427,8 @@
                     MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
                     PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, CdRepresentante);
 
+                    HideLoading();
+
 
                 }
             });
@@ -444,11 +447,13 @@
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
             $('#action_for_form').val(action);
             $('#cadastro_clientes_edit_form_restricao').removeAttr('checked');
+            HideLoading();
         }
     }
 
 
     function PreenchePorCnpj(Cnpj_Cnpf){
+        ShowLoading();
         $('#cadastro_clientes_edit_form :input').each(function(k,v){
             $(v).val('');
         });
@@ -520,6 +525,8 @@
                 else {
                     $('#action_for_form').val('novo');
                 }
+
+                HideLoading();
 
             }
         });
@@ -694,6 +701,7 @@
           var tamanho = cep.length;
           // console.log(tamanho);
           if(tamanho == 8){
+              ShowLoading();
               $.ajax({
                   type: 'GET',
                   url: 'https://viacep.com.br/ws/' + cep + '/json/',
@@ -717,9 +725,11 @@
 
                           VerificaAcessoMunicipio(cidade);
                           toastr.success('Cep retornado da base de dados.');
+                          HideLoading();
                       }
                       else {
                           toastr.error('Cep sem dados retornados da API.');
+                          HideLoading();
                       }
 
 
@@ -779,6 +789,7 @@
                         tapToDismiss: false});
                         CarregaModal('Erro', AcessoEdicao.erro_mensagem);
                   CarregaPagina('content/pages/movimentacoes/pedidos/PedidosSistema/cadastro_pedidos.html');
+                  HideLoading();
                   return false;
 
                   }

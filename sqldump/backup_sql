@@ -1,0 +1,4 @@
+#/bin/sh
+data_backup=$(date +'%Y%m%d%H%M%S')
+sqlcmd -S mssql.nobregerencia.com -U nobregerencia -P 102030 -Q "BACKUP DATABASE [nobregerencia] TO DISK = N'nobregerencia$data_backup.bak' WITH NOFORMAT, NOINIT, NAME = 'nobregerencia-full$data_backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10"
+echo "BACKUP FEITO EM $data_backup"

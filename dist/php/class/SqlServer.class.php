@@ -116,7 +116,7 @@ class SqlServer {
             a.DsCondPgto as descricao,
             a.Minimo as minimo
             FROM BusinessCadCondPgto a
-            WHERE a.CdEmpresa = :empresa";
+            WHERE a.CdEmpresa = :empresa AND a.FlStatus='Ativo'";
             $sql = $con->prepare($sql);
             $sql->bindParam('empresa', $empresa);
 
@@ -128,7 +128,7 @@ class SqlServer {
             FROM BusinessCadCondPgto a
             LEFT JOIN BusinessCadPermiCondPgto b ON a.CdCondPgto=b.CdCondPgto
             WHERE a.CdEmpresa = :empresa AND
-            b.CdRepresentante = :representante";
+            b.CdRepresentante = :representante AND a.FlStatus='Ativo'";
             $sql = $con->prepare($sql);
             $sql->bindParam('empresa', $empresa);
             $sql->bindParam('representante', $representante);

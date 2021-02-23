@@ -5,15 +5,15 @@ require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
 if($_POST['action'] == 'GetUserList'){
-    $sql = "SELECT * FROM usuarios";
-    $sql = $con->query($sql);
+    $sql = "SELECT * FROM BusinessCadRepresentante";
+    $sql = $con_sql_server->query($sql);
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){
-    $id = (int) $_POST['id'];
-    $sql = "SELECT * FROM usuarios WHERE id = :id";
-    $sql = $con->prepare($sql);
+    $id = $_POST['id'];
+    $sql = "SELECT * FROM BusinessCadRepresentante WHERE CdRepresentante = :id";
+    $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('id', $id);
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);

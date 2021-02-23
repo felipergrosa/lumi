@@ -46,16 +46,16 @@
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <div class="form-group row">
                   <div class="col-md-2 col-xs-4">
-                      <label for="cadastro_usuarios_edit_form_id">ID</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_id" name="cadastro_usuarios_edit_form_id" readonly/>
+                      <label for="cadastro_usuarios_edit_form_CdRepresentante">ID</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_CdRepresentante" name="cadastro_usuarios_edit_form_CdRepresentante" readonly/>
                   </div>
                   <div class="col-md-10 col-xs-8">
-                      <label for="cadastro_usuarios_edit_form_nome">Nome</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_nome" name="cadastro_usuarios_edit_form_nome" />
+                      <label for="cadastro_usuarios_edit_form_RzRepresentante">Nome</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_RzRepresentante" name="cadastro_usuarios_edit_form_RzRepresentante" />
                   </div>
                   <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_usuarios_edit_form_login">Login</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_login" name="cadastro_usuarios_edit_form_login" />
+                      <label for="cadastro_usuarios_edit_form_Login">Login</label>
+                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_Login" name="cadastro_usuarios_edit_form_Login" />
                   </div>
                   <div class="col-md-6 col-xs-12">
                       <label for="cadastro_usuarios_edit_form_email">E-mail</label>
@@ -114,7 +114,9 @@
                     if(v['general_level'] == 'ROOT'){
                         general_level = 'root';
                     }
-                    $('.cadastro_usuarios_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.id + '\', \'editar\')"><td>' + v.nome + '</td><td>' + v.login + '</td><td>' + v.email + '</td><td>' + general_level + '</td></tr>');
+                    $('.cadastro_usuarios_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'editar\')">' +
+                        '<td>' + v.RzRepresentante + '</td><td>' + v.Login + '</td><td>' + v.email + '</td>' +
+                        '<td>' + general_level + '</td></tr>');
                 });
             }
         });
@@ -135,15 +137,21 @@
                 async: false,
                 success: function (User)
                 {
-                    $('#cadastro_usuarios_edit_form_id').val(User.id);
-                    $('#cadastro_usuarios_edit_form_nome').val(User.nome);
-                    $('#cadastro_usuarios_edit_form_login').val(User.login);
-                    $('#cadastro_usuarios_edit_form_email').val(User.email);
-                    $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
-                    $('#action_for_form').val(action);
-                    $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php', {id:id}, function(response){
-                        $('.usuarios_acessos').html(response);
-                    });
+                //     $('#cadastro_usuarios_edit_form_id').val(User.id);
+                //     $('#cadastro_usuarios_edit_form_nome').val(User.nome);
+                //     $('#cadastro_usuarios_edit_form_login').val(User.login);
+                //     $('#cadastro_usuarios_edit_form_email').val(User.email);
+                //     $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
+                //     $('#action_for_form').val(action);
+                //     $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php', {id:id}, function(response){
+                //         $('.usuarios_acessos').html(response);
+                //     });
+                var prefix = '#cadastro_usuarios_edit_form_';
+                var UserKeys = Object.keys(User);
+                $(UserKeys).each(function(k,v){
+                    // console.log(User[v]);
+                    $(prefix + v).val(User[v]);
+                });
 
 
                 }

@@ -10,6 +10,7 @@ function HideLoading(){
 function CarregaPagina(pagina) {
     ShowLoading();
     clearInterval(IntervalMaster);
+    $('#busca_box').remove();
     $.ajax({
         type: 'POST',
         dataType: 'html',

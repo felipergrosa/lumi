@@ -339,6 +339,7 @@
 
     }
     function CadastroPedidosSalvar() {
+        RemoveBuscaCombo();
 
         var dados = $('#cadastro_pedidos_edit_form').serializeArray();
         var empresas = $('#cadastro_pedidos_edit_form_empresa').val();
@@ -522,6 +523,7 @@
         $('#cadastro_pedidos_produtos_form').show();
     }
     function CadastroPedidosContinuar(){
+        RemoveBuscaCombo();
         ShowLoading();
         var action = 'continuar';
         var cpfcnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();

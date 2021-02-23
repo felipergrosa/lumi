@@ -480,11 +480,11 @@ if($_POST['action'] == 'editar'){
         }
 
 
-        // var_dump($info);
-        foreach($info as $key=>$value){
-            echo str_replace($prefix, "",$key).'e
-';
-        }
+//         var_dump($info);
+//         foreach($info as $key=>$value){
+//             echo str_replace($prefix, "",$key).'e
+// ';
+//         }
         // var_dump($endereco_entrega);
         // var_dump($endereco_cobranca);
         // var_dump($endereco_principal);
@@ -502,7 +502,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['Ie_Rg'] = $info[$prefix.'rgie'];
         $campos_sql['ObsRestricao'] = $info[$prefix.'restricao_texto'];
         $campos_sql['CDNATUREZA'] = $info[$prefix.'natureza_operacao'];
-        $campos_sql['DescontaSuframa'] = $info[$prefix.'N'];
+        // $campos_sql['DescontaSuframa'] = $info[$prefix.'N'];
         $campos_sql['CdCondPgto'] = null;
         $campos_sql['CdGrupo'] = null;
         $campos_sql['CdTabela'] = null;
@@ -532,7 +532,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['Suframa'] = $info[$prefix.'suframa'];
         $campos_sql['DtValidadeSuframa'] = $info[$prefix.'suframa_validade'];
         $campos_sql['Site'] = $info[$prefix.'site'];
-        $campos_sql['OrgaoEmissor'] = $info[$prefix.'null'];
+        $campos_sql['OrgaoEmissor'] = null;
 
         $campos_sql['Contato1'] = $info[$prefix.'contato_compras'];
         $campos_sql['Funcao1'] = null;
@@ -587,8 +587,6 @@ if($_POST['action'] == 'editar'){
 
 
 
-        exit;
-
 
 
 
@@ -620,6 +618,9 @@ if($_POST['action'] == 'editar'){
         // $info[$prefix.'endereco_cep'] = str_replace('-', '', $info[$prefix.'endereco_cep']);
 
         $cpfcnpj = $info[$prefix.'cpfcnpj'];
+        var_dump($cpfcnpj);
+        $Valida = new Valida();
+
         if(strlen($cpfcnpj) == 11){
             if(!$Valida->validaCPF($cpfcnpj)){
                 echo 'CPF Inválido';
@@ -640,106 +641,137 @@ if($_POST['action'] == 'editar'){
         }
 
 
-    try {
-        $sql = "SELECT * FROM clientes WHERE cpfcnpj = :cpfcnpj && id != :id";
-        $sql = $con->prepare($sql);
-        $sql->bindParam('cpfcnpj', $info[$prefix.'cpfcnpj']);
-        $sql->bindParam('id', $info[$prefix.'id']);
-        $sql->execute();
-    }
-    catch(Exception $e){
-        $error_message = $e->getMessage();
-        echo $error_message;
-        exit;
-    }
-    if($sql->rowCount() > 0){
-        echo 'CPF/CNPJ ja existe.';
-        exit;
-    }
 
-    $endereco_principal = $EnderecosFunc->novoEndereco($endereco_principal);
-    $endereco_entrega = $EnderecosFunc->novoEndereco($endereco_entrega);
-    $endereco_cobranca = $EnderecosFunc->novoEndereco($endereco_cobranca);
+    var_dump($campos_sql['Cnpj_Cnpf']);
+    var_dump($campos_sql['CdRepresentante']);
+    exit;
 
-
-
-    $sql = "UPDATE clientes SET
-    endereco = :endereco,
-endereco_cobranca = :endereco_cobranca,
-endereco_entrega = :endereco_entrega,
-nome = :nome,
-cpfcnpj = :cpfcnpj,
-rgie = :rgie,
-suframa = :suframa,
-suframa_validade = :suframa_validade,
-desconto = :desconto,
-natureza_operacao = :natureza_operacao,
-email1 = :email1,
-tel1 = :tel1,
-fax = :fax,
-site = :site,
-contato_compras = :contato_compras,
-contato_compras_fone = :contato_compras_fone,
-contato_compras_email = :contato_compras_email,
-contato_cobranca = :contato_cobranca,
-contato_cobranca_fone = :contato_cobranca_fone,
-contato_cobranca_email = :contato_cobranca_email,
-contato_cobranca_funcao = :contato_cobranca_funcao,
-grupo = :grupo,
-segmento_mercado = :segmento_mercado,
-regiao = :regiao,
-endereco_cobranca_contato = :endereco_cobranca_contato,
-endereco_cobranca_contato_telefone = :endereco_cobranca_contato_telefone,
-endereco_cobranca_contato_email = :endereco_cobranca_contato_email,
-endereco_entrega_cnpj = :endereco_entrega_cnpj,
-endereco_entrega_ie = :endereco_entrega_ie,
-endereco_entrega_contato = :endereco_entrega_contato,
-endereco_entrega_contato_telefone = :endereco_entrega_contato_telefone,
-endereco_entrega_contato_email = :endereco_entrega_contato_email,
-observacoes = :observacoes,
-restricao = :restricao,
-restricao_texto = :restricao_texto,
-atividade = :atividade
-WHERE id = :id";
+    $sql = "UPDATE BusinessCadCliente SET
+    C_Complemento = :C_Complemento,
+    E_Numero = :E_Numero,
+    E_Complemento = :E_Complemento,
+    F_Numero = :F_Numero,
+    F_Complemento = :F_Complemento,
+    C_Numero = :C_Numero,
+    Observacao = :Observacao,
+    CdRegiao = :CdRegiao,
+    Aviso = :Aviso,
+    E_Ddd1 = :E_Ddd1,
+    E_Telefone1 = :E_Telefone1,
+    E_Email1 = :E_Email1,
+    E_Cidade = :E_Cidade,
+    E_Estado = :E_Estado,
+    E_Cep = :E_Cep,
+    E_Cnpj = :E_Cnpj,
+    E_Ie = :E_Ie,
+    E_Contato1 = :E_Contato1,
+    C_Ddd1 = :C_Ddd1,
+    C_Telefone1 = :C_Telefone1,
+    C_Email1 = :C_Email1,
+    E_Endereco = :E_Endereco,
+    E_Bairro = :E_Bairro,
+    E_CdMunicipio = :E_CdMunicipio,
+    C_Bairro = :C_Bairro,
+    C_CdMunicipio = :C_CdMunicipio,
+    C_Cidade = :C_Cidade,
+    C_Estado = :C_Estado,
+    C_Cep = :C_Cep,
+    C_Contato1 = :C_Contato1,
+    F_Cep = :F_Cep,
+    F_Contato1 = :F_Contato1,
+    F_Ddd1 = :F_Ddd1,
+    F_Telefone1 = :F_Telefone1,
+    F_Email1 = :F_Email1,
+    C_Endereco = :C_Endereco,
+    Site = :Site,
+    F_Endereco = :F_Endereco,
+    F_Bairro = :F_Bairro,
+    F_CdMunicipio = :F_CdMunicipio,
+    F_Cidade = :F_Cidade,
+    F_Estado = :F_Estado,
+    Funcao3 = :Funcao3,
+    Ddd3 = :Ddd3,
+    Telefone3 = :Telefone3,
+    Email3 = :Email3,
+    DddFax = :DddFax,
+    Fax = :Fax,
+    Contato2 = :Contato2,
+    Funcao2 = :Funcao2,
+    Ddd2 = :Ddd2,
+    Telefone2 = :Telefone2,
+    Email2 = :Email2,
+    Contato3 = :Contato3,
+    Contato1 = :Contato1,
+    Funcao1 = :Funcao1,
+    Ddd1 = :Ddd1,
+    Telefone1 = :Telefone1,
+    Email1 = :Email1
+WHERE CdRepresentante = :CdRepresentante AND
+Cnpj_Cnpf = :Cnpj_Cnpf";
     try {
     $sql = $con->prepare($sql);
-    $sql->bindParam('id', $info[$prefix.'id']);
-    $sql->bindParam('endereco', $endereco_principal);
-    $sql->bindParam('endereco_cobranca', $endereco_cobranca);
-    $sql->bindParam('endereco_entrega', $endereco_entrega);
-    $sql->bindParam('nome', $info[$prefix.'nome']);
-    $sql->bindParam('cpfcnpj', $info[$prefix.'cpfcnpj']);
-    $sql->bindParam('rgie', $info[$prefix.'rgie']);
-    $sql->bindParam('suframa', $info[$prefix.'suframa']);
-    $sql->bindParam('suframa_validade', $info[$prefix.'suframa_validade']);
-    $sql->bindParam('desconto', $info[$prefix.'desconto']);
-    $sql->bindParam('natureza_operacao', $info[$prefix.'natureza_operacao']);
-    $sql->bindParam('email1', $info[$prefix.'email1']);
-    $sql->bindParam('tel1', $info[$prefix.'tel1']);
-    $sql->bindParam('fax', $info[$prefix.'fax']);
-    $sql->bindParam('site', $info[$prefix.'site']);
-    $sql->bindParam('contato_compras', $info[$prefix.'contato_compras']);
-    $sql->bindParam('contato_compras_fone', $info[$prefix.'contato_compras_fone']);
-    $sql->bindParam('contato_compras_email', $info[$prefix.'contato_compras_email']);
-    $sql->bindParam('contato_cobranca', $info[$prefix.'contato_cobranca']);
-    $sql->bindParam('contato_cobranca_fone', $info[$prefix.'contato_cobranca_fone']);
-    $sql->bindParam('contato_cobranca_email', $info[$prefix.'contato_cobranca_email']);
-    $sql->bindParam('contato_cobranca_funcao', $info[$prefix.'contato_cobranca_funcao']);
-    $sql->bindParam('grupo', $info[$prefix.'grupo']);
-    $sql->bindParam('segmento_mercado', $info[$prefix.'segmento_mercado']);
-    $sql->bindParam('regiao', $info[$prefix.'regiao']);
-    $sql->bindParam('endereco_cobranca_contato', $info[$prefix.'endereco_cobranca_contato']);
-    $sql->bindParam('endereco_cobranca_contato_telefone', $info[$prefix.'endereco_cobranca_contato_telefone']);
-    $sql->bindParam('endereco_cobranca_contato_email', $info[$prefix.'endereco_cobranca_contat_email']);
-    $sql->bindParam('endereco_entrega_cnpj', $info[$prefix.'endereco_entrega_cnpj']);
-    $sql->bindParam('endereco_entrega_ie', $info[$prefix.'endereco_entrega_ie']);
-    $sql->bindParam('endereco_entrega_contato', $info[$prefix.'endereco_entrega_contato']);
-    $sql->bindParam('endereco_entrega_contato_telefone', $info[$prefix.'endereco_entrega_contato_telefone']);
-    $sql->bindParam('endereco_entrega_contato_email', $info[$prefix.'endereco_entrega_contato_email']);
-    $sql->bindParam('observacoes', $info[$prefix.'observacoes']);
-    $sql->bindParam('restricao', $info[$prefix.'restricao']);
-    $sql->bindParam('restricao_texto', $info[$prefix.'restricao_texto']);
-    $sql->bindParam('atividade', $info[$prefix.'atividade']);
+    $sql->bindParam('C_Complemento',$campos_sql['C_Complemento']);
+    $sql->bindParam('E_Numero',$campos_sql['E_Numero']);
+    $sql->bindParam('E_Complemento',$campos_sql['E_Complemento']);
+    $sql->bindParam('F_Numero',$campos_sql['F_Numero']);
+    $sql->bindParam('F_Complemento',$campos_sql['F_Complemento']);
+    $sql->bindParam('C_Numero',$campos_sql['C_Numero']);
+    $sql->bindParam('Observacao',$campos_sql['Observacao']);
+    $sql->bindParam('CdRegiao',$campos_sql['CdRegiao']);
+    $sql->bindParam('Aviso',$campos_sql['Aviso']);
+    $sql->bindParam('E_Ddd1',$campos_sql['E_Ddd1']);
+    $sql->bindParam('E_Telefone1',$campos_sql['E_Telefone1']);
+    $sql->bindParam('E_Email1',$campos_sql['E_Email1']);
+    $sql->bindParam('E_Cidade',$campos_sql['E_Cidade']);
+    $sql->bindParam('E_Estado',$campos_sql['E_Estado']);
+    $sql->bindParam('E_Cep',$campos_sql['E_Cep']);
+    $sql->bindParam('E_Cnpj',$campos_sql['E_Cnpj']);
+    $sql->bindParam('E_Ie',$campos_sql['E_Ie']);
+    $sql->bindParam('E_Contato1',$campos_sql['E_Contato1']);
+    $sql->bindParam('C_Ddd1',$campos_sql['C_Ddd1']);
+    $sql->bindParam('C_Telefone1',$campos_sql['C_Telefone1']);
+    $sql->bindParam('C_Email1',$campos_sql['C_Email1']);
+    $sql->bindParam('E_Endereco',$campos_sql['E_Endereco']);
+    $sql->bindParam('E_Bairro',$campos_sql['E_Bairro']);
+    $sql->bindParam('E_CdMunicipio',$campos_sql['E_CdMunicipio']);
+    $sql->bindParam('C_Bairro',$campos_sql['C_Bairro']);
+    $sql->bindParam('C_CdMunicipio',$campos_sql['C_CdMunicipio']);
+    $sql->bindParam('C_Cidade',$campos_sql['C_Cidade']);
+    $sql->bindParam('C_Estado',$campos_sql['C_Estado']);
+    $sql->bindParam('C_Cep',$campos_sql['C_Cep']);
+    $sql->bindParam('C_Contato1',$campos_sql['C_Contato1']);
+    $sql->bindParam('F_Cep',$campos_sql['F_Cep']);
+    $sql->bindParam('F_Contato1',$campos_sql['F_Contato1']);
+    $sql->bindParam('F_Ddd1',$campos_sql['F_Ddd1']);
+    $sql->bindParam('F_Telefone1',$campos_sql['F_Telefone1']);
+    $sql->bindParam('F_Email1',$campos_sql['F_Email1']);
+    $sql->bindParam('C_Endereco',$campos_sql['C_Endereco']);
+    $sql->bindParam('Site',$campos_sql['Site']);
+    $sql->bindParam('F_Endereco',$campos_sql['F_Endereco']);
+    $sql->bindParam('F_Bairro',$campos_sql['F_Bairro']);
+    $sql->bindParam('F_CdMunicipio',$campos_sql['F_CdMunicipio']);
+    $sql->bindParam('F_Cidade',$campos_sql['F_Cidade']);
+    $sql->bindParam('F_Estado',$campos_sql['F_Estado']);
+    $sql->bindParam('Funcao3',$campos_sql['Funcao3']);
+    $sql->bindParam('Ddd3',$campos_sql['Ddd3']);
+    $sql->bindParam('Telefone3',$campos_sql['Telefone3']);
+    $sql->bindParam('Email3',$campos_sql['Email3']);
+    $sql->bindParam('DddFax',$campos_sql['DddFax']);
+    $sql->bindParam('Fax',$campos_sql['Fax']);
+    $sql->bindParam('Contato2',$campos_sql['Contato2']);
+    $sql->bindParam('Funcao2',$campos_sql['Funcao2']);
+    $sql->bindParam('Ddd2',$campos_sql['Ddd2']);
+    $sql->bindParam('Telefone2',$campos_sql['Telefone2']);
+    $sql->bindParam('Email2',$campos_sql['Email2']);
+    $sql->bindParam('Contato3',$campos_sql['Contato3']);
+    $sql->bindParam('Contato1',$campos_sql['Contato1']);
+    $sql->bindParam('Funcao1',$campos_sql['Funcao1']);
+    $sql->bindParam('Ddd1',$campos_sql['Ddd1']);
+    $sql->bindParam('Telefone1',$campos_sql['Telefone1']);
+    $sql->bindParam('Email1',$campos_sql['Email1']);
+    $sql->bindParam('Cnpj_Cnpf',$campos_sql['Cnpj_Cnpf']);
+    $sql->bindParam('CdRepresentante',$campos_sql['CdRepresentante']);
+
     $sql->execute();
 
     }
@@ -751,18 +783,34 @@ WHERE id = :id";
 
 
     @$empresas = $_POST['empresas'];
-    $sql = "DELETE FROM clientes_empresas WHERE cliente = :id";
-    $sql = $con->prepare($sql);
-    $sql->bindParam('id', $info[$prefix.'id']);
-    $sql->execute();
 
     if(@is_array($empresas)){
         foreach($empresas as $ep){
-            $sql = "INSERT INTO clientes_empresas (cliente, empresa) VALUES (:cliente, :empresa)";
-            $sql = $con->prepare($sql);
-            $sql->bindParam('cliente', $info[$prefix.'id']);
-            $sql->bindParam('empresa', $ep);
-            $sql->execute();
+            $sql = "INSERT INTO BusinessCadClienteLC
+            (CdRepresentante, CdEmpresa, Cnpj_Cnpf)
+            VALUES
+            (:CdRepresentante, :CdEmpresa, :Cnpj_Cnpf)";
+
+            try {
+
+
+                $sql = $con->prepare($sql);
+                $sql->bindParam('CdRepresentante', $representante_id);
+                $sql->bindParam('CdEmpresa', $ep);
+                $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+
+                $sql->execute();
+            }
+            catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+            catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            }
         }
     }
 

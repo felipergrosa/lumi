@@ -40,6 +40,8 @@
             <form onsubmit="return false;" id="cadastro_clientes_edit_form" name="cadastro_clientes_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <input type="hidden" name="post_screen" id="post_screen" value="" />
+                <input type="hidden" name="cadastro_clientes_edit_form_CdRepresentante" id="cadastro_clientes_edit_form_CdRepresentante" value="" />
+
                 <div class="form-group row">
                   <!-- <div class="col-md-1 col-xs-2">
                       <label for="cadastro_clientes_edit_form_id">ID</label>
@@ -411,6 +413,7 @@
                     $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
                     $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
                     $('#action_for_form').val(action);
+                    $('#cadastro_clientes_edit_form_cpfcnpj').attr('readonly', true);
 
                     if(User.restricao == 1){
                         $('#cadastro_clientes_edit_form_restricao').attr('checked', true);

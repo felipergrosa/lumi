@@ -114,9 +114,13 @@ class SqlServer {
         if($representante == 0){
             $sql = "SELECT a.CdCondPgto as id,
             a.DsCondPgto as descricao,
-            a.Minimo as minimo
+            a.CdEmpresa as empresa,
+            a.Minimo as minimo,
+            c.FsEmpresa as empresa_nome
             FROM BusinessCadCondPgto a
-            WHERE a.CdEmpresa = :empresa AND a.FlStatus='Ativo'";
+            LEFT JOIN BusinessCadEmpresa c on a.CdEmpresa=c.CdEmpresa
+            WHERE a.CdEmpresa = :empresa AND a.FlStatus='Ativo'
+            GROUP BY a.CdCondPgto, a.DsCondPgto, a.Minimo, a.CdEmpresa, c.FsEmpresa";
             $sql = $con->prepare($sql);
             $sql->bindParam('empresa', $empresa);
 
@@ -124,11 +128,15 @@ class SqlServer {
         else {
             $sql = "SELECT a.CdCondPgto as id,
             a.DsCondPgto as descricao,
-            a.Minimo as minimo
+            a.Minimo as minimo,
+            a.CdEmpresa as empresa,
+            c.FsEmpresa as empresa_nome
             FROM BusinessCadCondPgto a
             LEFT JOIN BusinessCadPermiCondPgto b ON a.CdCondPgto=b.CdCondPgto
+            LEFT JOIN BusinessCadEmpresa c on a.CdEmpresa=c.CdEmpresa
             WHERE a.CdEmpresa = :empresa AND
-            b.CdRepresentante = :representante AND a.FlStatus='Ativo'";
+            b.CdRepresentante = :representante AND a.FlStatus='Ativo'
+            GROUP BY a.CdCondPgto, a.DsCondPgto, a.Minimo, a.CdEmpresa,c.FsEmpresa";
             $sql = $con->prepare($sql);
             $sql->bindParam('empresa', $empresa);
             $sql->bindParam('representante', $representante);

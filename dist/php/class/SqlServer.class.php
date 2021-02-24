@@ -186,12 +186,26 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaEmpresas(){
+    function BuscaEmpresas($representante = 0){
         $con = $this->con;
-        $sql = "SELECT BusinessCadEmpresa.FsEmpresa as nome,
-         BusinessCadEmpresa.CdEmpresa as id
-        FROM BusinessCadEmpresa ORDER BY BusinessCadEmpresa.FsEmpresa ASC";
-        $sql = $con->prepare($sql);
+        if($representante == 0){
+            $sql = "SELECT BusinessCadEmpresa.FsEmpresa as nome,
+             BusinessCadEmpresa.CdEmpresa as id
+            FROM BusinessCadEmpresa ORDER BY BusinessCadEmpresa.FsEmpresa ASC";
+            $sql = $con->prepare($sql);
+        }
+        else {
+            $sql = "SELECT a.FsEmpresa as nome,
+            a.CdEmpresa as id
+            FROM BusinessCadEmpresa a
+            INNER JOIN BusinessCadPermiCondPgto b ON a.CdEmpresa=b.CdEmpresa
+            WHERE b.CdRepresentante = :representante
+            GROUP BY a.CdEmpresa, a.FsEmpresa
+            ORDER BY a.FsEmpresa ASC";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+        }
+
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;

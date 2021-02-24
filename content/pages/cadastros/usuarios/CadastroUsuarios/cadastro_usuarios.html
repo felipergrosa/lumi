@@ -70,7 +70,12 @@
                       <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass2" name="cadastro_usuarios_edit_form_pass2" />
                   </div>
                   <div class="col-md-12 col-xs-12">
-                      <h4>Acessos</h4>
+                      <h4>Acessos NOBRE</h4>
+                  </div>
+                  <div class="col-md-12 col-xs-12 usuarios_acessos_nobre" id="acessos_nobre">
+                  </div>
+                  <div class="col-md-12 col-xs-12">
+                      <h4>Acessos WEB</h4>
                   </div>
                   <div class="col-md-12 col-xs-12 usuarios_acessos" id="acessos">
                   </div>
@@ -143,9 +148,9 @@
                 //     $('#cadastro_usuarios_edit_form_email').val(User.email);
                 //     $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
                 //     $('#action_for_form').val(action);
-                //     $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php', {id:id}, function(response){
-                //         $('.usuarios_acessos').html(response);
-                //     });
+                    $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos_nobre.php', {'CdRepresentante':User.CdRepresentante}, function(response){
+                        $('.usuarios_acessos_nobre').html(response);
+                    });
                 var prefix = '#cadastro_usuarios_edit_form_';
                 var UserKeys = Object.keys(User);
                 $(UserKeys).each(function(k,v){

@@ -11,6 +11,7 @@ if(@$_POST['action'] == 'permissao'){
     $valor = $_POST['valor'];
     $alvo = $_POST['alvo'];
     $check = $_POST['checked'];
+    var_dump($_POST);
 
     // exit;
 
@@ -47,6 +48,48 @@ if(@$_POST['action'] == 'permissao'){
                 $sql->bindParam('CdRepresentante', $CdRepresentante);
                 $sql->bindParam('CdEmpresa', $CdEmpresa);
                 $sql->bindParam('CdCondPgto', $CdCondPgto);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
+
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_municipios"){
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessCadPermiMunicipio (CdRepresentante, Cdmunicipio)
+            VALUES
+            (:CdRepresentante, :Cdmunicipio)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('Cdmunicipio', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessCadPermiMunicipio
+            WHERE CdRepresentante = :CdRepresentante AND Cdmunicipio = :Cdmunicipio";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('Cdmunicipio', $valor);
                 $sql->execute();
             } catch(PDOException $ex){
                 $error_message = $ex->getMessage();

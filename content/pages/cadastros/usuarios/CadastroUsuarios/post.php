@@ -12,6 +12,55 @@ if(@$_POST['action'] == 'permissao'){
     $alvo = $_POST['alvo'];
     $check = $_POST['checked'];
 
+    // exit;
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_condpgto"){
+        $valor = explode("|", $valor);
+        $CdCondPgto = $valor[0];
+        $CdEmpresa = $valor[1];
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessCadPermiCondPgto (CdRepresentante, CdEmpresa, CdCondPgto)
+            VALUES
+            (:CdRepresentante, :CdEmpresa, :CdCondPgto)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->bindParam('CdCondPgto', $CdCondPgto);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessCadPermiCondPgto
+            WHERE CdRepresentante = :CdRepresentante AND CdEmpresa = :CdEmpresa AND
+            CdCondPgto = :CdCondPgto";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->bindParam('CdCondPgto', $CdCondPgto);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
+
 
     if($alvo == "cadastro_usuarios_edit_div_perm_regiao"){
         if($check == "true"){
@@ -51,6 +100,7 @@ if(@$_POST['action'] == 'permissao'){
                 exit;
             }
         }
+        exit;
     }
     exit;
 }

@@ -265,7 +265,11 @@
                     {
                         $('.' + acessos[acesso].div).html(data);
                         $('.' + acessos[acesso].div).show();
-                        $('#' + acessos[acesso].tabela).dataTable();
+                        $('#' + acessos[acesso].tabela).dataTable({
+                            "language": {
+                                "url": "assets/datatables/Portuguese-Brasil.json"
+                            }
+                        });
                         HideLoading();
                     }
                 });

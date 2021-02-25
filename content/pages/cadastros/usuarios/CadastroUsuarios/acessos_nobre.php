@@ -14,6 +14,7 @@ $CdRepresentante = $_POST['CdRepresentante'];
 $sqlClass = new SqlServer($con_sql_server);
 
 $empresas_permissionadas = $sqlClass->BuscaEmpresas($CdRepresentante);
+
 // var_dump($empresas_permissionadas);
 
 
@@ -27,8 +28,9 @@ $empresas_permissionadas = $sqlClass->BuscaEmpresas($CdRepresentante);
 // Seg Mercado
 // Tabela
 
-
-
+foreach($empresas_permissionadas as $empresa){
+    $empresa_nome[$empresa['id']] = $empresa['nome'];
+}
 
 if(@$_POST['action'] == 'cond_pgto'){
 foreach($empresas_permissionadas as $empresa){
@@ -189,6 +191,78 @@ if(@$_POST['action'] == 'nat_op'){
                     '<td>'.$arr['id'].'</td>' .
                     '<td>'.$arr['descricao'].'</td>' .
                     '<td><input value="'.$arr['id'].'" type="checkbox" '.$perm.' /></td>' .
+
+                    '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+<?php
+exit;
+}
+if(@$_POST['action'] == 'prio'){
+
+    ?>
+    <table class="table table-hover table-striped table-bordered" id="cadastro_usuarios_edit_tabela_perm_prio" name="cadastro_usuarios_edit_tabela_perm_prio">
+        <thead>
+            <tr>
+                <th>Empresa</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($empresas_permissionadas as $empresa){
+                $empresa_id = $empresa['id'];
+                $ativos = $sqlClass->BuscaPermPrioridade($empresa_id, $CdRepresentante);
+                $ativos = $ativos[0];
+                if($ativos['p0'] == "S"){
+                    $p0 = '<input value="'.$empresa_id.'|p0" type="checkbox" checked="checked" />';
+                }
+                else {
+                    $p0 = '<input value="'.$empresa_id.'|p0" type="checkbox" />';
+                }
+
+                if($ativos['p1'] == "S"){
+                    $p1 = '<input value="'.$empresa_id.'|p1" type="checkbox" checked="checked" />';
+                }
+                else {
+                    $p1 = '<input value="'.$empresa_id.'|p1" type="checkbox" />';
+                }
+
+                if($ativos['p2'] == "S"){
+                    $p2 = '<input value="'.$empresa_id.'|p2" type="checkbox" checked="checked" />';
+                }
+                else {
+                    $p2 = '<input value="'.$empresa_id.'|p2" type="checkbox" />';
+                }
+
+                if($ativos['p3'] == "S"){
+                    $p3 = '<input value="'.$empresa_id.'|p3" type="checkbox" checked="checked" />';
+                }
+                else {
+                    $p3 = '<input value="'.$empresa_id.'|p3" type="checkbox" />';
+                }
+
+                if($ativos['p4'] == "S"){
+                    $p4 = '<input value="'.$empresa_id.'|p4" type="checkbox" checked="checked" />';
+                }
+                else {
+                    $p4 = '<input value="'.$empresa_id.'|p4" type="checkbox" />';
+                }
+
+                    echo '<tr>' .
+                    '<td>'.$empresa_nome[$empresa_id].'</td>' .
+                    '<td>'.$p0.'</td>' .
+                    '<td>'.$p1.'</td>' .
+                    '<td>'.$p2.'</td>' .
+                    '<td>'.$p3.'</td>' .
+                    '<td>'.$p4.'</td>' .
+
 
                     '</tr>';
                 }

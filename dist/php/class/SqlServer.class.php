@@ -320,4 +320,27 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+
+    function BuscaPermPrioridade($empresa = 0, $representante = 0){
+        $con = $this->con;
+        if($empresa == 0){
+            $sql = "SELECT a.* FROM BusinessCadPermiPrioridade a
+            WHERE a.CdRepresentante = :representante";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+
+        }
+        elseif($empresa != 0){
+            $sql = "SELECT a.* FROM BusinessCadPermiPrioridade a
+            WHERE a.CdRepresentante = :representante AND
+            a.CdEmpresa = :empresa";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+            $sql->bindParam('empresa', $empresa);
+
+        }
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

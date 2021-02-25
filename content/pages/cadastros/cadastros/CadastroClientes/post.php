@@ -686,7 +686,7 @@ if($_POST['action'] == 'novo'){
     $sql->bindParam('Ddd1', $campos_sql['Ddd1']);
     $sql->bindParam('Telefone1', $campos_sql['Telefone1']);
     $sql->bindParam('Email1', $campos_sql['Email1']);
-    $sql->execute();
+    // $sql->execute();
 
     }
     catch(Exception $e){
@@ -719,7 +719,7 @@ if($_POST['action'] == 'novo'){
                 $sql->bindParam('CdEmpresa', $ep);
                 $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
 
-                $sql->execute();
+                // $sql->execute();
             }
             catch(Exception $e){
                 $error_message = $e->getMessage();

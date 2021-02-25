@@ -26,23 +26,12 @@ if(!file_exists(__DIR__.'/config.php')){
 require_once __DIR__.'/config.php';
 
 // Conexão ao banco
-try {
-	$con = new PDO("mysql:host=$db_hostname;dbname=$db_database", $db_username, $db_password,
-    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'", PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION));
-    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(Exception $e){
-	// echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
-	// exit;
-}
-catch(PDOException $pdo){
-	// echo 'Erro ao conectar ao banco de dados central. Verifique com o suporte do sistema. Abortando.';
-	// exit;
-}
 
 try {
     $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
     $con_sql_server->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+
+    $con = $con_sql_server;
 }
 catch(Exception $e){
     $retorno['erro'] = 1;

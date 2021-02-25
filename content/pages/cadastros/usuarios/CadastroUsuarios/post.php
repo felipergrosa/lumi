@@ -4,7 +4,53 @@ header("Access-Control-Allow-Origin: *");
 require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
+if(@$_POST['action'] == 'permissao_front'){
+    var_dump($_POST);
+    $CdRepresentante = $_POST['CdRepresentante'];
+    $check = $_POST['checked'];
+    $tela = $_POST['tela'];
 
+    if($check == "true"){
+
+        $sql = "INSERT INTO BusinessCadPermiAcessos (usuario, tela, status)
+        VALUES (:CdRepresentante, :tela, 1)";
+        try {
+            $sql = $con_sql_server->prepare($sql);
+            $sql->bindParam('CdRepresentante', $CdRepresentante);
+            $sql->bindParam('tela', $tela);
+            $sql->execute();
+        } catch(PDOException $ex){
+            $error_message = $ex->getMessage();
+            echo $error_message;
+            exit;
+        } catch(Exception $e){
+            $error_message = $e->getMessage();
+            echo $error_message;
+            exit;
+        }
+    }
+
+    else {
+        $sql = "DELETE FROM BusinessCadPermiAcessos
+        WHERE usuario = :CdRepresentante AND tela = :tela";
+        try {
+            $sql = $con_sql_server->prepare($sql);
+            $sql->bindParam('CdRepresentante', $CdRepresentante);
+            $sql->bindParam('tela', $tela);
+            $sql->execute();
+
+        } catch(PDOException $ex){
+            $error_message = $ex->getMessage();
+            echo $error_message;
+            exit;
+        } catch(Exception $e){
+            $error_message = $e->getMessage();
+            echo $error_message;
+            exit;
+        }
+    }
+    exit;
+}
 if(@$_POST['action'] == 'permissao'){
     // var_dump($_POST);
     $CdRepresentante = $_POST['CdRepresentante'];
@@ -347,9 +393,19 @@ if(@$_POST['action'] == 'permissao'){
     exit;
 }
 if($_POST['action'] == 'GetUserList'){
+    try {
     $sql = "SELECT * FROM BusinessCadRepresentante";
     $sql = $con_sql_server->query($sql);
     $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        echo $error_message;
+        exit;
+    } catch(Exception $e){
+        $error_message = $e->getMessage();
+        echo $error_message;
+        exit;
+    }
     echo json_encode($row);
 }
 if($_POST['action'] == 'GetUserData'){

@@ -193,6 +193,11 @@
                             // console.log(User[v]);
                             $(prefix + v).val(User[v]);
                         });
+                        $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php', {CdRepresentante: $('#cadastro_usuarios_edit_form_CdRepresentante').val()}, function(response){
+                            $('.usuarios_acessos').html(response);
+                        });
+                        // $('.usuarios_acessos').load('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php');
+
 
 
                     }

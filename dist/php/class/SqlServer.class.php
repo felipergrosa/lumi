@@ -72,16 +72,18 @@ class SqlServer {
     function BuscaTabelas($empresa, $representante = 0, $tabela = 0){
         $con = $this->con;
         if($representante == 0 AND $tabela == 0){
-            $sql = "SELECT BusinessCadTabPreco.CdTabela as id_tabela,
-            BusinessCadTabPreco.DsTabela as descricao_tabela
-            FROM BusinessCadTabPreco
-            WHERE BusinessCadTabPreco.cdEmpresa = :empresa";
+            $sql = "SELECT a.CdTabela as id_tabela,
+            a.DsTabela as descricao_tabela,
+            a.CdEmpresa
+            FROM BusinessCadTabPreco a
+            WHERE a.cdEmpresa = :empresa";
             $sql = $con->prepare($sql);
             $sql->bindParam('empresa', $empresa);
         }
         elseif($representante != 0 && $tabela == 0){
             $sql = "SELECT a.CdTabela as id_tabela,
-            a.DsTabela as descricao_tabela
+            a.DsTabela as descricao_tabela,
+            a.CdEmpresa
             FROM BusinessCadTabPreco a
             LEFT JOIN BusinessCadPermiTabela b ON a.CdTabela=b.CdTabela
             WHERE a.cdEmpresa = :empresa AND
@@ -268,7 +270,7 @@ class SqlServer {
         }
     }
 
-    function BuscaSegmentoMercado($representante, $CdSegmento = 0){
+    function BuscaSegmentoMercado($representante = 0, $CdSegmento = 0){
         $con = $this->con;
         if($representante != 0 && $CdSegmento == 0){
             $sql = "SELECT a.* FROM BusinessCadSegMercado a

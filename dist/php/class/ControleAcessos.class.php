@@ -30,7 +30,14 @@ class ControleAcessos {
     }
 
     function DefineRoot() {
-        $this->isroot = true;
+        require __DIR__."/../sudoers.php";
+        $user = $this->user;
+        if(@$sudoers[$user]){
+            $this->isroot = true;
+        }
+        else {
+            $this->isroot = false;
+        }
         return false;
         $con_front = $this->con_front;
         $user = $this->user;
@@ -91,11 +98,12 @@ class ControleAcessos {
                                                     $detalhes_tela = $detalhes_tela['display'];
                                                     $menu[$menu_name]['submenu'][$submenu_name]['tela'][$tela_nome] = $detalhes_tela;
                                                     $full_acesso = $menu_name.'/'.$pastas_menu.'/'.$pastas_submenu;
-                                                    $verifica_acesso = "SELECT * FROM usuarios_acessos WHERE usuario = '$usuario' && tela = '$full_acesso'";
+                                                    $verifica_acesso = "SELECT * FROM BusinessCadPermiAcessos WHERE usuario = '$usuario' AND tela = '$full_acesso'";
 
-                                                    // $verifica_acesso = $con->query($verifica_acesso);
-                                                    // if($verifica_acesso->rowCount() > 0 or @$isroot){
-                                                    if($verifica_acesso){
+                                                    $verifica_acesso = $con->prepare($verifica_acesso);
+                                                    $verifica_acesso->execute();
+                                                    if($verifica_acesso->rowCount() != 0 or @$isroot){
+                                                    // if($verifica_acesso){
 
                                                         $acessos_geral[$full_acesso] = $full_acesso;
                                                         $acessos[$menu_name]['submenu'][$submenu_name]['tela']['acesso'][$tela_nome] = true;
@@ -239,7 +247,7 @@ class ControleAcessos {
         PODE SER FEITO EM SQL SE A SESSAO OU O ARRAY APRESENTAREM ERROS.
 
         $sql = "SELECT * FROM configuracoes_acessos_menus a
-        INNER JOIN usuarios_acessos b ON b.tela=a.id and b.usuario='$criadorcodigo'
+        INNER JOIN BusinessCadPermiAcessos b ON b.tela=a.id and b.usuario='$criadorcodigo'
         WHERE a.link = '$tela' ";
         $sql = $con->query($sql);
         if($sql->rowCount() > 0){

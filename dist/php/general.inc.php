@@ -60,3 +60,4 @@ function utf8ize( $mixed ) {
 
 
 @$representante_id = $_SESSION["nobre_usuario_id"];
+require __DIR__."/sudoers.php";

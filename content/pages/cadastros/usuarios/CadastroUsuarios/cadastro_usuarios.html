@@ -51,24 +51,24 @@
                     </div>
                     <div class="col-md-10 col-xs-8">
                         <label for="cadastro_usuarios_edit_form_RzRepresentante">Nome</label>
-                        <input type="text" class="form-control" id="cadastro_usuarios_edit_form_RzRepresentante" name="cadastro_usuarios_edit_form_RzRepresentante" />
+                        <input type="text" readonly class="form-control" id="cadastro_usuarios_edit_form_RzRepresentante" name="cadastro_usuarios_edit_form_RzRepresentante" />
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <label for="cadastro_usuarios_edit_form_Login">Login</label>
-                        <input type="text" class="form-control" id="cadastro_usuarios_edit_form_Login" name="cadastro_usuarios_edit_form_Login" />
+                        <input type="text" readonly class="form-control" id="cadastro_usuarios_edit_form_Login" name="cadastro_usuarios_edit_form_Login" />
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <label for="cadastro_usuarios_edit_form_email">E-mail</label>
-                        <input type="email" class="form-control" id="cadastro_usuarios_edit_form_email" name="cadastro_usuarios_edit_form_email" />
+                        <input type="email" readonly  class="form-control" id="cadastro_usuarios_edit_form_email" name="cadastro_usuarios_edit_form_email" />
                     </div>
-                    <div class="col-md-6 col-xs-12">
+                    <!-- <div class="col-md-6 col-xs-12">
                         <label for="cadastro_usuarios_edit_form_pass">Senha (deixe em branco para manter inalterado)</label>
                         <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass" name="cadastro_usuarios_edit_form_pass" />
                     </div>
                     <div class="col-md-6 col-xs-12">
                         <label for="cadastro_usuarios_edit_form_pass2">Confirmar Senha</label>
                         <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass2" name="cadastro_usuarios_edit_form_pass2" />
-                    </div>
+                    </div> -->
                     <div class="col-md-12 col-xs-12">
                         <h4>Acessos NOBRE</h4>
                     </div>
@@ -207,34 +207,7 @@
         }
 
         function Save() {
-            if($('#cadastro_usuarios_edit_form_pass').val() != $('#cadastro_usuarios_edit_form_pass2').val()){
-                toastr.error('A Confirmação de senha não bate.');
-            }
-            else {
-                var dados = $('#cadastro_usuarios_edit_form').serializeArray();
-                var action = $('#action_for_form').val();
-                console.log(action);
-                var acessos = $('#acessos :input').serializeArray();
-                // console.log(dados);
-                $.ajax({
-                    type: 'POST',
-                    url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
-                    data: {'dados': dados, 'action': action, 'telas': acessos},
-                    success: function (data)
-                    {
-                        console.log(data);
-                        if (data == 0) {
-                            toastr.success('Sucesso! Usuario atualizado.');
-                            GetUserList();
-                            $('#cadastro_usuarios_userlist').fadeIn(500);
-                            $('#cadastro_usuarios_edit').hide();
-
-                        } else {
-                            toastr.error('Erro: ' + data);
-                        }
-                    }
-                });
-            }
+            console.log('save');
         }
 
         function EscondeAcesso(acesso){

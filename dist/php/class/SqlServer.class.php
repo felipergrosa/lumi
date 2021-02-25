@@ -185,7 +185,7 @@ class SqlServer {
             $sql = "SELECT a.CdNatureza as id,
             a.DsNatureza as descricao
             FROM BusinessCadNatOperacao a
-            INNER JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.cd
+            INNER JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.CdNatureza
 
             WHERE b.CdRepresentante = :representante";
             $sql = $con->prepare($sql);

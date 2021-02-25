@@ -325,14 +325,14 @@ class SqlServer {
         $con = $this->con;
         if($empresa == 0){
             $sql = "SELECT a.* FROM BusinessCadPermiPrioridade a
-            WHERE a.CdRepresentante = :representante";
+            WHERE a.cdRepresentante = :representante";
             $sql = $con->prepare($sql);
             $sql->bindParam('representante', $representante);
 
         }
         elseif($empresa != 0){
             $sql = "SELECT a.* FROM BusinessCadPermiPrioridade a
-            WHERE a.CdRepresentante = :representante AND
+            WHERE a.cdRepresentante = :representante AND
             a.CdEmpresa = :empresa";
             $sql = $con->prepare($sql);
             $sql->bindParam('representante', $representante);

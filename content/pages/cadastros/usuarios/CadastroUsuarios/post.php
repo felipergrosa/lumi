@@ -4,6 +4,56 @@ header("Access-Control-Allow-Origin: *");
 require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
+
+if(@$_POST['action'] == 'permissao'){
+    var_dump($_POST);
+    $CdRepresentante = $_POST['CdRepresentante'];
+    $valor = $_POST['valor'];
+    $alvo = $_POST['alvo'];
+    $check = $_POST['checked'];
+
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_regiao"){
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessPermiRegiao (CdRepresentante, CdRegiao)
+            VALUES
+            (:CdRepresentante, :CdRegiao)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdRegiao', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessPermiRegiao
+            WHERE CdRepresentante = :CdRepresentante AND CdRegiao = :CdRegiao";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdRegiao', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+    }
+    exit;
+}
 if($_POST['action'] == 'GetUserList'){
     $sql = "SELECT * FROM BusinessCadRepresentante";
     $sql = $con_sql_server->query($sql);

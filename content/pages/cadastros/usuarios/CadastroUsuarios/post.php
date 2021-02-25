@@ -104,46 +104,6 @@ if(@$_POST['action'] == 'permissao'){
         exit;
     }
 
-    if($alvo == "cadastro_usuarios_edit_div_perm_nat_op"){
-        if($check == "true"){
-            $sql = "INSERT INTO BusinessCadPerminatureza (CdRepresentante, CdNatureza)
-            VALUES
-            (:CdRepresentante, :CdNatureza)";
-            try {
-                $sql = $con_sql_server->prepare($sql);
-                $sql->bindParam('CdRepresentante', $CdRepresentante);
-                $sql->bindParam('CdNatureza', $valor);
-                $sql->execute();
-            } catch(PDOException $ex){
-                $error_message = $ex->getMessage();
-                echo $error_message;
-                exit;
-            } catch(Exception $e){
-                $error_message = $e->getMessage();
-                echo $error_message;
-                exit;
-            }
-        }
-        else {
-            $sql = "DELETE FROM BusinessCadPerminatureza
-            WHERE CdRepresentante = :CdRepresentante AND CdNatureza = :CdNatureza";
-            try {
-                $sql = $con_sql_server->prepare($sql);
-                $sql->bindParam('CdRepresentante', $CdRepresentante);
-                $sql->bindParam('CdNatureza', $valor);
-                $sql->execute();
-            } catch(PDOException $ex){
-                $error_message = $ex->getMessage();
-                echo $error_message;
-                exit;
-            } catch(Exception $e){
-                $error_message = $e->getMessage();
-                echo $error_message;
-                exit;
-            }
-        }
-        exit;
-    }
 
 
     if($alvo == "cadastro_usuarios_edit_div_perm_regiao"){
@@ -186,6 +146,115 @@ if(@$_POST['action'] == 'permissao'){
         }
         exit;
     }
+
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_nat_op"){
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessCadPerminatureza (CdRepresentante, CdNatureza)
+            VALUES
+            (:CdRepresentante, :CdNatureza)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdNatureza', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessCadPerminatureza
+            WHERE CdRepresentante = :CdRepresentante AND CdNatureza = :CdNatureza";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdNatureza', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_prio"){
+        $valor = explode("|", $valor);
+        $coluna = $valor[1];
+        $CdEmpresa = $valor[0];
+
+        if($check == "true"){
+            $sql = "SELECT * FROM BusinessCadPermiPrioridade WHERE CdEmpresa = :CdEmpresa
+            AND cdRepresentante = :cdRepresentante";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('cdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+
+            if($sql->rowCount() != 0){
+                $sql = "UPDATE BusinessCadPermiPrioridade SET ".$coluna." = 'S' WHERE
+                CdEmpresa = :CdEmpresa
+                AND cdRepresentante = :cdRepresentante";
+                try {
+                    $sql = $con_sql_server->prepare($sql);
+                    $sql->bindParam('cdRepresentante', $CdRepresentante);
+                    $sql->bindParam('CdEmpresa', $CdEmpresa);
+                    $sql->execute();
+                } catch(PDOException $ex){
+                    $error_message = $ex->getMessage();
+                    echo $error_message;
+                    exit;
+                } catch(Exception $e){
+                    $error_message = $e->getMessage();
+                    echo $error_message;
+                    exit;
+                }
+            }
+
+        }
+        else {
+            $sql = "UPDATE BusinessCadPermiPrioridade SET ".$coluna." = 'N' WHERE
+            CdEmpresa = :CdEmpresa
+            AND cdRepresentante = :cdRepresentante";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('cdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
+
     exit;
 }
 if($_POST['action'] == 'GetUserList'){

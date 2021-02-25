@@ -45,42 +45,77 @@
             <form onsubmit="return false;" id="cadastro_usuarios_edit_form" name="cadastro_usuarios_edit_form">
                 <input type="hidden" name="action_for_form" id="action_for_form" value="" />
                 <div class="form-group row">
-                  <div class="col-md-2 col-xs-4">
-                      <label for="cadastro_usuarios_edit_form_CdRepresentante">ID</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_CdRepresentante" name="cadastro_usuarios_edit_form_CdRepresentante" readonly/>
-                  </div>
-                  <div class="col-md-10 col-xs-8">
-                      <label for="cadastro_usuarios_edit_form_RzRepresentante">Nome</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_RzRepresentante" name="cadastro_usuarios_edit_form_RzRepresentante" />
-                  </div>
-                  <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_usuarios_edit_form_Login">Login</label>
-                      <input type="text" class="form-control" id="cadastro_usuarios_edit_form_Login" name="cadastro_usuarios_edit_form_Login" />
-                  </div>
-                  <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_usuarios_edit_form_email">E-mail</label>
-                      <input type="email" class="form-control" id="cadastro_usuarios_edit_form_email" name="cadastro_usuarios_edit_form_email" />
-                  </div>
-                  <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_usuarios_edit_form_pass">Senha (deixe em branco para manter inalterado)</label>
-                      <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass" name="cadastro_usuarios_edit_form_pass" />
-                  </div>
-                  <div class="col-md-6 col-xs-12">
-                      <label for="cadastro_usuarios_edit_form_pass2">Confirmar Senha</label>
-                      <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass2" name="cadastro_usuarios_edit_form_pass2" />
-                  </div>
-                  <div class="col-md-12 col-xs-12">
-                      <h4>Acessos NOBRE</h4>
-                  </div>
-                  <div class="col-md-12 col-xs-12 usuarios_acessos_nobre" id="acessos_nobre">
-                  </div>
-                  <div class="col-md-12 col-xs-12">
-                      <h4>Acessos WEB</h4>
-                  </div>
-                  <div class="col-md-12 col-xs-12 usuarios_acessos" id="acessos">
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
+                    <div class="col-md-2 col-xs-4">
+                        <label for="cadastro_usuarios_edit_form_CdRepresentante">ID</label>
+                        <input type="text" class="form-control" id="cadastro_usuarios_edit_form_CdRepresentante" name="cadastro_usuarios_edit_form_CdRepresentante" readonly/>
+                    </div>
+                    <div class="col-md-10 col-xs-8">
+                        <label for="cadastro_usuarios_edit_form_RzRepresentante">Nome</label>
+                        <input type="text" class="form-control" id="cadastro_usuarios_edit_form_RzRepresentante" name="cadastro_usuarios_edit_form_RzRepresentante" />
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <label for="cadastro_usuarios_edit_form_Login">Login</label>
+                        <input type="text" class="form-control" id="cadastro_usuarios_edit_form_Login" name="cadastro_usuarios_edit_form_Login" />
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <label for="cadastro_usuarios_edit_form_email">E-mail</label>
+                        <input type="email" class="form-control" id="cadastro_usuarios_edit_form_email" name="cadastro_usuarios_edit_form_email" />
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <label for="cadastro_usuarios_edit_form_pass">Senha (deixe em branco para manter inalterado)</label>
+                        <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass" name="cadastro_usuarios_edit_form_pass" />
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <label for="cadastro_usuarios_edit_form_pass2">Confirmar Senha</label>
+                        <input type="password" class="form-control" id="cadastro_usuarios_edit_form_pass2" name="cadastro_usuarios_edit_form_pass2" />
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <h4>Acessos NOBRE</h4>
+                    </div>
+                </div>
+
+                <div class="botoes_acessos form-group row">
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-success" onclick="CarregaAcesso('cond_pgto');">Cond. Pgto</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-primary" onclick="CarregaAcesso('municipios');">Municípios</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-warning">Região</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-success">Natur. Op.</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-danger">Prioridade</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-warning">Seg. Mercado</btn>
+                    </div>
+                    <div class="col-md-3 col-xl-2 col-sm-6 col-xs-6">
+                        <btn class="btn btn-block btn-primary">Tabela</btn>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 col-xs-12 usuarios_acessos_nobre" id="acessos_nobre">
+                        <div class="cadastro_usuarios_edit_div_perm_condpgto"></div>
+                        <div class="cadastro_usuarios_edit_div_perm_municipios"></div>
+                        <div class="cadastro_usuarios_edit_div_perm_regiao"></div>
+                        <div class="cadastro_usuarios_edit_div_perm_nat_op"></div>
+                        <div class="cadastro_usuarios_edit_div_prio"></div>
+                        <div class="cadastro_usuarios_edit_div_seg_merc"></div>
+                        <div class="cadastro_usuarios_edit_div_perm_tabela"></div>
+
+
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <h4>Acessos WEB</h4>
+                    </div>
+                    <div class="col-md-12 col-xs-12 usuarios_acessos" id="acessos">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="Save();">Salvar</button>
             </form>
         </div>
     </div>
@@ -94,10 +129,10 @@
 
         GetUserList();
         $('#cadastro_usuarios_userlist_table').DataTable({
-                "language": {
-                    "url": "assets/datatables/Portuguese-Brasil.json"
-                }
+            "language": {
+                "url": "assets/datatables/Portuguese-Brasil.json"
             }
+        }
 
         );
 
@@ -122,88 +157,132 @@
                     $('.cadastro_usuarios_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'editar\')">' +
                         '<td>' + v.RzRepresentante + '</td><td>' + v.Login + '</td><td>' + v.email + '</td>' +
                         '<td>' + general_level + '</td></tr>');
-                });
-            }
-        });
-    }
-    function GetUserInfoEdit(id, action){
-        $('#cadastro_usuarios_userlist').hide();
-        $('#cadastro_usuarios_edit').fadeIn(500);
-
-        $('#cadastro_usuarios_edit_form :input').each(function(k,v){
-            $(v).val('');
-        });
-        if(action == 'editar'){
-            $.ajax({
-                type: 'POST',
-                url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
-                data: {'action':'GetUserData', 'id':id},
-                dataType: 'json',
-                async: false,
-                success: function (User)
-                {
-                //     $('#cadastro_usuarios_edit_form_id').val(User.id);
-                //     $('#cadastro_usuarios_edit_form_nome').val(User.nome);
-                //     $('#cadastro_usuarios_edit_form_login').val(User.login);
-                //     $('#cadastro_usuarios_edit_form_email').val(User.email);
-                //     $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
-                //     $('#action_for_form').val(action);
-                    $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos_nobre.php', {'CdRepresentante':User.CdRepresentante}, function(response){
-                        $('.usuarios_acessos_nobre').html(response);
                     });
-                var prefix = '#cadastro_usuarios_edit_form_';
-                var UserKeys = Object.keys(User);
-                $(UserKeys).each(function(k,v){
-                    // console.log(User[v]);
-                    $(prefix + v).val(User[v]);
-                });
-
-
                 }
             });
         }
-        else {
-            $('.usuarios_acessos').load('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php');
-            $('#cadastro_usuarios_edit_form_id').val(id);
-            $('#cadastro_usuarios_edit_nome').html('Novo usuário');
-            $('#action_for_form').val(action);
-        }
-    }
+        function GetUserInfoEdit(id, action){
+            $('#cadastro_usuarios_userlist').hide();
+            $('#cadastro_usuarios_edit').fadeIn(500);
 
-    function Save() {
-        if($('#cadastro_usuarios_edit_form_pass').val() != $('#cadastro_usuarios_edit_form_pass2').val()){
-            toastr.error('A Confirmação de senha não bate.');
-        }
-        else {
-          var dados = $('#cadastro_usuarios_edit_form').serializeArray();
-          var action = $('#action_for_form').val();
-          console.log(action);
-          var acessos = $('#acessos :input').serializeArray();
-          // console.log(dados);
-          $.ajax({
-              type: 'POST',
-              url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
-              data: {'dados': dados, 'action': action, 'telas': acessos},
-              success: function (data)
-              {
-                  console.log(data);
-                  if (data == 0) {
-                      toastr.success('Sucesso! Usuario atualizado.');
-                      GetUserList();
-                      $('#cadastro_usuarios_userlist').fadeIn(500);
-                      $('#cadastro_usuarios_edit').hide();
+            $('#cadastro_usuarios_edit_form :input').each(function(k,v){
+                $(v).val('');
+            });
+            if(action == 'editar'){
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
+                    data: {'action':'GetUserData', 'id':id},
+                    dataType: 'json',
+                    async: false,
+                    success: function (User)
+                    {
+                        //     $('#cadastro_usuarios_edit_form_id').val(User.id);
+                        //     $('#cadastro_usuarios_edit_form_nome').val(User.nome);
+                        //     $('#cadastro_usuarios_edit_form_login').val(User.login);
+                        //     $('#cadastro_usuarios_edit_form_email').val(User.email);
+                        //     $('#cadastro_usuarios_edit_nome').html('Edição de usuário - ' + User.nome);
+                        //     $('#action_for_form').val(action);
+                        // $.post('content/pages/cadastros/usuarios/CadastroUsuarios/acessos_nobre.php', {'CdRepresentante':User.CdRepresentante}, function(response){
+                        //     $('.usuarios_acessos_nobre').html(response);
+                        //     $("#cadastro_usuarios_edit_tabela_perm_condpgto").dataTable();
+                        // });
+                        var prefix = '#cadastro_usuarios_edit_form_';
+                        var UserKeys = Object.keys(User);
+                        $(UserKeys).each(function(k,v){
+                            // console.log(User[v]);
+                            $(prefix + v).val(User[v]);
+                        });
 
-                  } else {
-                      toastr.error('Erro: ' + data);
-                  }
-              }
-          });
-        }
-      }
 
-</script>
-<style type="text/css">
-    .pointer {
-        cursor:pointer;
-    }
-</style>
+                    }
+                });
+            }
+            else {
+                $('.usuarios_acessos').load('content/pages/cadastros/usuarios/CadastroUsuarios/acessos.php');
+                $('#cadastro_usuarios_edit_form_id').val(id);
+                $('#cadastro_usuarios_edit_nome').html('Novo usuário');
+                $('#action_for_form').val(action);
+            }
+        }
+
+        function Save() {
+            if($('#cadastro_usuarios_edit_form_pass').val() != $('#cadastro_usuarios_edit_form_pass2').val()){
+                toastr.error('A Confirmação de senha não bate.');
+            }
+            else {
+                var dados = $('#cadastro_usuarios_edit_form').serializeArray();
+                var action = $('#action_for_form').val();
+                console.log(action);
+                var acessos = $('#acessos :input').serializeArray();
+                // console.log(dados);
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',
+                    data: {'dados': dados, 'action': action, 'telas': acessos},
+                    success: function (data)
+                    {
+                        console.log(data);
+                        if (data == 0) {
+                            toastr.success('Sucesso! Usuario atualizado.');
+                            GetUserList();
+                            $('#cadastro_usuarios_userlist').fadeIn(500);
+                            $('#cadastro_usuarios_edit').hide();
+
+                        } else {
+                            toastr.error('Erro: ' + data);
+                        }
+                    }
+                });
+            }
+        }
+
+        function EscondeAcesso(acesso){
+            console.log(acesso);
+            $('.' + acessos[acesso].div).hide();
+        }
+        function CarregaAcesso(acesso){
+            ShowLoading();
+            var acessos = Array();
+            acessos['cond_pgto'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_condpgto', 'div':'cadastro_usuarios_edit_div_perm_condpgto'};
+            acessos['municipios'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_municipios', 'div':'cadastro_usuarios_edit_div_perm_municipios'};
+            acessos['regiao'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_regiao', 'div':'cadastro_usuarios_edit_div_perm_regiao'};
+            acessos['nat_op'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_nat_op', 'div':'cadastro_usuarios_edit_div_perm_nat_op'};
+            acessos['prio'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_prio', 'div':'cadastro_usuarios_edit_div_perm_prio'};
+            acessos['seg_merc'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_seg_merc', 'div':'cadastro_usuarios_edit_div_perm_seg_merc'};
+            acessos['tabela'] =  {'tabela': 'cadastro_usuarios_edit_tabela_perm_tabela', 'div':'cadastro_usuarios_edit_div_perm_tabela'};
+            $(Object.keys(acessos)).each(function(k,v){
+                console.log(v);
+                $('.' + acessos[v].div).hide();
+            });
+            console.log($('.' + acessos[acesso].div));
+            if($('.' + acessos[acesso].div).html() == ""){
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/usuarios/CadastroUsuarios/acessos_nobre.php',
+                    data: {'action': acesso, 'CdRepresentante':$('#cadastro_usuarios_edit_form_CdRepresentante').val()},
+                    success: function (data)
+                    {
+                        $('.' + acessos[acesso].div).html(data);
+                        $('.' + acessos[acesso].div).show();
+                        $('#' + acessos[acesso].tabela).dataTable();
+                        HideLoading();
+                    }
+                });
+            }
+            else {
+                $('.' + acessos[acesso].div).show();
+                HideLoading();
+            }
+
+        }
+
+    </script>
+    <style type="text/css">
+        .pointer {
+            cursor:pointer;
+        }
+        .botoes_acessos div {
+            margin-bottom: 10px;
+        }
+    </style>

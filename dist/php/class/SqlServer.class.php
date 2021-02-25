@@ -157,12 +157,12 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaNaturezaOperacao($empresa, $representante = 0, $CdNatureza = 0){
+    function BuscaNaturezaOperacao($empresa = 0, $representante = 0, $CdNatureza = 0){
         $con = $this->con;
         if($representante == 0){
-            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as id,
-            BusinessCadNatOperacao.DsNatureza as descricao
-            FROM BusinessCadNatOperacao";
+            $sql = "SELECT a.CdNatureza as id,
+            a.DsNatureza as descricao
+            FROM BusinessCadNatOperacao a";
             $sql = $con->prepare($sql);
 
         }
@@ -170,7 +170,7 @@ class SqlServer {
             $sql = "SELECT a.CdNatureza as id,
             a.DsNatureza as descricao
             FROM BusinessCadNatOperacao a
-            LEFT JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.CdNatureza
+            INNER JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.CdNatureza
 
             WHERE b.CdRepresentante = :representante AND
             a.CdNatureza = :CdNatureza";
@@ -180,10 +180,10 @@ class SqlServer {
 
         }
         else {
-            $sql = "SELECT BusinessCadNatOperacao.CdNatureza as a.id,
-            BusinessCadNatOperacao.DsNatureza as a.descricao
+            $sql = "SELECT a.CdNatureza as id,
+            a.DsNatureza as descricao
             FROM BusinessCadNatOperacao a
-            LEFT JOIN BusinessCadPerminatureza ON a.CdNatureza=b.cd
+            INNER JOIN BusinessCadPerminatureza b ON a.CdNatureza=b.cd
 
             WHERE b.CdRepresentante = :representante";
             $sql = $con->prepare($sql);

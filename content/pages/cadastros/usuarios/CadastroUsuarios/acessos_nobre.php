@@ -121,4 +121,81 @@ if(@$_POST['action'] == 'municipios'){
 <?php
 exit;
 }
+
+if(@$_POST['action'] == 'regiao'){
+        $ativos = $sqlClass->BuscaRegiao($CdRepresentante);
+        foreach($ativos as $atv){
+            $Regiao['ativos'][$atv['CdRegiao']] = true;
+        }
+        $Regiao['todos'] = $sqlClass->BuscaRegiao();
+
+    ?>
+    <table class="table table-hover table-striped table-bordered" id="cadastro_usuarios_edit_tabela_perm_municipios" name="cadastro_usuarios_edit_tabela_perm_municipios">
+        <thead>
+            <tr>
+                <th>Cd</th>
+                <th>Região</th>
+                <th>Perm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($Regiao['todos'] as $arr){
+                    if(@$Regiao['ativos'][$arr['CdRegiao']]){
+                        $perm = 'checked="checked"';
+                    }
+                    else {
+                        $perm = "";
+                    }
+                    echo '<tr>' .
+                    '<td>'.$arr['CdRegiao'].'</td>' .
+                    '<td>'.$arr['DsRegiao'].'</td>' .
+                    '<td><input value="'.$arr['CdRegiao'].'" type="checkbox" '.$perm.' /></td>' .
+
+                    '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+<?php
+exit;
+}
+if(@$_POST['action'] == 'nat_op'){
+        $ativos = $sqlClass->BuscaNaturezaOperacao(0, $CdRepresentante);
+        foreach($ativos as $atv){
+            $NaturezaOperacao['ativos'][$atv['id']] = true;
+        }
+        $NaturezaOperacao['todos'] = $sqlClass->BuscaNaturezaOperacao();
+
+    ?>
+    <table class="table table-hover table-striped table-bordered" id="cadastro_usuarios_edit_tabela_perm_nat_op" name="cadastro_usuarios_edit_tabela_perm_nat_op">
+        <thead>
+            <tr>
+                <th>Cd</th>
+                <th>Natureza</th>
+                <th>Perm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($NaturezaOperacao['todos'] as $arr){
+                    if(@$NaturezaOperacao['ativos'][$arr['id']]){
+                        $perm = 'checked="checked"';
+                    }
+                    else {
+                        $perm = "";
+                    }
+                    echo '<tr>' .
+                    '<td>'.$arr['id'].'</td>' .
+                    '<td>'.$arr['descricao'].'</td>' .
+                    '<td><input value="'.$arr['id'].'" type="checkbox" '.$perm.' /></td>' .
+
+                    '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+<?php
+exit;
+}
 ?>

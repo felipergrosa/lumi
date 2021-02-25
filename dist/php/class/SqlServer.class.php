@@ -294,7 +294,7 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
-    function BuscaRegiao($representante, $CdRegiao = 0){
+    function BuscaRegiao($representante = 0, $CdRegiao = 0){
         $con = $this->con;
         if($representante != 0 && $CdRegiao == 0){
             $sql = "SELECT a.* FROM BusinessCadRegiao a

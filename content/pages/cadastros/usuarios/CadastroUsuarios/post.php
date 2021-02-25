@@ -254,6 +254,46 @@ if(@$_POST['action'] == 'permissao'){
         }
         exit;
     }
+    if($alvo == "cadastro_usuarios_edit_div_perm_seg_merc"){
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessCadPermiSegMercado (CdRepresentante, CdSegmento)
+            VALUES
+            (:CdRepresentante, :CdSegmento)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdSegmento', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessCadPermiSegMercado
+            WHERE CdRepresentante = :CdRepresentante AND CdSegmento = :CdSegmento";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdSegmento', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
 
     exit;
 }

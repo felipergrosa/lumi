@@ -6,7 +6,7 @@ ini_set('display_errors', 'on');
 require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 $path =  __DIR__.'/../../../../../';
 $CdRepresentante = $_POST['CdRepresentante'];
-echo "<pre>";
+// echo "<pre>";
 // var_dump($_POST);
 // var_dump($CdRepresentante);
 
@@ -15,6 +15,22 @@ $sqlClass = new SqlServer($con_sql_server);
 
 $empresas_permissionadas = $sqlClass->BuscaEmpresas($CdRepresentante);
 // var_dump($empresas_permissionadas);
+
+
+
+// COND PGTO
+// Municipio
+// Regiao
+
+// natureza op
+// Prioridade
+// Seg Mercado
+// Tabela
+
+
+
+
+if(@$_POST['action'] == 'cond_pgto'){
 foreach($empresas_permissionadas as $empresa){
     $empresa_id = $empresa['id'];
     $ativos = $sqlClass->BuscaCondicoesPagamento($empresa_id, $CdRepresentante);
@@ -25,13 +41,6 @@ foreach($empresas_permissionadas as $empresa){
     $CondPgto['todos'][$empresa_id] = $sqlClass->BuscaCondicoesPagamento($empresa_id);
 }
 
-// COND PGTO
-// Municipio
-// natureza op
-// Prioridade
-// Seg Mercado
-// Tabela
-// Regiao
 
 
 ?>
@@ -68,3 +77,48 @@ foreach($empresas_permissionadas as $empresa){
         ?>
     </tbody>
 </table>
+
+<?php
+exit;
+}
+if(@$_POST['action'] == 'municipios'){
+        $ativos = $sqlClass->BuscaMunicipios($CdRepresentante);
+        foreach($ativos as $atv){
+            $Municipios['ativos'][$atv['CdMunicipio']] = true;
+        }
+        $Municipios['todos'] = $sqlClass->BuscaMunicipios();
+
+    ?>
+    <table class="table table-hover table-striped table-bordered" id="cadastro_usuarios_edit_tabela_perm_municipios" name="cadastro_usuarios_edit_tabela_perm_municipios">
+        <thead>
+            <tr>
+                <th>Cd</th>
+                <th>Municipio</th>
+                <th>Estado</th>
+                <th>Perm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($Municipios['todos'] as $arr){
+                    if(@$Municipios['ativos'][$arr['CdMunicipio']]){
+                        $perm = 'checked="checked"';
+                    }
+                    else {
+                        $perm = "";
+                    }
+                    echo '<tr>' .
+                    '<td>'.$arr['CdMunicipio'].'</td>' .
+                    '<td>'.$arr['DsMunicipio'].'</td>' .
+                    '<td>'.$arr['Estado'].'</td>' .
+                    '<td><input value="'.$arr['CdMunicipio'].'" type="checkbox" '.$perm.' /></td>' .
+
+                    '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+<?php
+exit;
+}
+?>

@@ -218,6 +218,28 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+
+    function BuscaMunicipios($representante = 0){
+        if($representante == 0){
+            $con = $this->con;
+            $sql = "SELECT * FROM BusinessCadMunicipio ORDER BY Estado ASC";
+            $sql = $con->prepare($sql);
+        }
+        else {
+            $con = $this->con;
+            $sql = "SELECT a.*, b.CdRepresentante FROM BusinessCadMunicipio a
+            INNER JOIN BusinessCadPermiMunicipio b ON b.Cdmunicipio = a.CdMunicipio
+            WHERE b.CdRepresentante = :representante
+            ORDER BY a.Estado ASC";
+            $sql = $con->prepare($sql);
+            $sql->bindParam('representante', $representante);
+        }
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+
+    }
+
     function VerificaAcessoMunicipio($municipio, $representante, $estado){
         $con = $this->con;
         $municipio = '%'.$municipio.'%';

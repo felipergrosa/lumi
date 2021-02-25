@@ -6,12 +6,12 @@ ini_set('display_errors', 'on');
 @session_start();
 
 if(@$_POST['action'] == 'permissao'){
-    var_dump($_POST);
+    // var_dump($_POST);
     $CdRepresentante = $_POST['CdRepresentante'];
     $valor = $_POST['valor'];
     $alvo = $_POST['alvo'];
     $check = $_POST['checked'];
-    var_dump($_POST);
+    // var_dump($_POST);
 
     // exit;
 
@@ -281,6 +281,55 @@ if(@$_POST['action'] == 'permissao'){
                 $sql = $con_sql_server->prepare($sql);
                 $sql->bindParam('CdRepresentante', $CdRepresentante);
                 $sql->bindParam('CdSegmento', $valor);
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        exit;
+    }
+
+    if($alvo == "cadastro_usuarios_edit_div_perm_tabela"){
+        $valor = explode("|", $valor);
+        $CdTabela = $valor[0];
+        $CdEmpresa = $valor[1];
+
+        if($check == "true"){
+            $sql = "INSERT INTO BusinessCadPermiTabela (CdRepresentante, CdEmpresa, CdTabela)
+            VALUES
+            (:CdRepresentante, :CdEmpresa, :CdTabela)";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->bindParam('CdTabela', $CdTabela);
+
+                $sql->execute();
+            } catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            } catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+        else {
+            $sql = "DELETE FROM BusinessCadPermiTabela
+            WHERE CdRepresentante = :CdRepresentante AND CdEmpresa = :CdEmpresa
+            AND CdTabela = :CdTabela";
+            try {
+                $sql = $con_sql_server->prepare($sql);
+                $sql->bindParam('CdRepresentante', $CdRepresentante);
+                $sql->bindParam('CdEmpresa', $CdEmpresa);
+                $sql->bindParam('CdTabela', $CdTabela);
                 $sql->execute();
             } catch(PDOException $ex){
                 $error_message = $ex->getMessage();

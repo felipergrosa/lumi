@@ -102,7 +102,7 @@ if($_POST['action'] == 'GetUserList'){
 
     // LEFT JOIN BusinessCadClienteLC b ON a.CdRepresentante=b.CdRepresentante AND a.Cnpj_Cnpf=b.Cnpj_Cnpf
     // LEFT JOIN BusinessCadEmpresa c ON b.CdEmpresa=c.CdEmpresa
-    echo json_encode($row);
+    echo json_encode(utf8ize($row));
 }
 if($_POST['action'] == 'GetUserData'){
     // $id = (int) $_POST['id'];

@@ -34,7 +34,7 @@ if($_POST['action'] == 'GetProdList'){
         $cont++;
     }
     // $row = $sql->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($saida);
+    echo json_encode(utf8ize($saida));
 }
 if($_POST['action'] == 'GetProdData'){
     $id = $_POST['id'];

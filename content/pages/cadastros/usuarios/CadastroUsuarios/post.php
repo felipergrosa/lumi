@@ -416,7 +416,7 @@ if($_POST['action'] == 'GetUserList'){
     }
 
 
-    echo json_encode($retorno);
+    echo json_encode(utf8ize($retorno));
 }
 if($_POST['action'] == 'GetUserData'){
     $id = $_POST['id'];

@@ -5,6 +5,45 @@ require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
 $prefix = "cadastro_produtos_edit_form_";
+if(@$_POST['action'] == 'AplicaDesconto'){
+    $CdProduto = $_POST['CdProduto'];
+    $check = $_POST['checked'];
+    $CdEmpresa = $_POST['CdEmpresa'];
+    // var_dump($_POST);
+    // exit;
+
+
+    if($check == "true"){
+        $troca = "S";
+    }
+    else {
+        $troca = "N";
+    }
+
+
+
+    $sql = "UPDATE BusinessCadProduto SET pdesc = :pdesc WHERE
+    CdProduto = :CdProduto AND CdEmpresa = :CdEmpresa";
+    try {
+        $sql = $con_sql_server->prepare($sql);
+        $sql->bindParam('pdesc', $troca);
+        $sql->bindParam('CdProduto', $CdProduto);
+        $sql->bindParam('CdEmpresa', $CdEmpresa);
+        $sql->execute();
+    } catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        echo $error_message;
+        exit;
+    } catch(Exception $e){
+        $error_message = $e->getMessage();
+        echo $error_message;
+        exit;
+    }
+
+    echo 0;
+    exit;
+
+}
 if($_POST['action'] == 'GetProdList'){
     $empresa = $_POST['empresa'];
     $sql = "SELECT *,
@@ -12,7 +51,8 @@ if($_POST['action'] == 'GetProdList'){
     a.CdProduto as id,
     b.FsEmpresa as empresa,
     a.CdEmpresa,
-    0 as valor
+    0 as valor,
+    a.pdesc
     FROM BusinessCadProduto a
     LEFT JOIN BusinessCadEmpresa b ON a.CdEmpresa=b.CdEmpresa
 
@@ -24,6 +64,15 @@ if($_POST['action'] == 'GetProdList'){
     $cont = 0;
     while($row = $sql->fetch(PDO::FETCH_ASSOC)){
         $saida[$cont] = $row;
+        if($row['pdesc'] == "S"){
+            $check = "checked='checked'";
+        }
+        else {
+            $check = "";
+        }
+
+        $pode_desc = '<input type="checkbox" onclick="AplicaDesconto(\''.$row['CdProduto'].'\', \''.$row['CdEmpresa'].'\', this)" '.$check.' />';
+        $saida[$cont]['pode_desc'] = $pode_desc;
         if(@file_exists($foto_dir.$row['CdEmpresa'].'-'.$row['CdProduto'].'.jpg')){
             $saida[$cont]['foto'] = '<i class="fa fa-eye"></i>';
         }

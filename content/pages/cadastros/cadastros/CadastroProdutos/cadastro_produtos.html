@@ -24,6 +24,7 @@
                         <th>Desc</th>
                         <th>Valor</th>
                         <th>Foto</th>
+                        <th>Perm Desc.</th>
 
                     </tr>
                 </thead>
@@ -152,7 +153,23 @@
         // );
 
     });
+    function AplicaDesconto(CdProduto, CdEmpresa, field){
+        var checked = $(field).prop('checked');
+        var action = 'AplicaDesconto';
+        $.ajax({
+            type: 'POST',
+            url: 'content/pages/cadastros/cadastros/CadastroProdutos/post.php',
+            data: {'action':action, 'CdProduto':CdProduto, 'CdEmpresa':CdEmpresa, 'checked':checked},
+            dataType: 'json',
+            async: false,
+            success: function (response)
+            {
+                
+                toastr.success('Permissão Aplicada');
 
+            }
+        });
+    }
     function GetProdList(){
         $('.cadastro_clientes_lista').html('');
         var empresa = $('#selecao_empresa').val();
@@ -180,7 +197,15 @@
                 // '<tbody class="cadastro_clientes_lista pointer">');
                 $(UserList).each(function(k,v){
 
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')"><td>' + v.empresa + '</td><td>' + v.id + '</td><td>' + v.nome + '</td><td>' + v.valor + '</td><td>'+ v.foto +'</td></tr>');
+                    $('.cadastro_clientes_lista').append('<tr >' +
+                        '<td onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')">' + v.empresa + '</td>' +
+                        '<td onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')">' + v.id + '</td>' +
+                        '<td onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')">' + v.nome + '</td>' +
+                        '<td onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')">' + v.valor + '</td>' +
+                        '<td onclick="GetProdInfoEdit(\'' + v.id + '\',  \'' + v.CdEmpresa + '\',\'editar\')">'+ v.foto +'</td>' +
+                        '<td>'+ v.pode_desc +'</td>' +
+
+                        '</tr>');
                 });
 
                 // $('#cadastro_clientes_userlist_table').append('</tbody>');

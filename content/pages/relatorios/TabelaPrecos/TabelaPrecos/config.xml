@@ -1,0 +1,10 @@
+<menu>
+    <display>
+        <nome>Download Tabela de Preços</nome>
+        <descricao>Download Tabela de Preços</descricao>
+        <atividade>1</atividade>
+        <link>tabela_precos.html</link>
+        <class>btn-outline-primary</class>
+        <style>pe-7s-news-paper</style>
+    </display>
+</menu>

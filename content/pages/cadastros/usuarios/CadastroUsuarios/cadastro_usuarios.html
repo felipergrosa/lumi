@@ -17,17 +17,11 @@
                         <th>Nome</th>
                         <th>Login</th>
                         <th>E-mail</th>
-                        <th>Root</th>
+                        <th>Master</th>
                     </tr>
                 </thead>
                 <tbody class="cadastro_usuarios_lista pointer">
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
 
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -156,7 +150,7 @@
                     }
                     $('.cadastro_usuarios_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'editar\')">' +
                         '<td>' + v.RzRepresentante + '</td><td>' + v.Login + '</td><td>' + v.email + '</td>' +
-                        '<td>' + general_level + '</td></tr>');
+                        '<td>' + v.general_level + '</td></tr>');
                     });
                 }
             });

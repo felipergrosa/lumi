@@ -5,7 +5,6 @@ require_once __DIR__.'/../../../../../dist/php/general.inc.php';
 ini_set('display_errors', 'on');
 @session_start();
 if(@$_POST['action'] == 'permissao_front'){
-    var_dump($_POST);
     $CdRepresentante = $_POST['CdRepresentante'];
     $check = $_POST['checked'];
     $tela = $_POST['tela'];
@@ -406,7 +405,18 @@ if($_POST['action'] == 'GetUserList'){
         echo $error_message;
         exit;
     }
-    echo json_encode($row);
+    foreach($row as $key=>$rr){
+        $retorno[$key] = $rr;
+        if(@$sudoers[$rr['CdRepresentante']]){
+            $retorno[$key]['general_level'] = "S";
+        }
+        else {
+            $retorno[$key]['general_level'] = "N";
+        }
+    }
+
+
+    echo json_encode($retorno);
 }
 if($_POST['action'] == 'GetUserData'){
     $id = $_POST['id'];

@@ -31,8 +31,13 @@ if(@$_POST['action'] == "BuscaPrecos"){
         exit;
     }
 
-
-    $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $cont = 0;
+    while($row1 = $sql->fetch(PDO::FETCH_ASSOC)){
+        $row[$cont] = $row1;
+        $row[$cont]['Venda'] = "R$".number_format($row[$cont]['Venda'], 2, ',', '.' );
+        $cont++;
+    }
+    // $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode(utf8ize($row));
     exit;
 }

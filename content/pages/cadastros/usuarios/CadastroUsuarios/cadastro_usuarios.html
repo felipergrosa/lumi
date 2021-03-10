@@ -272,8 +272,9 @@
             console.log(valor);
             var CdRepresentante = $('#cadastro_usuarios_edit_form_CdRepresentante').val();
             console.log(CdRepresentante);
-            var div_class = $(field).parent().parent().parent().parent().parent().parent().parent().parent().prop('class');
-
+            var div_class = $(field).parent().parent().parent().parent().parent().parent().prop('class');
+            console.log('div class: ' + div_class);
+            console.log(div_class);
             $.ajax({
                 type: 'POST',
                 url: 'content/pages/cadastros/usuarios/CadastroUsuarios/post.php',

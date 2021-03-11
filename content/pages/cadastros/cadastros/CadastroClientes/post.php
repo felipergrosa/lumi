@@ -37,6 +37,7 @@ if(@$_POST['action'] == 'VerificaAcessosEdicao'){
 
     @$CdNatureza = $row['CDNATUREZA'];
     @$CdSegmento = $row['CdSegmento'];
+    var_dump($CdSegmento);
     @$CdRegiao = $row['CdRegiao'];
     @$CdMunicipio = $row['CdMunicipio'];
 
@@ -154,7 +155,14 @@ if($_POST['action'] == 'GetUserData'){
     a.RzCliente as razao_social,
     a.Ie_Rg as rgie,
     CONCAT('(',a.DddFax,')', a.Fax) as fax,
-    CONCAT('(',a.Ddd1,')', a.Telefone1) as tel1,
+    CONCAT('(',a.Ddd1,')', a.Telefone1) as contato_cobranca_fone,
+    a.Contato1 as contato_cobranca,
+    CONCAT('(',a.F_Ddd1,')', a.F_Telefone1) as contato_compras_fone,
+    a.F_Contato1 as contato_compras,
+    CONCAT('(',a.C_Ddd1,')', a.C_Telefone1) as endereco_cobranca_contato_telefone,
+    a.C_Contato1 as endereco_cobranca_contato,
+    CONCAT('(',a.E_Ddd1,')', a.E_Telefone1) as endereco_entrega_contato_telefone,
+    a.E_Contato1 as endereco_entrega_contato,
     a.CDNATUREZA as natureza_operacao,
     a.CdRegiao as segmento_regiao,
     a.CdSegmento as segmento_mercado,
@@ -184,6 +192,7 @@ if($_POST['action'] == 'GetUserData'){
     a.E_Numero as endereco_entrega_numero,
     a.E_Cnpj as endereco_entrega_cnpj,
     a.E_Ie as endereco_entrega_ie,
+    a.CdGrupo as grupo,
     c.FsEmpresa as empresa_nome,
     c.CdEmpresa as empresa
 
@@ -337,13 +346,15 @@ if($_POST['action'] == 'novo'){
 
 
 
+    $campos_sql['F_Ddd3'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
+    $campos_sql['F_Telefone3'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
 
     $campos_sql['Ddd3'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
-    $campos_sql['Telefone3'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_cobranca_fone'])));
+    $campos_sql['Telefone3'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
     $campos_sql['Ddd2'] = substr($info[$prefix.'endereco_entrega_contato_telefone'], 1, 2);
     $campos_sql['Telefone2'] = trim(substr($info[$prefix.'endereco_entrega_contato_telefone'], 5, strlen($info[$prefix.'endereco_entrega_contato_telefone'])));
-    $campos_sql['Ddd1'] = substr($info[$prefix.'contato_compras_fone'], 1, 2);
-    $campos_sql['Telefone1'] = trim(substr($info[$prefix.'contato_compras_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
+    $campos_sql['Ddd1'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
+    $campos_sql['Telefone1'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_cobranca_fone'])));
     $campos_sql['E_Ddd1'] = substr($info[$prefix.'tel1'], 1, 2);
     $campos_sql['E_Telefone1'] = trim(substr($info[$prefix.'tel1'], 5, strlen($info[$prefix.'tel1'])));
     $campos_sql['DddFax'] = substr($info[$prefix.'fax'], 1, 2);
@@ -779,6 +790,7 @@ if($_POST['action'] == 'editar'){
 
 
         $campos_sql['CdRepresentante'] = $representante_id;
+        $campos_sql['CdRepresentante_old'] = $info[$prefix.'CdRepresentante'];
         $campos_sql['Cnpj_Cnpf'] = $info[$prefix.'cpfcnpj'];
         $campos_sql['FsCliente'] = $info[$prefix.'nome'];
         $campos_sql['RzCliente'] = $info[$prefix.'razao_social'];
@@ -788,7 +800,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['CDNATUREZA'] = $info[$prefix.'natureza_operacao'];
         // $campos_sql['DescontaSuframa'] = $info[$prefix.'N'];
         $campos_sql['CdCondPgto'] = null;
-        $campos_sql['CdGrupo'] = null;
+        $campos_sql['CdGrupo'] = $info[$prefix.'grupo'];
         $campos_sql['CdTabela'] = null;
         $campos_sql['FlEnvRecEmpresa'] = null;
         $campos_sql['FlEnvRecRepre'] = null;
@@ -818,7 +830,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['Site'] = $info[$prefix.'site'];
         $campos_sql['OrgaoEmissor'] = null;
 
-        $campos_sql['Contato1'] = $info[$prefix.'contato_compras'];
+        $campos_sql['Contato1'] = $info[$prefix.'contato_cobranca'];
         $campos_sql['Funcao1'] = null;
         $campos_sql['Email1'] = $info[$prefix.'contato_compras_email'];
         $campos_sql['Funcao3'] = $info[$prefix.'contato_cobranca_funcao'];
@@ -856,30 +868,47 @@ if($_POST['action'] == 'editar'){
 
 
 
-        $campos_sql['Ddd3'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
-        $campos_sql['Telefone3'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_cobranca_fone'])));
-        $campos_sql['Ddd2'] = substr($info[$prefix.'endereco_entrega_contato_telefone'], 1, 2);
-        $campos_sql['Telefone2'] = trim(substr($info[$prefix.'endereco_entrega_contato_telefone'], 5, strlen($info[$prefix.'endereco_entrega_contato_telefone'])));
-        $campos_sql['Ddd1'] = substr($info[$prefix.'contato_compras_fone'], 1, 2);
-        $campos_sql['Telefone1'] = trim(substr($info[$prefix.'contato_compras_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
-        $campos_sql['E_Ddd1'] = substr($info[$prefix.'tel1'], 1, 2);
-        $campos_sql['E_Telefone1'] = trim(substr($info[$prefix.'tel1'], 5, strlen($info[$prefix.'tel1'])));
+        $campos_sql['F_Ddd1'] = substr($info[$prefix.'contato_compras_fone'], 1, 2);
+        $campos_sql['F_Telefone1'] = trim(substr($info[$prefix.'contato_compras_fone'], 5, strlen($info[$prefix.'contato_compras_fone'])));
+        $campos_sql['F_Contato1'] = $info[$prefix.'contato_compras'];
+        $campos_sql['F_Email1'] = $info[$prefix.'contato_compras_email'];
+
+
+
+        $campos_sql['E_Ddd1'] = substr($info[$prefix.'endereco_entrega_contato_telefone'], 1, 2);
+        $campos_sql['E_Telefone1'] = trim(substr($info[$prefix.'endereco_entrega_contato_telefone'], 5, strlen($info[$prefix.'endereco_entrega_contato_telefone'])));
+        $campos_sql['E_Contato1'] = $info[$prefix.'endereco_entrega_contato'];
+        $campos_sql['E_Email1'] = $info[$prefix.'endereco_entrega_contato_email'];
+
+        $campos_sql['Ddd1'] = substr($info[$prefix.'contato_cobranca_fone'], 1, 2);
+        $campos_sql['Telefone1'] = trim(substr($info[$prefix.'contato_cobranca_fone'], 5, strlen($info[$prefix.'contato_cobranca_fone'])));
+        $campos_sql['Email1'] =  $info[$prefix.'contato_cobranca_email'];
+        $campos_sql['Funcao1'] =  $info[$prefix.'contato_cobranca_funcao'];
+
+        $campos_sql['C_Ddd1'] = substr($info[$prefix.'endereco_cobranca_contato_telefone'], 1, 2);
+        $campos_sql['C_Telefone1'] = trim(substr($info[$prefix.'endereco_cobranca_contato_telefone'], 5, strlen($info[$prefix.'endereco_cobranca_contato_telefone'])));
+        $campos_sql['C_Contato1'] = $info[$prefix.'endereco_cobranca_contato'];
+        $campos_sql['C_Email1'] = $info[$prefix.'endereco_cobranca_contato_email'];
+
+
+
         $campos_sql['DddFax'] = substr($info[$prefix.'fax'], 1, 2);
         $campos_sql['Fax'] = trim(substr($info[$prefix.'fax'], 5, strlen($info[$prefix.'fax'])));
-
-
-
-
+        // var_dump($campos_sql['Ddd1']);
+        // var_dump($campos_sql['Telefone1']);
+        // exit;
 
 
 
 
         $error_message = "";
         $error = 0;
-        foreach($obrigatorios as $ob){
-            if(!isset($info[$prefix.$ob]) or $info[$prefix.$ob] == ""){
-                $error++;
-                $error_message .= "$ob é requerido <br />";
+        if(@is_array($obrigatorios)){
+            foreach($obrigatorios as $ob){
+                if(!isset($info[$prefix.$ob]) or $info[$prefix.$ob] == ""){
+                    $error++;
+                    $error_message .= "$ob é requerido <br />";
+                }
             }
         }
 
@@ -902,7 +931,6 @@ if($_POST['action'] == 'editar'){
         // $info[$prefix.'endereco_cep'] = str_replace('-', '', $info[$prefix.'endereco_cep']);
 
         $cpfcnpj = $info[$prefix.'cpfcnpj'];
-        var_dump($cpfcnpj);
         $Valida = new Valida();
 
         if(strlen($cpfcnpj) == 11){
@@ -926,17 +954,18 @@ if($_POST['action'] == 'editar'){
 
 
 
-    var_dump($campos_sql['Cnpj_Cnpf']);
-    var_dump($campos_sql['CdRepresentante']);
-    exit;
 
     $sql = "UPDATE BusinessCadCliente SET
+    Ie_Rg = :Ie_Rg,
     C_Complemento = :C_Complemento,
     E_Numero = :E_Numero,
     E_Complemento = :E_Complemento,
     F_Numero = :F_Numero,
     F_Complemento = :F_Complemento,
     C_Numero = :C_Numero,
+    Suframa = :Suframa,
+    DtValidadeSuframa = :DtValidadeSuframa,
+    CdGrupo = :CdGrupo,
     Observacao = :Observacao,
     CdRegiao = :CdRegiao,
     Aviso = :Aviso,
@@ -993,13 +1022,20 @@ if($_POST['action'] == 'editar'){
 WHERE CdRepresentante = :CdRepresentante AND
 Cnpj_Cnpf = :Cnpj_Cnpf";
     try {
+
     $sql = $con->prepare($sql);
+    $sql->bindParam('Ie_Rg',$campos_sql['Ie_Rg']);
     $sql->bindParam('C_Complemento',$campos_sql['C_Complemento']);
     $sql->bindParam('E_Numero',$campos_sql['E_Numero']);
     $sql->bindParam('E_Complemento',$campos_sql['E_Complemento']);
     $sql->bindParam('F_Numero',$campos_sql['F_Numero']);
     $sql->bindParam('F_Complemento',$campos_sql['F_Complemento']);
     $sql->bindParam('C_Numero',$campos_sql['C_Numero']);
+    $sql->bindParam('Suframa',$campos_sql['Suframa']);
+    $sql->bindParam('DtValidadeSuframa',$campos_sql['DtValidadeSuframa']);
+    $sql->bindParam('CdGrupo',$campos_sql['CdGrupo']);
+
+
     $sql->bindParam('Observacao',$campos_sql['Observacao']);
     $sql->bindParam('CdRegiao',$campos_sql['CdRegiao']);
     $sql->bindParam('Aviso',$campos_sql['Aviso']);
@@ -1054,26 +1090,33 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
     $sql->bindParam('Telefone1',$campos_sql['Telefone1']);
     $sql->bindParam('Email1',$campos_sql['Email1']);
     $sql->bindParam('Cnpj_Cnpf',$campos_sql['Cnpj_Cnpf']);
-    $sql->bindParam('CdRepresentante',$campos_sql['CdRepresentante']);
+    $sql->bindParam('CdRepresentante',$campos_sql['CdRepresentante_old']);
+
 
     $sql->execute();
 
     }
-    catch(PDOException $e){
+    catch(Exception $e){
         $error_message = $e->getMessage();
         echo $error_message;
         exit;
     }
+    catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        echo $error_message;
+        exit;
+    }
 
-
+var_dump($sql);
+    exit;
     @$empresas = $_POST['empresas'];
 
     if(@is_array($empresas)){
         foreach($empresas as $ep){
             $sql = "INSERT INTO BusinessCadClienteLC
-            (CdRepresentante, CdEmpresa, Cnpj_Cnpf)
+            (CdRepresentante, CdEmpresa, Cnpj_Cnpf, LimiteCredito, VlUltCompra, FlEnvRecRepre)
             VALUES
-            (:CdRepresentante, :CdEmpresa, :Cnpj_Cnpf)";
+            (:CdRepresentante, :CdEmpresa, :Cnpj_Cnpf, 0, 0, 'S')";
 
             try {
 

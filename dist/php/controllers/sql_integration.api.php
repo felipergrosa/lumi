@@ -73,3 +73,10 @@ if($_POST['action'] == 'verifica_acesso_municipio'){
     $busca = $sql->VerificaAcessoMunicipio($municipio, $representante, $estado);
     echo json_encode(utf8ize($busca));
 }
+if(@$_POST['action'] == "get_cliente_grupos"){
+    $con_sql_server = new PDO ("dblib:host=$mssql_hostname;dbname=$mssql_dbname", "$mssql_username", "$mssql_pw");
+    $sql = new SqlServer($con_sql_server);
+    $busca = $sql->BuscaClienteGrupos();
+    echo json_encode(utf8ize($busca));
+
+}

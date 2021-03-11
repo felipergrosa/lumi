@@ -121,8 +121,8 @@
                       <input type="text" class="form-control" id="cadastro_clientes_edit_form_status" name="cadastro_clientes_edit_form_status" placeholder="Ativo" readonly/>
                   </div>
                   <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_tel1">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_tel1" name="cadastro_clientes_edit_form_tel1" />
+                      <!-- <label for="cadastro_clientes_edit_form_tel1">Fone</label>
+                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_tel1" name="cadastro_clientes_edit_form_tel1" /> -->
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_fax">Fax</label>
@@ -165,7 +165,8 @@
 
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_grupo">Grupo</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_grupo" name="cadastro_clientes_edit_form_grupo" />
+                      <select class="form-control" id="cadastro_clientes_edit_form_grupo" name="cadastro_clientes_edit_form_grupo">
+                      </select>
                   </div>
                   <div class="col-md-3 col-xs-6">
                       <label for="cadastro_clientes_edit_form_segmento_mercado">Seg. Mercado</label>
@@ -398,7 +399,7 @@
                     GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
                     GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
                     GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
-
+                    GetClienteGrupos();
                     console.log("User");
                     console.log(User);
                     var prefix = '#cadastro_clientes_edit_form_';
@@ -444,7 +445,7 @@
             GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
             GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
             GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
-
+            GetClienteGrupos();
             $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
             // $('#cadastro_clientes_edit_form_id').val(id);
             $('#cadastro_clientes_edit_nome').html('Novo cliente');
@@ -912,6 +913,38 @@
           });
           //cadastro_pedidos_edit_form_tabela_preco
       }
+
+      function GetClienteGrupos(campo = '#cadastro_clientes_edit_form_grupo'){
+          var action = 'get_cliente_grupos';
+          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+          $(campo + ' option').remove();
+          $.ajax({
+              type: 'POST',
+              url: 'dist/php/controllers/sql_integration.api.php',
+              dataType: 'json',
+              async: false,
+              data: {'action': action},
+              success: function (data)
+              {
+                  console.log(data);
+                  $(data).each(function(k,v){
+
+                      // console.log(v);
+                      $(campo)
+                      .append($("<option></option>")
+                      .attr("value", v.CdGrupo)
+                      .attr("selected", v.ativo)
+                      .text(v.DsGrupo));
+                  });
+
+
+
+              }
+          });
+          //cadastro_pedidos_edit_form_tabela_preco
+      }
+
+
       function BuscaCPFCNPJ(valor){
           // console.log(valor);
           var action = 'valida';

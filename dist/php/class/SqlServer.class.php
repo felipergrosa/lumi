@@ -345,4 +345,14 @@ class SqlServer {
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $row;
     }
+    function BuscaClienteGrupos(){
+        $con = $this->con;
+
+        $sql = "SELECT * FROM BusinessCadGrupoCliente ";
+        $sql = $con->prepare($sql);
+
+        $sql->execute();
+        $row = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

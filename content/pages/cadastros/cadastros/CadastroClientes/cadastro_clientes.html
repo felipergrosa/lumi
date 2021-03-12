@@ -287,7 +287,7 @@
 
               <div class="form-group row">
                   <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_restricao">Restrição  <input type="checkbox" id="cadastro_clientes_edit_form_restricao" name="cadastro_clientes_edit_form_restricao" VALUE="1" /></label>
+                      <label for="cadastro_clientes_edit_form_restricao">Restrição  <input type="checkbox" id="cadastro_clientes_edit_form_restricao" name="cadastro_clientes_edit_form_restricao" VALUE="S" /></label>
 
                   </div>
                   <hr />
@@ -410,6 +410,12 @@
                     });
 
                     MascaraCpfCnpjManual('#cadastro_clientes_edit_form_cpfcnpj');
+                    if(User.restricao == "S"){
+                        $('#cadastro_clientes_edit_form_restricao').prop('checked', true);
+                    }
+                    else {
+                        $('#cadastro_clientes_edit_form_restricao').prop('checked', false);
+                    }
                     $('#cadastro_clientes_edit_form_endereco_cep').unmask();
                     $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
                     $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
@@ -537,7 +543,13 @@
     }
 
     function CadastroClientesSave() {
-
+          var restricao = $('#cadastro_clientes_edit_form_restricao').prop('checked');
+          if(restricao == true){
+              var campo_restricao = "S";
+          }
+          else {
+              var campo_restricao = "N";
+          }
           var dados = $('#cadastro_clientes_edit_form').serializeArray();
           var empresas = $('#cadastro_clientes_edit_form_empresa').val();
           var action = $('#action_for_form').val();
@@ -546,7 +558,7 @@
           $.ajax({
               type: 'POST',
               url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-              data: {'dados': dados, 'action': action, 'empresas':empresas},
+              data: {'dados': dados, 'action': action, 'empresas':empresas, 'campo_restricao':campo_restricao},
               success: function (data)
               {
                   // console.log(data);

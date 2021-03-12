@@ -162,6 +162,17 @@ if($_POST['action'] == 'GetUserData'){
     CONCAT('(',a.C_Ddd1,')', a.C_Telefone1) as endereco_cobranca_contato_telefone,
     a.C_Contato1 as endereco_cobranca_contato,
     CONCAT('(',a.E_Ddd1,')', a.E_Telefone1) as endereco_entrega_contato_telefone,
+    Suframa as suframa,
+    FORMAT(DtValidadeSuframa, 'yyyy-MM-dd') as suframa_validade,
+    Site as site,
+    F_Email1 as contato_compras_email,
+    Email1 as contato_cobranca_email,
+    Funcao1 as contato_cobranca_funcao,
+    C_Email1 as endereco_cobranca_contato_email,
+    E_Email1 as endereco_entrega_contato_email,
+    ObsRestricao as restricao_texto,
+    Observacao as observacoes,
+    RestricaoSN as restricao,
     a.E_Contato1 as endereco_entrega_contato,
     a.CDNATUREZA as natureza_operacao,
     a.CdRegiao as segmento_regiao,
@@ -183,7 +194,7 @@ if($_POST['action'] == 'GetUserData'){
     a.C_Cidade as endereco_cobranca_cidade,
     a.C_Estado as endereco_cobranca_estado,
     a.C_Numero as endereco_cobranca_numero,
-    a.E_cep as endereco_entrega_cep,
+    a.E_Cep as endereco_entrega_cep,
     a.E_Endereco as endereco_entrega_endereco,
     a.E_Complemento as endereco_entrega_complemento,
     a.E_Bairro as endereco_entrega_bairro,
@@ -857,7 +868,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['C_Cidade'] = $info[$prefix.'endereco_cobranca_cidade'];
         $campos_sql['C_Estado'] = $info[$prefix.'endereco_cobranca_estado'];
         $campos_sql['C_Numero'] = $info[$prefix.'endereco_cobranca_numero'];
-        $campos_sql['E_cep'] = $info[$prefix.'endereco_entrega_cep'];
+        $campos_sql['E_Cep'] = $info[$prefix.'endereco_entrega_cep'];
         $campos_sql['E_Endereco'] = $info[$prefix.'endereco_entrega_endereco'];
         $campos_sql['E_Complemento'] = $info[$prefix.'endereco_entrega_complemento'];
         $campos_sql['E_Bairro'] = $info[$prefix.'endereco_entrega_bairro'];
@@ -890,7 +901,7 @@ if($_POST['action'] == 'editar'){
         $campos_sql['C_Contato1'] = $info[$prefix.'endereco_cobranca_contato'];
         $campos_sql['C_Email1'] = $info[$prefix.'endereco_cobranca_contato_email'];
 
-
+        $campos_sql['RestricaoSN'] = $_POST['campo_restricao'];
 
         $campos_sql['DddFax'] = substr($info[$prefix.'fax'], 1, 2);
         $campos_sql['Fax'] = trim(substr($info[$prefix.'fax'], 5, strlen($info[$prefix.'fax'])));
@@ -898,7 +909,8 @@ if($_POST['action'] == 'editar'){
         // var_dump($campos_sql['Telefone1']);
         // exit;
 
-
+        $campos_sql['ObsRestricao'] = $info[$prefix.'restricao_texto'];
+        $campos_sql['Observacao'] = $info[$prefix.'observacoes'];
 
 
         $error_message = "";
@@ -966,7 +978,6 @@ if($_POST['action'] == 'editar'){
     Suframa = :Suframa,
     DtValidadeSuframa = :DtValidadeSuframa,
     CdGrupo = :CdGrupo,
-    Observacao = :Observacao,
     CdRegiao = :CdRegiao,
     Aviso = :Aviso,
     E_Ddd1 = :E_Ddd1,
@@ -1018,7 +1029,10 @@ if($_POST['action'] == 'editar'){
     Funcao1 = :Funcao1,
     Ddd1 = :Ddd1,
     Telefone1 = :Telefone1,
-    Email1 = :Email1
+    Email1 = :Email1,
+    ObsRestricao = :ObsRestricao,
+    Observacao = :Observacao,
+    RestricaoSN = :RestricaoSN
 WHERE CdRepresentante = :CdRepresentante AND
 Cnpj_Cnpf = :Cnpj_Cnpf";
     try {
@@ -1036,7 +1050,6 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
     $sql->bindParam('CdGrupo',$campos_sql['CdGrupo']);
 
 
-    $sql->bindParam('Observacao',$campos_sql['Observacao']);
     $sql->bindParam('CdRegiao',$campos_sql['CdRegiao']);
     $sql->bindParam('Aviso',$campos_sql['Aviso']);
     $sql->bindParam('E_Ddd1',$campos_sql['E_Ddd1']);
@@ -1089,6 +1102,11 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
     $sql->bindParam('Ddd1',$campos_sql['Ddd1']);
     $sql->bindParam('Telefone1',$campos_sql['Telefone1']);
     $sql->bindParam('Email1',$campos_sql['Email1']);
+    $sql->bindParam('ObsRestricao',$campos_sql['ObsRestricao']);
+    $sql->bindParam('Observacao',$campos_sql['Observacao']);
+    $sql->bindParam('RestricaoSN',$campos_sql['RestricaoSN']);
+
+
     $sql->bindParam('Cnpj_Cnpf',$campos_sql['Cnpj_Cnpf']);
     $sql->bindParam('CdRepresentante',$campos_sql['CdRepresentante_old']);
 
@@ -1107,8 +1125,6 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
         exit;
     }
 
-var_dump($sql);
-    exit;
     @$empresas = $_POST['empresas'];
 
     if(@is_array($empresas)){
@@ -1126,16 +1142,16 @@ var_dump($sql);
                 $sql->bindParam('CdEmpresa', $ep);
                 $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
 
-                $sql->execute();
+                @$sql->execute();
             }
             catch(Exception $e){
                 $error_message = $e->getMessage();
-                echo $error_message;
+                // echo $error_message;
                 exit;
             }
             catch(PDOException $ex){
                 $error_message = $ex->getMessage();
-                echo $error_message;
+                // echo $error_message;
                 exit;
             }
         }

@@ -51,7 +51,7 @@ if(@$_POST['action'] == 'continuar'){
     $cpfcnpjlike = '%'.$_POST['cpfcnpj'].'%';
     $sql = "SELECT TOP 100 a.* FROM BusinessCadCliente a
     LEFT JOIN BusinessCadClienteLC b ON a.Cnpj_Cnpf=b.Cnpj_Cnpf
-    WHERE (a.Cnpj_Cnpf = :cpfcnpj OR a.FsCliente LIKE :cpfcnpjlike OR a.RzCliente LIKE :cpfcnpjlike) AND b.CdEmpresa = :empresa AND a.CdRepresentante = :representante
+    WHERE (a.Cnpj_Cnpf = :cpfcnpj OR a.FsCliente LIKE :cpfcnpjlike OR a.RzCliente LIKE :cpfcnpjlike) AND b.CdEmpresa = :empresa AND (a.CdRepresentante = :representante OR b.CdRepresentante = :representante) 
     ";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('cpfcnpj', $_POST['cpfcnpj']);

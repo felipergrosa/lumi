@@ -1147,12 +1147,12 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
             catch(Exception $e){
                 $error_message = $e->getMessage();
                 // echo $error_message;
-                exit;
+                //exit;
             }
             catch(PDOException $ex){
                 $error_message = $ex->getMessage();
                 // echo $error_message;
-                exit;
+                //exit;
             }
         }
     }

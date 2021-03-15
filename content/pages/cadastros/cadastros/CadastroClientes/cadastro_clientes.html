@@ -474,8 +474,10 @@
                     $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
                     // $('#cadastro_clientes_edit_form_id').val(id);
                     $('#cadastro_clientes_edit_nome').html('Novo cliente');
-                    $('#action_for_form').val(action);
+                    $('#action_for_form').val('novo');
+                    $('#cadastro_clientes_edit_form_status').val('ATIVO');
                     $('#cadastro_clientes_edit_form_restricao').removeAttr('checked');
+                    AddSocio();
                     HideLoading();
                 }
             }
@@ -691,14 +693,11 @@
                     data: {'action': action},
                     success: function (data)
                     {
-                        console.log(campo);
                         $(campo).each(function(k,b){
                             $(b + ' input').remove();
-                            console.log('campo: ' + b);
                             $(data).each(function(k,v){
                                 // console.log(v);
 
-                                console.log(v.Estado);
                                 $(b)
                                 .append($("<option></option>")
                                 .attr("value", v.Estado)

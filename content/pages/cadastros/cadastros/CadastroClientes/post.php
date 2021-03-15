@@ -218,8 +218,6 @@ if($_POST['action'] == 'GetUserData'){
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
 
-    $CdRepresentante = $row['CdRepresentante'];
-
 
 
     $sql = "SELECT * FROM BusinessCadClienteSocio WHERE Cnpj_Cnpf = :Cnpj_Cnpf AND CdRepresentante = :CdRepresentante";
@@ -246,7 +244,7 @@ if($_POST['action'] == 'SalvarDadosUsuario'){
 }
 if($_POST['action'] == 'novo'){
 
-
+    var_dump($_POST);
     $cont_socios = 0;
     $cont = 0;
         $dados = $_POST['dados'];
@@ -452,6 +450,11 @@ if($_POST['action'] == 'novo'){
         (
             CdRepresentante,
             Cnpj_Cnpf,
+            FsCliente,
+            RzCliente,
+            FlTipo,
+            CDNATUREZA,
+            CdSegmento,
             Ie_Rg,
             C_Complemento,
             E_Numero,
@@ -516,12 +519,19 @@ if($_POST['action'] == 'novo'){
             Email1,
             ObsRestricao,
             Observacao,
-            RestricaoSN
+            RestricaoSN,
+            DtAtivacao,
+            Ativo_Inativo_ExCliente
         )
 
         VALUES (
             :CdRepresentante,
             :Cnpj_Cnpf,
+            :FsCliente,
+            :RzCliente,
+            :FlTipo,
+            :CDNATUREZA,
+            :CdSegmento,
             :Ie_Rg,
             :C_Complemento,
             :E_Numero,
@@ -586,7 +596,9 @@ if($_POST['action'] == 'novo'){
             :Email1,
             :ObsRestricao,
             :Observacao,
-            :RestricaoSN
+            :RestricaoSN,
+            getdate(),
+            :Ativo_Inativo_ExCliente
             )";
     try {
     $sql = $con->prepare($sql);
@@ -596,6 +608,11 @@ if($_POST['action'] == 'novo'){
     $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante']);
     $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
     $sql->bindParam('Ie_Rg',$campos_sql['Ie_Rg']);
+    $sql->bindParam('FsCliente',$campos_sql['FsCliente']);
+    $sql->bindParam('RzCliente',$campos_sql['RzCliente']);
+    $sql->bindParam('FlTipo',$campos_sql['FlTipo']);
+    $sql->bindParam('CDNATUREZA',$campos_sql['CDNATUREZA']);
+    $sql->bindParam('CdSegmento',$campos_sql['CdSegmento']);
     $sql->bindParam('C_Complemento',$campos_sql['C_Complemento']);
     $sql->bindParam('E_Numero',$campos_sql['E_Numero']);
     $sql->bindParam('E_Complemento',$campos_sql['E_Complemento']);
@@ -662,6 +679,8 @@ if($_POST['action'] == 'novo'){
     $sql->bindParam('ObsRestricao',$campos_sql['ObsRestricao']);
     $sql->bindParam('Observacao',$campos_sql['Observacao']);
     $sql->bindParam('RestricaoSN',$campos_sql['RestricaoSN']);
+    $sql->bindParam('Ativo_Inativo_ExCliente',$campos_sql['Ativo_Inativo_ExCliente']);
+
     $sql->execute();
 
     }
@@ -716,7 +735,7 @@ if($_POST['action'] == 'novo'){
     Cnpj_Cnpf = :Cnpj_Cnpf";
     try {
         $sql = $con->prepare($sql);
-        $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+        $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante']);
         $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
         $sql->execute();
     }
@@ -761,7 +780,7 @@ if($_POST['action'] == 'novo'){
             ";
             try {
                 $sql = $con->prepare($sql);
-                $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+                $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante']);
                 $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
                 $sql->bindParam('CdSequencia', $sc['CdSequencia']);
                 $sql->bindParam('NmSocio', $sc['NmSocio']);
@@ -1013,6 +1032,11 @@ if($_POST['action'] == 'editar'){
 
 
     $sql = "UPDATE BusinessCadCliente SET
+    FsCliente = :FsCliente,
+    RzCliente = :RzCliente,
+    FlTipo = :FlTipo,
+    CDNATUREZA = :CDNATUREZA,
+    CdSegmento = :CdSegmento,
     Ie_Rg = :Ie_Rg,
     C_Complemento = :C_Complemento,
     E_Numero = :E_Numero,
@@ -1084,6 +1108,11 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
 
     $sql = $con->prepare($sql);
     $sql->bindParam('Ie_Rg',$campos_sql['Ie_Rg']);
+    $sql->bindParam('FsCliente',$campos_sql['FsCliente']);
+    $sql->bindParam('RzCliente',$campos_sql['RzCliente']);
+    $sql->bindParam('FlTipo',$campos_sql['FlTipo']);
+    $sql->bindParam('CDNATUREZA',$campos_sql['CDNATUREZA']);
+    $sql->bindParam('CdSegmento',$campos_sql['CdSegmento']);
     $sql->bindParam('C_Complemento',$campos_sql['C_Complemento']);
     $sql->bindParam('E_Numero',$campos_sql['E_Numero']);
     $sql->bindParam('E_Complemento',$campos_sql['E_Complemento']);

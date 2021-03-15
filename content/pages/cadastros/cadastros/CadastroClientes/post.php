@@ -217,6 +217,19 @@ if($_POST['action'] == 'GetUserData'){
     $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
+
+    $CdRepresentante = $row['CdRepresentante'];
+
+
+
+    $sql = "SELECT * FROM BusinessCadClienteSocio WHERE Cnpj_Cnpf = :Cnpj_Cnpf AND CdRepresentante = :CdRepresentante";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
+    $sql->bindParam('CdRepresentante', $CdRepresentante);
+
+    $sql->execute();
+
+    $row['socios'] = $sql->fetchAll(PDO::FETCH_ASSOC);
     $row['resposta'] = $row;
     echo json_encode($row);
 }
@@ -779,7 +792,10 @@ if($_POST['action'] == 'novo'){
 
 }
 if($_POST['action'] == 'editar'){
-
+    // var_dump($_POST);
+    // exit;
+    $cont_socios = 0;
+    $cont = 0;
         $dados = $_POST['dados'];
         foreach ($dados as $dd) {
             if($dd['name'] == "cadastro_clientes_edit_form_restricao"){
@@ -801,6 +817,21 @@ if($_POST['action'] == 'editar'){
             if(substr($dd['name'], 0, strlen($prefix_loop)) == $prefix_loop){
                 $endereco_principal[str_replace($prefix_loop.'_', "", $dd['name'])] = $dd['value'];
             }
+
+            if($dd['name'] == "cadastro_clientes_edit_form_socios_nome" && $dd['value'] != ""){
+                $socios[$cont_socios]['NmSocio'] = $dd['value'];
+                $socios[$cont_socios]['DtNascimento'] = $dados[$cont+1]['value'];
+                $socios[$cont_socios]['FlEstCivil'] = $dados[$cont+2]['value'];
+                $socios[$cont_socios]['QtdeFilhos'] = $dados[$cont+3]['value'];
+                $socios[$cont_socios]['BebidaPreferida'] = $dados[$cont+4]['value'];
+                $socios[$cont_socios]['TimeFutebol'] = $dados[$cont+5]['value'];
+                $socios[$cont_socios]['EsportePratica'] = $dados[$cont+6]['value'];
+                $socios[$cont_socios]['CdSequencia'] = str_pad($cont_socios+1, 2, "0", STR_PAD_LEFT);
+
+
+                $cont_socios++;
+            }
+            $cont++;
 
         }
 
@@ -1169,6 +1200,82 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
                 $error_message = $ex->getMessage();
                 // echo $error_message;
                 //exit;
+            }
+        }
+    }
+
+
+    $sql = "DELETE FROM BusinessCadClienteSocio WHERE
+    CdRepresentante = :CdRepresentante AND
+    Cnpj_Cnpf = :Cnpj_Cnpf";
+    try {
+        $sql = $con->prepare($sql);
+        $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+        $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+        $sql->execute();
+    }
+    catch(Exception $e){
+        $error_message = $e->getMessage();
+        echo $error_message;
+        exit;
+    }
+    catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        echo $error_message;
+        exit;
+    }
+
+    if(@is_array($socios)){
+        foreach($socios as $sc){
+            $sql = "INSERT INTO BusinessCadClienteSocio
+            (
+                CdRepresentante,
+                Cnpj_Cnpf,
+                CdSequencia,
+                NmSocio,
+                DtNascimento,
+                FlEstCivil,
+                QtdeFilhos,
+                BebidaPreferida,
+                TimeFutebol,
+                EsportePratica
+            )
+            VALUES (
+                :CdRepresentante,
+                :Cnpj_Cnpf,
+                :CdSequencia,
+                :NmSocio,
+                :DtNascimento,
+                :FlEstCivil,
+                :QtdeFilhos,
+                :BebidaPreferida,
+                :TimeFutebol,
+                :EsportePratica
+            )
+            ";
+            try {
+                $sql = $con->prepare($sql);
+                $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+                $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+                $sql->bindParam('CdSequencia', $sc['CdSequencia']);
+                $sql->bindParam('NmSocio', $sc['NmSocio']);
+                $sql->bindParam('DtNascimento', $sc['DtNascimento']);
+                $sql->bindParam('FlEstCivil', $sc['FlEstCivil']);
+                $sql->bindParam('QtdeFilhos', $sc['QtdeFilhos']);
+                $sql->bindParam('BebidaPreferida', $sc['BebidaPreferida']);
+                $sql->bindParam('TimeFutebol', $sc['TimeFutebol']);
+                $sql->bindParam('EsportePratica', $sc['EsportePratica']);
+                $sql->execute();
+            }
+            catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+            catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
             }
         }
     }

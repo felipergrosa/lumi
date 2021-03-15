@@ -306,46 +306,14 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                    <label>Sócios</label>
+                    <div class="socios_label">
+                        <button onclick="AddSocio();" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+                        <label>Sócios</label>
+                    </div>
 
 
                     <div class="socios">
-                        <div class="col-xs-12 socio form-group row">
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_nome">Nome</label>
-                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_nome" name="cadastro_clientes_edit_form_socios_nome" />
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_nascimento">Nascimento</label>
-                                <input type="date" class="form-control" id="cadastro_clientes_edit_form_socios_nascimento" name="cadastro_clientes_edit_form_socios_nascimento" />
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_estado_civil">Estado Civil</label>
-                                <select class="form-control" id="cadastro_clientes_edit_form_socios_estado_civil" name="cadastro_clientes_edit_form_socios_estado_civil">
-                                    <option value="CASADO (A)" selected="">CASADO (A)</option>
-                                    <option value="SOLTEIRO (A)">SOLTEIRO (A)</option>
-                                    <option value="VIUVO (A)">VIUVO (A)</option>
-                                    <option value="SEPARADO (A)">SEPARADO (A)</option>
-                                    <option value="OUTROS">OUTROS</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_qtfilhos">Quant. Filhos</label>
-                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_qtfilhos" name="cadastro_clientes_edit_form_socios_qtfilhos" />
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_bebida">Bebida Preferida</label>
-                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_bebida" name="cadastro_clientes_edit_form_socios_bebida" />
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_time">Time de Futebol</label>
-                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_time" name="cadastro_clientes_edit_form_socios_time" />
-                            </div>
-                            <div class="col-md-4 col-xs-6">
-                                <label for="cadastro_clientes_edit_form_socios_esporte">Esporte que pratica</label>
-                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_esporte" name="cadastro_clientes_edit_form_socios_esporte" />
-                            </div>
-                        </div>
+
                     </div>
 
             </div>
@@ -425,6 +393,7 @@
                 $('#cadastro_clientes_edit_form :input').each(function(k,v){
                     $(v).val('');
                 });
+                $(".socios").html("");
                 $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
                 if(action == 'editar'){
                     $.ajax({
@@ -471,6 +440,12 @@
                             }
                             else {
                                 $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
+                            }
+                            var socios = User.socios;
+                            if(socios[0]){
+                                $(socios).each(function(k,v){
+                                    AddSocio(v);
+                                });
                             }
 
                             MascaraTelefone('#cadastro_clientes_edit_form_tel1');
@@ -597,12 +572,13 @@
                 var dados = $('#cadastro_clientes_edit_form').serializeArray();
                 var empresas = $('#cadastro_clientes_edit_form_empresa').val();
                 var action = $('#action_for_form').val();
+                var socios = $('.socios :input').serializeArray();
 
                 // console.log(dados);
                 $.ajax({
                     type: 'POST',
                     url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-                    data: {'dados': dados, 'action': action, 'empresas':empresas, 'campo_restricao':campo_restricao},
+                    data: {'dados': dados, 'action': action, 'empresas':empresas, 'campo_restricao':campo_restricao, 'socios':socios},
                     success: function (data)
                     {
                         // console.log(data);
@@ -888,6 +864,9 @@
                         }
                     });
                 }
+                function RemoveSocio(element){
+                    $(element).parent().parent().remove();
+                }
                 function GetSegmentoMercado(campo){
                     var action = 'get_segmento_mercado';
                     $(campo + ' option').remove();
@@ -970,6 +949,88 @@
                     //cadastro_pedidos_edit_form_tabela_preco
                 }
 
+                function AddSocio(campos = 0){
+                    if(campos == 0){
+                        $('.socios').append('<div class="col-xs-12 socio form-group row">' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_nome">Nome</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_nome" name="cadastro_clientes_edit_form_socios_nome" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_nascimento">Nascimento</label>' +
+                                '<input type="date" class="form-control" id="cadastro_clientes_edit_form_socios_nascimento" name="cadastro_clientes_edit_form_socios_nascimento" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<button onclick="RemoveSocio(this);" class="puxa_botao_direita btn-icon btn-icon-only btn-pill btn float-right" style="padding-bottom: 10px; color: red;"><i class="lnr-trash btn-icon-wrapper"> </i></button>' +
+                                '<label for="cadastro_clientes_edit_form_socios_estado_civil">Estado Civil</label>' +
+                                '<select class="form-control" id="cadastro_clientes_edit_form_socios_estado_civil" name="cadastro_clientes_edit_form_socios_estado_civil">' +
+                                    '<option value="CASADO (A)" selected="">CASADO (A)</option>' +
+                                    '<option value="SOLTEIRO (A)">SOLTEIRO (A)</option>' +
+                                    '<option value="VIUVO (A)">VIUVO (A)</option>' +
+                                    '<option value="SEPARADO (A)">SEPARADO (A)</option>' +
+                                    '<option value="OUTROS">OUTROS</option>' +
+                                '</select>' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_qtfilhos">Quant. Filhos</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_qtfilhos" name="cadastro_clientes_edit_form_socios_qtfilhos" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_bebida">Bebida Preferida</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_bebida" name="cadastro_clientes_edit_form_socios_bebida" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_time">Time de Futebol</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_time" name="cadastro_clientes_edit_form_socios_time" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_socios_esporte">Esporte que pratica</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_esporte" name="cadastro_clientes_edit_form_socios_esporte" />' +
+                            '</div>' +
+                            '</div>');
+                        }
+                        else {
+                            $('.socios').append('<div class="col-xs-12 socio form-group row">' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_nome">Nome</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_nome" name="cadastro_clientes_edit_form_socios_nome" value = "' + campos.NmSocio +'" />' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_nascimento">Nascimento</label>' +
+                                    '<input type="date" class="form-control" id="cadastro_clientes_edit_form_socios_nascimento" name="cadastro_clientes_edit_form_socios_nascimento" value = "' + campos.DtNascimento +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<button onclick="RemoveSocio(this);" class="puxa_botao_direita btn-icon btn-icon-only btn-pill btn float-right" style="padding-bottom: 10px; color: red;"><i class="lnr-trash btn-icon-wrapper"> </i></button>' +
+                                    '<label for="cadastro_clientes_edit_form_socios_estado_civil">Estado Civil</label>' +
+                                    '<select class="form-control" id="cadastro_clientes_edit_form_socios_estado_civil" name="cadastro_clientes_edit_form_socios_estado_civil">' +
+                                        '<option value="CASADO (A)" selected="">CASADO (A)</option>' +
+                                        '<option value="SOLTEIRO (A)">SOLTEIRO (A)</option>' +
+                                        '<option value="VIUVO (A)">VIUVO (A)</option>' +
+                                        '<option value="SEPARADO (A)">SEPARADO (A)</option>' +
+                                        '<option value="OUTROS">OUTROS</option>' +
+                                    '</select>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_qtfilhos">Quant. Filhos</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_qtfilhos" name="cadastro_clientes_edit_form_socios_qtfilhos" value = "' + campos.QtdeFilhos +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_bebida">Bebida Preferida</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_bebida" name="cadastro_clientes_edit_form_socios_bebida" value = "' + campos.BebidaPreferida +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_time">Time de Futebol</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_time" name="cadastro_clientes_edit_form_socios_time" value = "' + campos.TimeFutebol +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_socios_esporte">Esporte que pratica</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_esporte" name="cadastro_clientes_edit_form_socios_esporte" value = "' + campos.EsportePratica +'"/>' +
+                                '</div>' +
+                                '</div>');
+                        }
+
+                }
+
                 function GetClienteGrupos(campo = '#cadastro_clientes_edit_form_grupo'){
                     var action = 'get_cliente_grupos';
                     // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
@@ -1026,6 +1087,9 @@
                     });
                 }
 
+
+
+
             </script>
             <style type="text/css">
                 .pointer {
@@ -1033,6 +1097,22 @@
                 }
                 #cadastro_clientes_edit_form label {
                     font-weight: bold;
+                }
+                .socio {
+                    padding: 10px;
+                    margin: 10px;
+                    box-shadow: 2px 2px 10px grey;
+                }
+                .socios_label {
+                    margin-bottom: 10px;
+                }
+                .puxa_botao_direita {
+                    /* position: absolute;
+                    rigth: 0;
+                    top: 0; */
+
+                    margin-right: -20px;
+                    margin-top: -12px;
                 }
             </style>
             <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>

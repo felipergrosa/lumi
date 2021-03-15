@@ -43,272 +43,316 @@
                 <input type="hidden" name="cadastro_clientes_edit_form_CdRepresentante" id="cadastro_clientes_edit_form_CdRepresentante" value="" />
 
                 <div class="form-group row">
-                  <!-- <div class="col-md-1 col-xs-2">
-                      <label for="cadastro_clientes_edit_form_id">ID</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_id" name="cadastro_clientes_edit_form_id" readonly/>
-                  </div> -->
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_cpfcnpj">CPF/CNPJ</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_cpfcnpj" name="cadastro_clientes_edit_form_cpfcnpj" onchange="BuscaCPFCNPJ(this.value);"/>
-                  </div>
+                    <!-- <div class="col-md-1 col-xs-2">
+                    <label for="cadastro_clientes_edit_form_id">ID</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_id" name="cadastro_clientes_edit_form_id" readonly/>
+                </div> -->
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_cpfcnpj">CPF/CNPJ</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_cpfcnpj" name="cadastro_clientes_edit_form_cpfcnpj" onchange="BuscaCPFCNPJ(this.value);"/>
+                </div>
 
-                  <div class="col-md-5 col-xs-10">
-                      <label for="cadastro_clientes_edit_form_nome">Nome Fantasia</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_nome" name="cadastro_clientes_edit_form_nome" />
-                  </div>
-                  <div class="col-md-4 col-xs-8">
-                      <label for="cadastro_clientes_edit_form_razao_social">Razão Social</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_razao_social" name="cadastro_clientes_edit_form_razao_social" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_rgie">RG/Insc. Estadual</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_rgie" name="cadastro_clientes_edit_form_rgie" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cep">CEP <span id="cadastro_clientes_edit_form_endereco_cep_resultado"></span></label>
-                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cep" name="cadastro_clientes_edit_form_endereco_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco');"/>
-                  </div>
+                <div class="col-md-5 col-xs-10">
+                    <label for="cadastro_clientes_edit_form_nome">Nome Fantasia</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_nome" name="cadastro_clientes_edit_form_nome" />
+                </div>
+                <div class="col-md-4 col-xs-8">
+                    <label for="cadastro_clientes_edit_form_razao_social">Razão Social</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_razao_social" name="cadastro_clientes_edit_form_razao_social" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_rgie">RG/Insc. Estadual</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_rgie" name="cadastro_clientes_edit_form_rgie" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cep">CEP <span id="cadastro_clientes_edit_form_endereco_cep_resultado"></span></label>
+                    <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cep" name="cadastro_clientes_edit_form_endereco_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco');"/>
+                </div>
 
-                  <div class="col-md-5 col-xs-12">
-                      <label for="cadastro_clientes_edit_form_endereco_endereco">Endereço </label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_endereco" name="cadastro_clientes_edit_form_endereco_endereco" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_numero">Número</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_numero" name="cadastro_clientes_edit_form_endereco_numero" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_complemento">Complemento</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_complemento" name="cadastro_clientes_edit_form_endereco_complemento" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_bairro">Bairro</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_bairro" name="cadastro_clientes_edit_form_endereco_bairro" />
-                  </div>
+                <div class="col-md-5 col-xs-12">
+                    <label for="cadastro_clientes_edit_form_endereco_endereco">Endereço </label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_endereco" name="cadastro_clientes_edit_form_endereco_endereco" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_numero">Número</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_numero" name="cadastro_clientes_edit_form_endereco_numero" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_complemento">Complemento</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_complemento" name="cadastro_clientes_edit_form_endereco_complemento" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_bairro">Bairro</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_bairro" name="cadastro_clientes_edit_form_endereco_bairro" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cidade" name="cadastro_clientes_edit_form_endereco_cidade" readonly />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_estado" name="cadastro_clientes_edit_form_endereco_estado" readonly>
-                      </select>
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_suframa">Suframa</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_suframa" name="cadastro_clientes_edit_form_suframa" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_suframa_validade">Validade Suframa</label>
-                      <input type="date" class="form-control" id="cadastro_clientes_edit_form_suframa_validade" name="cadastro_clientes_edit_form_suframa_validade" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_desconto">Desconto</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_desconto" name="cadastro_clientes_edit_form_desconto" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_natureza_operacao">Natureza de Operação</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_natureza_operacao" name="cadastro_clientes_edit_form_natureza_operacao">
-                      </select>
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_data_cadastro">Data Inicial</label>
-                      <input readonly type="text" class="form-control" id="cadastro_clientes_edit_form_data_cadastro" name="cadastro_clientes_edit_form_data_cadastro" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_status">Status</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_status" name="cadastro_clientes_edit_form_status" placeholder="Ativo" readonly/>
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <!-- <label for="cadastro_clientes_edit_form_tel1">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_tel1" name="cadastro_clientes_edit_form_tel1" /> -->
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_fax">Fax</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_fax" name="cadastro_clientes_edit_form_fax" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_site">Site</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_site" name="cadastro_clientes_edit_form_site" />
-                  </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cidade">Cidade</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cidade" name="cadastro_clientes_edit_form_endereco_cidade" readonly />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_estado">Estado</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_endereco_estado" name="cadastro_clientes_edit_form_endereco_estado" readonly>
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_suframa">Suframa</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_suframa" name="cadastro_clientes_edit_form_suframa" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_suframa_validade">Validade Suframa</label>
+                    <input type="date" class="form-control" id="cadastro_clientes_edit_form_suframa_validade" name="cadastro_clientes_edit_form_suframa_validade" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_desconto">Desconto</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_desconto" name="cadastro_clientes_edit_form_desconto" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_natureza_operacao">Natureza de Operação</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_natureza_operacao" name="cadastro_clientes_edit_form_natureza_operacao">
+                    </select>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_data_cadastro">Data Inicial</label>
+                    <input readonly type="text" class="form-control" id="cadastro_clientes_edit_form_data_cadastro" name="cadastro_clientes_edit_form_data_cadastro" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_status">Status</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_status" name="cadastro_clientes_edit_form_status" placeholder="Ativo" readonly/>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <!-- <label for="cadastro_clientes_edit_form_tel1">Fone</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_tel1" name="cadastro_clientes_edit_form_tel1" /> -->
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_fax">Fax</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_fax" name="cadastro_clientes_edit_form_fax" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_site">Site</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_site" name="cadastro_clientes_edit_form_site" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_compras">Contato Compras</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras" name="cadastro_clientes_edit_form_contato_compras" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_compras_fone">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras_fone" name="cadastro_clientes_edit_form_contato_compras_fone" />
-                  </div>
-                  <div class="col-md-6 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_compras_email">E-mail</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras_email" name="cadastro_clientes_edit_form_contato_compras_email" />
-                  </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_compras">Contato Compras</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras" name="cadastro_clientes_edit_form_contato_compras" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_compras_fone">Fone</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras_fone" name="cadastro_clientes_edit_form_contato_compras_fone" />
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_compras_email">E-mail</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_compras_email" name="cadastro_clientes_edit_form_contato_compras_email" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_cobranca">Contato Cobrança</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca" name="cadastro_clientes_edit_form_contato_cobranca" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_cobranca_fone">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_fone" name="cadastro_clientes_edit_form_contato_cobranca_fone" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_cobranca_email">E-mail</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_email" name="cadastro_clientes_edit_form_contato_cobranca_email" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_contato_cobranca_funcao">Função</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_funcao" name="cadastro_clientes_edit_form_contato_cobranca_funcao" />
-                  </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_cobranca">Contato Cobrança</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca" name="cadastro_clientes_edit_form_contato_cobranca" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_cobranca_fone">Fone</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_fone" name="cadastro_clientes_edit_form_contato_cobranca_fone" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_cobranca_email">E-mail</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_email" name="cadastro_clientes_edit_form_contato_cobranca_email" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_contato_cobranca_funcao">Função</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_contato_cobranca_funcao" name="cadastro_clientes_edit_form_contato_cobranca_funcao" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_grupo">Grupo</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_grupo" name="cadastro_clientes_edit_form_grupo">
-                      </select>
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_segmento_mercado">Seg. Mercado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_segmento_mercado" name="cadastro_clientes_edit_form_segmento_mercado">
-                      </select>
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_segmento_regiao">Região</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_segmento_regiao" name="cadastro_clientes_edit_form_segmento_regiao">
-                      </select>
-                  </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_grupo">Grupo</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_grupo" name="cadastro_clientes_edit_form_grupo">
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_segmento_mercado">Seg. Mercado</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_segmento_mercado" name="cadastro_clientes_edit_form_segmento_mercado">
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_segmento_regiao">Região</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_segmento_regiao" name="cadastro_clientes_edit_form_segmento_regiao">
+                    </select>
+                </div>
 
 
 
-              </div>
-              <div class="form-group row">
-                  <div class="col-md-12"> <span class=" font-size-lg">Endereço de Cobrança</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('cobranca');"> Repetir o endereço</button></div>
-                  <hr />
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_cep">CEP <span id="cadastro_clientes_edit_form_endereco_cobranca_cep_resultado"></span></label>
-                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cep" name="cadastro_clientes_edit_form_endereco_cobranca_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco_cobranca');"/>
-                  </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12"> <span class=" font-size-lg">Endereço de Cobrança</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('cobranca');"> Repetir o endereço</button></div>
+                <hr />
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_cep">CEP <span id="cadastro_clientes_edit_form_endereco_cobranca_cep_resultado"></span></label>
+                    <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cep" name="cadastro_clientes_edit_form_endereco_cobranca_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco_cobranca');"/>
+                </div>
 
-                  <div class="col-md-7 col-xs-12">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_endereco">Endereço </label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_endereco" name="cadastro_clientes_edit_form_endereco_cobranca_endereco" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_numero">Número</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_numero" name="cadastro_clientes_edit_form_endereco_cobranca_numero" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_complemento">Complemento</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_complemento" name="cadastro_clientes_edit_form_endereco_cobranca_complemento" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_bairro">Bairro</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_bairro" name="cadastro_clientes_edit_form_endereco_cobranca_bairro" />
-                  </div>
+                <div class="col-md-7 col-xs-12">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_endereco">Endereço </label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_endereco" name="cadastro_clientes_edit_form_endereco_cobranca_endereco" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_numero">Número</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_numero" name="cadastro_clientes_edit_form_endereco_cobranca_numero" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_complemento">Complemento</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_complemento" name="cadastro_clientes_edit_form_endereco_cobranca_complemento" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_bairro">Bairro</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_bairro" name="cadastro_clientes_edit_form_endereco_cobranca_bairro" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cidade" name="cadastro_clientes_edit_form_endereco_cobranca_cidade" readonly />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_estado" name="cadastro_clientes_edit_form_endereco_cobranca_estado" readonly>
-                      </select>
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_contato">Contato Cobrança</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato" name="cadastro_clientes_edit_form_endereco_cobranca_contato" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone" name="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_cobranca_contato_email">E-mail NFE</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato_email" name="cadastro_clientes_edit_form_endereco_cobranca_contato_email" />
-                  </div>
-                  </div>
-              <div class="form-group row">
-                  <div class="col-md-12"> <span class=" font-size-lg">Endereço de Entrega</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('entrega');"> Repetir o endereço</button></div>
-                  <hr />
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_cep">CEP <span id="cadastro_clientes_edit_form_endereco_entrega_cep_resultado"></span></label>
-                      <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cep" name="cadastro_clientes_edit_form_endereco_entrega_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco_entrega');"/>
-                  </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_cidade">Cidade</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_cidade" name="cadastro_clientes_edit_form_endereco_cobranca_cidade" readonly />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_estado">Estado</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_estado" name="cadastro_clientes_edit_form_endereco_cobranca_estado" readonly>
+                    </select>
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_contato">Contato Cobrança</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato" name="cadastro_clientes_edit_form_endereco_cobranca_contato" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone">Fone</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone" name="cadastro_clientes_edit_form_endereco_cobranca_contato_telefone" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_cobranca_contato_email">E-mail NFE</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_cobranca_contato_email" name="cadastro_clientes_edit_form_endereco_cobranca_contato_email" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12"> <span class=" font-size-lg">Endereço de Entrega</span> <button class="btn btn-secondary" id="repetir_endereco_entrega" onclick="RepetirEndereco('entrega');"> Repetir o endereço</button></div>
+                <hr />
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_cep">CEP <span id="cadastro_clientes_edit_form_endereco_entrega_cep_resultado"></span></label>
+                    <input data-mask="00000-000" type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cep" name="cadastro_clientes_edit_form_endereco_entrega_cep" onchange="BuscaCep(this.value, 'cadastro_clientes_edit_form_endereco_entrega');"/>
+                </div>
 
-                  <div class="col-md-7 col-xs-12">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_endereco">Endereço </label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_endereco" name="cadastro_clientes_edit_form_endereco_entrega_endereco" />
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_numero">Número</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_numero" name="cadastro_clientes_edit_form_endereco_entrega_numero" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_complemento">Complemento</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_complemento" name="cadastro_clientes_edit_form_endereco_entrega_complemento" />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_bairro">Bairro</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_bairro" name="cadastro_clientes_edit_form_endereco_entrega_bairro" />
-                  </div>
+                <div class="col-md-7 col-xs-12">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_endereco">Endereço </label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_endereco" name="cadastro_clientes_edit_form_endereco_entrega_endereco" />
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_numero">Número</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_numero" name="cadastro_clientes_edit_form_endereco_entrega_numero" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_complemento">Complemento</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_complemento" name="cadastro_clientes_edit_form_endereco_entrega_complemento" />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_bairro">Bairro</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_bairro" name="cadastro_clientes_edit_form_endereco_entrega_bairro" />
+                </div>
 
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cidade" name="cadastro_clientes_edit_form_endereco_entrega_cidade" readonly />
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_estado">Estado</label>
-                      <select class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_estado" name="cadastro_clientes_edit_form_endereco_entrega_estado" readonly>
-                      </select>
-                  </div>
-                  <div class="col-md-6 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_cnpj">CNPJ</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cnpj" name="cadastro_clientes_edit_form_endereco_entrega_cnpj" />
-                  </div>
-                  <div class="col-md-6 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_ie">Insc. Estadual</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_ie" name="cadastro_clientes_edit_form_endereco_entrega_ie" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_contato">Contato Entrega</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato" name="cadastro_clientes_edit_form_endereco_entrega_contato" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_contato_telefone">Fone</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato_telefone" name="cadastro_clientes_edit_form_endereco_entrega_contato_telefone" />
-                  </div>
-                  <div class="col-md-4 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_endereco_entrega_contato_email">E-mail</label>
-                      <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato_email" name="cadastro_clientes_edit_form_endereco_entrega_contato_email" />
-                  </div>
-              </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_cidade">Cidade</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cidade" name="cadastro_clientes_edit_form_endereco_entrega_cidade" readonly />
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_estado">Estado</label>
+                    <select class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_estado" name="cadastro_clientes_edit_form_endereco_entrega_estado" readonly>
+                    </select>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_cnpj">CNPJ</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_cnpj" name="cadastro_clientes_edit_form_endereco_entrega_cnpj" />
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_ie">Insc. Estadual</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_ie" name="cadastro_clientes_edit_form_endereco_entrega_ie" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_contato">Contato Entrega</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato" name="cadastro_clientes_edit_form_endereco_entrega_contato" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_contato_telefone">Fone</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato_telefone" name="cadastro_clientes_edit_form_endereco_entrega_contato_telefone" />
+                </div>
+                <div class="col-md-4 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_endereco_entrega_contato_email">E-mail</label>
+                    <input type="text" class="form-control" id="cadastro_clientes_edit_form_endereco_entrega_contato_email" name="cadastro_clientes_edit_form_endereco_entrega_contato_email" />
+                </div>
+            </div>
 
-              <div class="form-group row">
-                  <div class="col-md-3 col-xs-6">
-                      <label for="cadastro_clientes_edit_form_restricao">Restrição  <input type="checkbox" id="cadastro_clientes_edit_form_restricao" name="cadastro_clientes_edit_form_restricao" VALUE="S" /></label>
+            <div class="form-group row">
+                <div class="col-md-3 col-xs-6">
+                    <label for="cadastro_clientes_edit_form_restricao">Restrição  <input type="checkbox" id="cadastro_clientes_edit_form_restricao" name="cadastro_clientes_edit_form_restricao" VALUE="S" /></label>
 
-                  </div>
-                  <hr />
-                  <div class="col-md-12 col-xs-12">
-                      <textarea class="form-control" id="cadastro_clientes_edit_form_restricao_texto" name="cadastro_clientes_edit_form_restricao_texto"></textarea>
-                  </div>
-                  <div class="col-md-12 col-xs-12">
-                      <label for="cadastro_clientes_edit_form_observacoes">Observações</label>
-                      <textarea class="form-control" id="cadastro_clientes_edit_form_observacoes" name="cadastro_clientes_edit_form_observacoes"></textarea>
-                  </div>
-                  <div class="col-md-12 col-xs-12" style="display:none;">
-                      <label for="cadastro_clientes_edit_form_empresa">Empresas</label>
-                      <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_clientes_edit_form_empresa" name="cadastro_clientes_edit_form_empresa">
+                </div>
+                <hr />
+                <div class="col-md-12 col-xs-12">
+                    <textarea class="form-control" id="cadastro_clientes_edit_form_restricao_texto" name="cadastro_clientes_edit_form_restricao_texto"></textarea>
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <label for="cadastro_clientes_edit_form_observacoes">Observações</label>
+                    <textarea class="form-control" id="cadastro_clientes_edit_form_observacoes" name="cadastro_clientes_edit_form_observacoes"></textarea>
+                </div>
+                <div class="col-md-12 col-xs-12" style="display:none;">
+                    <label for="cadastro_clientes_edit_form_empresa">Empresas</label>
+                    <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_clientes_edit_form_empresa" name="cadastro_clientes_edit_form_empresa">
 
-                      </select>
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick="CadastroClientesSave();">Salvar</button>
-            </form>
-        </div>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                    <label>Sócios</label>
+
+
+                    <div class="socios">
+                        <div class="col-xs-12 socio form-group row">
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_nome">Nome</label>
+                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_nome" name="cadastro_clientes_edit_form_socios_nome" />
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_nascimento">Nascimento</label>
+                                <input type="date" class="form-control" id="cadastro_clientes_edit_form_socios_nascimento" name="cadastro_clientes_edit_form_socios_nascimento" />
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_estado_civil">Estado Civil</label>
+                                <select class="form-control" id="cadastro_clientes_edit_form_socios_estado_civil" name="cadastro_clientes_edit_form_socios_estado_civil">
+                                    <option value="CASADO (A)" selected="">CASADO (A)</option>
+                                    <option value="SOLTEIRO (A)">SOLTEIRO (A)</option>
+                                    <option value="VIUVO (A)">VIUVO (A)</option>
+                                    <option value="SEPARADO (A)">SEPARADO (A)</option>
+                                    <option value="OUTROS">OUTROS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_qtfilhos">Quant. Filhos</label>
+                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_qtfilhos" name="cadastro_clientes_edit_form_socios_qtfilhos" />
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_bebida">Bebida Preferida</label>
+                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_bebida" name="cadastro_clientes_edit_form_socios_bebida" />
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_time">Time de Futebol</label>
+                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_time" name="cadastro_clientes_edit_form_socios_time" />
+                            </div>
+                            <div class="col-md-4 col-xs-6">
+                                <label for="cadastro_clientes_edit_form_socios_esporte">Esporte que pratica</label>
+                                <input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_esporte" name="cadastro_clientes_edit_form_socios_esporte" />
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick="CadastroClientesSave();">Salvar</button>
+        </form>
     </div>
+</div>
 
 </div>
 
@@ -318,80 +362,132 @@
     $(document).ready(function(){
         $.jMaskGlobals.watchDataMask = true;
         // window.onerror = function(){
-        //    return true;
-        // }
-        $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
-        MascaraCpfCnpj('#cadastro_clientes_edit_form_cpfcnpj');
+            //    return true;
+            // }
+            $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
+            MascaraCpfCnpj('#cadastro_clientes_edit_form_cpfcnpj');
 
-        MascaraTelefone('#cadastro_clientes_edit_form_tel1');
-        MascaraTelefone('#cadastro_clientes_edit_form_fax');
-        MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
-        MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
-        MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
-        MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
+            MascaraTelefone('#cadastro_clientes_edit_form_tel1');
+            MascaraTelefone('#cadastro_clientes_edit_form_fax');
+            MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
+            MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
+            MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
+            MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
 
 
-        PopularEmpresas('#cadastro_clientes_edit_form_empresa');
-        GetUserList();
-        $('#cadastro_clientes_userlist_table').DataTable({
+            PopularEmpresas('#cadastro_clientes_edit_form_empresa');
+            GetUserList();
+            $('#cadastro_clientes_userlist_table').DataTable({
                 "language": {
                     "url": "assets/datatables/Portuguese-Brasil.json"
                 }
             }
 
-        );
+            );
 
-        if($('#post_screen').val() == 'cadastro_pedidos'){
-            $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
-        }
-
-    });
-
-    function GetUserList(){
-        $('.cadastro_clientes_lista').html('');
-        // console.log('getting');
-        $.ajax({
-            type: 'POST',
-            url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-            data: {'action':'GetUserList'},
-            dataType: 'json',
-            async: false,
-            success: function (UserList)
-            {
-                $(UserList).each(function(k,v){
-                    // console.log(UserList);
-
-                    $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'' + v.Cnpj_Cnpf + '\', \'editar\')">' +
-                        '<td>' + v.nome + '</td>' +
-                        '<td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td>' +
-                        '<td>' + v.endereco_cidade + '</td>' +
-                        '<td>' + v.endereco_estado + '</td>' +
-                        // '<td>' + v.nome_empresa + '</td>' +
-                    '</tr>');
-                });
-                MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
+            if($('#post_screen').val() == 'cadastro_pedidos'){
+                $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
             }
-        });
-    }
-    function GetUserInfoEdit(CdRepresentante, Cnpj_Cnpf, action){
-        ShowLoading();
-        $('#cadastro_clientes_userlist').hide();
-        $('#cadastro_clientes_edit').fadeIn(500);
 
-        $('#cadastro_clientes_edit_form :input').each(function(k,v){
-            $(v).val('');
         });
-        $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
-        if(action == 'editar'){
+
+        function GetUserList(){
+            $('.cadastro_clientes_lista').html('');
+            // console.log('getting');
             $.ajax({
                 type: 'POST',
                 url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-                data: {'action':'GetUserData', 'CdRepresentante':CdRepresentante, 'Cnpj_Cnpf':Cnpj_Cnpf},
+                data: {'action':'GetUserList'},
                 dataType: 'json',
                 async: false,
-                success: function (User)
+                success: function (UserList)
                 {
-                    VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf)
+                    $(UserList).each(function(k,v){
+                        // console.log(UserList);
+
+                        $('.cadastro_clientes_lista').append('<tr onclick="GetUserInfoEdit(\'' + v.CdRepresentante + '\', \'' + v.Cnpj_Cnpf + '\', \'editar\')">' +
+                            '<td>' + v.nome + '</td>' +
+                            '<td class="campo_cpfcnpj_lista">' + v.cpfcnpj + '</td>' +
+                            '<td>' + v.endereco_cidade + '</td>' +
+                            '<td>' + v.endereco_estado + '</td>' +
+                            // '<td>' + v.nome_empresa + '</td>' +
+                            '</tr>');
+                        });
+                        MascaraCpfCnpjManualTexto('.campo_cpfcnpj_lista');
+                    }
+                });
+            }
+            function GetUserInfoEdit(CdRepresentante, Cnpj_Cnpf, action){
+                ShowLoading();
+                $('#cadastro_clientes_userlist').hide();
+                $('#cadastro_clientes_edit').fadeIn(500);
+
+                $('#cadastro_clientes_edit_form :input').each(function(k,v){
+                    $(v).val('');
+                });
+                $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
+                if(action == 'editar'){
+                    $.ajax({
+                        type: 'POST',
+                        url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
+                        data: {'action':'GetUserData', 'CdRepresentante':CdRepresentante, 'Cnpj_Cnpf':Cnpj_Cnpf},
+                        dataType: 'json',
+                        async: false,
+                        success: function (User)
+                        {
+                            VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf)
+                            // PopularEstados('#cadastro_clientes_edit_form_endereco_estado');
+                            // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
+                            // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
+                            PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
+                            GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
+                            GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
+                            GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
+                            GetClienteGrupos();
+                            console.log("User");
+                            console.log(User);
+                            var prefix = '#cadastro_clientes_edit_form_';
+                            var UserKeys = Object.keys(User);
+                            $(UserKeys).each(function(k,v){
+                                // console.log(User[v]);
+                                $(prefix + v).val(User[v]);
+                            });
+
+                            MascaraCpfCnpjManual('#cadastro_clientes_edit_form_cpfcnpj');
+                            if(User.restricao == "S"){
+                                $('#cadastro_clientes_edit_form_restricao').prop('checked', true);
+                            }
+                            else {
+                                $('#cadastro_clientes_edit_form_restricao').prop('checked', false);
+                            }
+                            $('#cadastro_clientes_edit_form_endereco_cep').unmask();
+                            $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
+                            $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
+                            $('#action_for_form').val(action);
+                            $('#cadastro_clientes_edit_form_cpfcnpj').attr('readonly', true);
+
+                            if(User.restricao == 1){
+                                $('#cadastro_clientes_edit_form_restricao').attr('checked', true);
+                            }
+                            else {
+                                $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
+                            }
+
+                            MascaraTelefone('#cadastro_clientes_edit_form_tel1');
+                            MascaraTelefone('#cadastro_clientes_edit_form_fax');
+                            MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
+                            PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, CdRepresentante);
+
+                            HideLoading();
+
+
+                        }
+                    });
+                }
+                else {
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_estado');
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
                     // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
@@ -400,190 +496,138 @@
                     GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
                     GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
                     GetClienteGrupos();
-                    console.log("User");
-                    console.log(User);
-                    var prefix = '#cadastro_clientes_edit_form_';
-                    var UserKeys = Object.keys(User);
-                    $(UserKeys).each(function(k,v){
-                        // console.log(User[v]);
-                        $(prefix + v).val(User[v]);
-                    });
-
-                    MascaraCpfCnpjManual('#cadastro_clientes_edit_form_cpfcnpj');
-                    if(User.restricao == "S"){
-                        $('#cadastro_clientes_edit_form_restricao').prop('checked', true);
-                    }
-                    else {
-                        $('#cadastro_clientes_edit_form_restricao').prop('checked', false);
-                    }
-                    $('#cadastro_clientes_edit_form_endereco_cep').unmask();
-                    $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
-                    $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
+                    $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
+                    // $('#cadastro_clientes_edit_form_id').val(id);
+                    $('#cadastro_clientes_edit_nome').html('Novo cliente');
                     $('#action_for_form').val(action);
-                    $('#cadastro_clientes_edit_form_cpfcnpj').attr('readonly', true);
-
-                    if(User.restricao == 1){
-                        $('#cadastro_clientes_edit_form_restricao').attr('checked', true);
-                    }
-                    else {
-                        $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
-                    }
-
-                    MascaraTelefone('#cadastro_clientes_edit_form_tel1');
-                    MascaraTelefone('#cadastro_clientes_edit_form_fax');
-                    MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
-                    PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, CdRepresentante);
-
+                    $('#cadastro_clientes_edit_form_restricao').removeAttr('checked');
                     HideLoading();
-
-
                 }
-            });
-        }
-        else {
-            // PopularEstados('#cadastro_clientes_edit_form_endereco_estado');
-            // PopularEstados('#cadastro_clientes_edit_form_endereco_entrega_estado');
-            // PopularEstados('#cadastro_clientes_edit_form_endereco_cobranca_estado');
-            PopularEstados(['#cadastro_clientes_edit_form_endereco_cobranca_estado', '#cadastro_clientes_edit_form_endereco_estado', '#cadastro_clientes_edit_form_endereco_entrega_estado']);
-            GetNaturezaOperacao(0, '#cadastro_clientes_edit_form_natureza_operacao', 0);
-            GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
-            GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
-            GetClienteGrupos();
-            $('.usuarios_acessos').load('content/pages/cadastros/cadastros/CadastroClientes/acessos.php');
-            // $('#cadastro_clientes_edit_form_id').val(id);
-            $('#cadastro_clientes_edit_nome').html('Novo cliente');
-            $('#action_for_form').val(action);
-            $('#cadastro_clientes_edit_form_restricao').removeAttr('checked');
-            HideLoading();
-        }
-    }
+            }
 
 
-    function PreenchePorCnpj(Cnpj_Cnpf){
-        ShowLoading();
-        $('#cadastro_clientes_edit_form :input').each(function(k,v){
-            $(v).val('');
-        });
-        // $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
+            function PreenchePorCnpj(Cnpj_Cnpf){
+                ShowLoading();
+                $('#cadastro_clientes_edit_form :input').each(function(k,v){
+                    $(v).val('');
+                });
+                // $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
 
-        $.ajax({
-            type: 'POST',
-            url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-            data: {'action':'GetUserData', 'Cnpj_Cnpf':Cnpj_Cnpf},
-            dataType: 'json',
-            async: false,
-            success: function (User)
-            {
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
+                    data: {'action':'GetUserData', 'Cnpj_Cnpf':Cnpj_Cnpf},
+                    dataType: 'json',
+                    async: false,
+                    success: function (User)
+                    {
 
-                console.log(User);
-                if(User.nome){
-                    var acessos = VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf);
-                    console.log(acessos);
-                    if(acessos === false){
-                        return false;
+                        console.log(User);
+                        if(User.nome){
+                            var acessos = VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf);
+                            console.log(acessos);
+                            if(acessos === false){
+                                return false;
+                            }
+
+                            console.log(User);
+                            var prefix = '#cadastro_clientes_edit_form_';
+                            var UserKeys = Object.keys(User);
+                            $(UserKeys).each(function(k,v){
+                                // console.log(User[v]);
+                                $(prefix + v).val(User[v]);
+                            });
+
+                            MascaraCpfCnpjManual('#cadastro_clientes_edit_form_cpfcnpj');
+                            $('#cadastro_clientes_edit_form_endereco_cep').unmask();
+                            $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
+                            $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
+                            $('#action_for_form').val('editar');
+
+                            if(User.restricao == 1){
+                                $('#cadastro_clientes_edit_form_restricao').attr('checked', true);
+                            }
+                            else {
+                                $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
+                            }
+
+                            MascaraTelefone('#cadastro_clientes_edit_form_tel1');
+                            MascaraTelefone('#cadastro_clientes_edit_form_fax');
+                            MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
+                            MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
+                            PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, 0);
+
+                            var campos_bloquear = ['cpfcnpj',
+                            'nome',
+                            'razao_social',
+                            'IE',
+                            'suframa',
+                            'suframa_validade',
+                            'desconto',
+                            'natureza_operacao',
+                            'segmento_mercado',
+                            'segmento_regiao',
+                            'restricao_texto',
+                            'observacoes'];
+                            $(campos_bloquear).each(function(k,v){
+                                console.log(v);
+                                $(prefix + v).attr('readonly', true);
+                            });
+                        }
+                        else {
+                            $('#action_for_form').val('novo');
+                        }
+
+                        HideLoading();
+
                     }
+                });
+            }
 
-                    console.log(User);
-                    var prefix = '#cadastro_clientes_edit_form_';
-                    var UserKeys = Object.keys(User);
-                    $(UserKeys).each(function(k,v){
-                        // console.log(User[v]);
-                        $(prefix + v).val(User[v]);
-                    });
-
-                    MascaraCpfCnpjManual('#cadastro_clientes_edit_form_cpfcnpj');
-                    $('#cadastro_clientes_edit_form_endereco_cep').unmask();
-                    $('#cadastro_clientes_edit_form_endereco_cep').mask("99999-999");
-                    $('#cadastro_clientes_edit_nome').html('Edição de cliente - ' + User.nome);
-                    $('#action_for_form').val('editar');
-
-                    if(User.restricao == 1){
-                        $('#cadastro_clientes_edit_form_restricao').attr('checked', true);
-                    }
-                    else {
-                        $('#cadastro_clientes_edit_form_restricao').attr('checked', false);
-                    }
-
-                    MascaraTelefone('#cadastro_clientes_edit_form_tel1');
-                    MascaraTelefone('#cadastro_clientes_edit_form_fax');
-                    MascaraTelefone('#cadastro_clientes_edit_form_contato_compras_fone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_contato_cobranca_fone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_endereco_cobranca_contato_telefone');
-                    MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
-                    PopularEmpresas('#cadastro_clientes_edit_form_empresa', 0, User.Cnpj_Cnpf, 0);
-
-                    var campos_bloquear = ['cpfcnpj',
-                    'nome',
-                    'razao_social',
-                    'IE',
-                    'suframa',
-                    'suframa_validade',
-                    'desconto',
-                    'natureza_operacao',
-                    'segmento_mercado',
-                    'segmento_regiao',
-                    'restricao_texto',
-                    'observacoes'];
-                    $(campos_bloquear).each(function(k,v){
-                        console.log(v);
-                        $(prefix + v).attr('readonly', true);
-                    });
+            function CadastroClientesSave() {
+                var restricao = $('#cadastro_clientes_edit_form_restricao').prop('checked');
+                if(restricao == true){
+                    var campo_restricao = "S";
                 }
                 else {
-                    $('#action_for_form').val('novo');
+                    var campo_restricao = "N";
                 }
+                var dados = $('#cadastro_clientes_edit_form').serializeArray();
+                var empresas = $('#cadastro_clientes_edit_form_empresa').val();
+                var action = $('#action_for_form').val();
 
-                HideLoading();
+                // console.log(dados);
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
+                    data: {'dados': dados, 'action': action, 'empresas':empresas, 'campo_restricao':campo_restricao},
+                    success: function (data)
+                    {
+                        // console.log(data);
+                        if (data == 0) {
+                            toastr.success('Sucesso! Cliente atualizado.');
+                            GetUserList();
+                            $('#cadastro_clientes_userlist').fadeIn(500);
+                            $('#cadastro_clientes_edit').hide();
+
+                            if($('#post_screen').val() == "cadastro_pedidos"){
+                                CadastroPedidosPosCliente();
+                            }
+
+                        } else {
+                            toastr.error('Erro: ' + data);
+                        }
+                    }
+                });
 
             }
-        });
-    }
 
-    function CadastroClientesSave() {
-          var restricao = $('#cadastro_clientes_edit_form_restricao').prop('checked');
-          if(restricao == true){
-              var campo_restricao = "S";
-          }
-          else {
-              var campo_restricao = "N";
-          }
-          var dados = $('#cadastro_clientes_edit_form').serializeArray();
-          var empresas = $('#cadastro_clientes_edit_form_empresa').val();
-          var action = $('#action_for_form').val();
-
-          // console.log(dados);
-          $.ajax({
-              type: 'POST',
-              url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-              data: {'dados': dados, 'action': action, 'empresas':empresas, 'campo_restricao':campo_restricao},
-              success: function (data)
-              {
-                  // console.log(data);
-                  if (data == 0) {
-                      toastr.success('Sucesso! Cliente atualizado.');
-                      GetUserList();
-                      $('#cadastro_clientes_userlist').fadeIn(500);
-                      $('#cadastro_clientes_edit').hide();
-
-                      if($('#post_screen').val() == "cadastro_pedidos"){
-                          CadastroPedidosPosCliente();
-                      }
-
-                  } else {
-                      toastr.error('Erro: ' + data);
-                  }
-              }
-          });
-
-     }
-
-      function MascaraCpfCnpj(campo){
-          $(campo).keydown(function(event){
-              // console.log(event.originalEvent.code);
-              if(event.originalEvent.code != 'Tab' && event.originalEvent.code != 'Enter' && event.originalEvent.code != 'NumpadEnter'){
+            function MascaraCpfCnpj(campo){
+                $(campo).change(function(event){
+                    // console.log(event.originalEvent.code);
+                    if(event.originalEvent.code != 'Tab' && event.originalEvent.code != 'Enter' && event.originalEvent.code != 'NumpadEnter'){
                         try {
                             $(campo).unmask();
                         } catch (e) {}
@@ -609,387 +653,387 @@
                     }
                 });
 
-      }
-      function MascaraCpfCnpjManualTexto(campo){
-          try {
-              $(campo).unmask();
-          } catch (e) {}
-
-          $(campo).each(function(k,v){
-              var tamanho = $(v).text().length;
-              if(tamanho <= 11){
-                  $(v).mask("999.999.999-99");
-              } else {
-                  $(v).mask("99.999.999/9999-99");
-              }
-          });
-
-          var tamanho = $(campo).text().length;
-      }
-
-      function MascaraCpfCnpjManual(campo){
-          try {
-              $(campo).unmask();
-          } catch (e) {}
-
-          var tamanho = $(campo).val().length;
-
-          if(tamanho <= 11){
-              $(campo).mask("999.999.999-99");
-          } else {
-              $(campo).mask("99.999.999/9999-99");
-          }
-      }
-
-      function MascaraTelefone(campo){
-          $(campo).unmask();
-          $(campo)
-        .mask("(99) 9999-99999")
-        .focusout(function (event) {
-            var target, phone, element;
-            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-            phone = target.value.replace(/\D/g, '');
-            element = $(target);
-            element.unmask();
-            if(phone.length > 10) {
-                element.mask("(99) 99999-9999");
-            } else {
-                element.mask("(99) 9999-99999");
             }
-        });
+            function MascaraCpfCnpjManualTexto(campo){
+                try {
+                    $(campo).unmask();
+                } catch (e) {}
 
-      }
+                $(campo).each(function(k,v){
+                    var tamanho = $(v).text().length;
+                    if(tamanho <= 11){
+                        $(v).mask("999.999.999-99");
+                    } else {
+                        $(v).mask("99.999.999/9999-99");
+                    }
+                });
 
-      function PopularEstados(campo){
-          var action = 'GetEstados';
-          // $(campo + ' input').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/estados.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action},
-              success: function (data)
-              {
-                  console.log(campo);
-                  $(campo).each(function(k,b){
-                       $(b + ' input').remove();
-                      console.log('campo: ' + b);
-                      $(data).each(function(k,v){
-                      // console.log(v);
+                var tamanho = $(campo).text().length;
+            }
 
-                          console.log(v.Estado);
-                          $(b)
-                             .append($("<option></option>")
-                             .attr("value", v.Estado)
-                             .text(v.Estado));
-                      })
+            function MascaraCpfCnpjManual(campo){
+                try {
+                    $(campo).unmask();
+                } catch (e) {}
 
-                  });
+                var tamanho = $(campo).val().length;
 
+                if(tamanho <= 11){
+                    $(campo).mask("999.999.999-99");
+                } else {
+                    $(campo).mask("99.999.999/9999-99");
+                }
+            }
 
+            function MascaraTelefone(campo){
+                $(campo).unmask();
+                $(campo)
+                .mask("(99) 9999-99999")
+                .focusout(function (event) {
+                    var target, phone, element;
+                    target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                    phone = target.value.replace(/\D/g, '');
+                    element = $(target);
+                    element.unmask();
+                    if(phone.length > 10) {
+                        element.mask("(99) 99999-9999");
+                    } else {
+                        element.mask("(99) 9999-99999");
+                    }
+                });
 
-              }
-          });
+            }
 
-      }
+            function PopularEstados(campo){
+                var action = 'GetEstados';
+                // $(campo + ' input').remove();
+                $.ajax({
+                    type: 'POST',
+                    url: 'dist/php/controllers/estados.api.php',
+                    dataType: 'json',
+                    async: false,
+                    data: {'action': action},
+                    success: function (data)
+                    {
+                        console.log(campo);
+                        $(campo).each(function(k,b){
+                            $(b + ' input').remove();
+                            console.log('campo: ' + b);
+                            $(data).each(function(k,v){
+                                // console.log(v);
 
-      function GetEstadoSigla(sigla, campo_estado){
-          var action = 'GetEstadoSigla';
-          resultado = "";
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/estados.api.php',
-              dataType: 'json',
-              async: 'false',
-              data: {'action': action, 'sigla':sigla},
-              success: function (data)
-              {
-                  // console.log(data);
-                  $(campo_estado).val(data);
-              }
-          });
-          console.log(resultado);
-      }
+                                console.log(v.Estado);
+                                $(b)
+                                .append($("<option></option>")
+                                .attr("value", v.Estado)
+                                .text(v.Estado));
+                            })
 
-      function BuscaCep(cep, prefix){
-          cep = cep.replace("-", "");
-          var tamanho = cep.length;
-          // console.log(tamanho);
-          if(tamanho == 8){
-              ShowLoading();
-              $.ajax({
-                  type: 'GET',
-                  url: 'https://viacep.com.br/ws/' + cep + '/json/',
-                  dataType: 'json',
-                  async: false,
-                  success: function (data)
-                  {
-                      if(data.localidade){
-                          var cidade = data.localidade;
-                          cidade = cidade.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-                          console.log(cidade);
-                          // console.log(data);
-                           $('#' + prefix + '_estado').val(data.uf);
-                          // var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
-                          // console.log(estado);
-                          // console.log('#' + prefix + '_endereco');
-                          $('#' + prefix + '_endereco').val(data.logradouro);
-                          $('#' + prefix + '_bairro').val(data.bairro);
-                          $('#' + prefix + '_cidade').val(cidade);
-
-
-                          VerificaAcessoMunicipio(cidade, data.uf);
-                          toastr.success('Cep retornado da base de dados.');
-                          HideLoading();
-                      }
-                      else {
-                          toastr.error('Cep sem dados retornados da API.');
-                          HideLoading();
-                      }
+                        });
 
 
 
+                    }
+                });
 
-                  }
-              });
-          }
-          else {
-             toastr.error('Cep Inválido.');
-          }
+            }
 
-      }
-      function PopularEmpresas(campo, id = 0, Cnpj_Cnpf = 0, CdRepresentante = 0){
-          var action = 'GetEmpresas';
-          $(campo + ' option').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/empresas.api.php',
-              dataType: 'json',
-              async: 'false',
-              data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
-              success: function (data)
-              {
-                  console.log(data);
-                  $(data).each(function(k,v){
+            function GetEstadoSigla(sigla, campo_estado){
+                var action = 'GetEstadoSigla';
+                resultado = "";
+                $.ajax({
+                    type: 'POST',
+                    url: 'dist/php/controllers/estados.api.php',
+                    dataType: 'json',
+                    async: 'false',
+                    data: {'action': action, 'sigla':sigla},
+                    success: function (data)
+                    {
+                        // console.log(data);
+                        $(campo_estado).val(data);
+                    }
+                });
+                console.log(resultado);
+            }
 
-                      // console.log(v);
-                      $(campo)
-                         .append($("<option></option>")
-                         .attr("value", v.id)
-                         .attr("selected", v.ativo)
-                         .text(v.nome));
-                  });
-
-
-
-              }
-          });
-
-
-      }
-
-      function VerificaAcessoCliente(CdRepresentante, Cnpj_Cnpf){
-          $.ajax({
-              type: 'POST',
-              url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
-              data: {'action':'VerificaAcessosEdicao', 'CdRepresentante': CdRepresentante, 'Cnpj_Cnpf': Cnpj_Cnpf},
-              dataType: 'json',
-              async: false,
-              success: function (AcessoEdicao)
-              {
-                  if(AcessoEdicao.erro > 0){
-                      toastr.error(AcessoEdicao.erro_mensagem + "<br /> Entre em contato com a NOBRE.", "Erro", {closeButton: true,
-                        extendedTimeOut: 0,
-                        timeOut: 0,
-                        tapToDismiss: false});
-                        CarregaModal('Erro', AcessoEdicao.erro_mensagem);
-                  CarregaPagina('content/pages/movimentacoes/pedidos/PedidosSistema/cadastro_pedidos.html');
-                  HideLoading();
-                  return false;
-
-                  }
-
-              }
-          });
-      }
-      function RepetirEndereco(tipo){
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_endereco').val($('#cadastro_clientes_edit_form_endereco_endereco').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_cep').val($('#cadastro_clientes_edit_form_endereco_cep').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_numero').val($('#cadastro_clientes_edit_form_endereco_numero').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_complemento').val($('#cadastro_clientes_edit_form_endereco_complemento').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_bairro').val($('#cadastro_clientes_edit_form_endereco_bairro').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_cidade').val($('#cadastro_clientes_edit_form_endereco_cidade').val());
-          $('#cadastro_clientes_edit_form_endereco_' + tipo + '_estado').val($('#cadastro_clientes_edit_form_endereco_estado').val());
-      }
+            function BuscaCep(cep, prefix){
+                cep = cep.replace("-", "");
+                var tamanho = cep.length;
+                // console.log(tamanho);
+                if(tamanho == 8){
+                    ShowLoading();
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://viacep.com.br/ws/' + cep + '/json/',
+                        dataType: 'json',
+                        async: false,
+                        success: function (data)
+                        {
+                            if(data.localidade){
+                                var cidade = data.localidade;
+                                cidade = cidade.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+                                console.log(cidade);
+                                // console.log(data);
+                                $('#' + prefix + '_estado').val(data.uf);
+                                // var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
+                                // console.log(estado);
+                                // console.log('#' + prefix + '_endereco');
+                                $('#' + prefix + '_endereco').val(data.logradouro);
+                                $('#' + prefix + '_bairro').val(data.bairro);
+                                $('#' + prefix + '_cidade').val(cidade);
 
 
-      function VerificaAcessoMunicipio(municipio, estado){
-          var action = 'verifica_acesso_municipio';
-
-          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/sql_integration.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action, 'municipio':municipio, 'estado': estado},
-              success: function (data)
-              {
-                  if(data == 0){
-                       toastr.error('Representante nao autorizado para este municipio. Aborte o cadastro e entre em contato com a Nobre.');
-                  }
-
-
-              }
-          });
-      }
-      function GetSegmentoMercado(campo){
-          var action = 'get_segmento_mercado';
-          $(campo + ' option').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/sql_integration.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action},
-              success: function (data)
-              {
-                  $(data).each(function(k,v){
-
-                      // console.log(v);
-                      $(campo)
-                      .append($("<option></option>")
-                      .attr("value", v.CdSegmento)
-                      .text(v.DsSegmento));
-                  });
+                                VerificaAcessoMunicipio(cidade, data.uf);
+                                toastr.success('Cep retornado da base de dados.');
+                                HideLoading();
+                            }
+                            else {
+                                toastr.error('Cep sem dados retornados da API.');
+                                HideLoading();
+                            }
 
 
 
-              }
-          });
-          //cadastro_pedidos_edit_form_tabela_preco
-      }
-      function GetRegiao(campo){
-          var action = 'get_regiao';
-          $(campo + ' option').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/sql_integration.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action},
-              success: function (data)
-              {
-                  $(data).each(function(k,v){
 
-                      // console.log(v);
-                      $(campo)
-                      .append($("<option></option>")
-                      .attr("value", v.CdRegiao)
-                      .text(v.DsRegiao));
-                  });
+                        }
+                    });
+                }
+                else {
+                    toastr.error('Cep Inválido.');
+                }
 
+            }
+            function PopularEmpresas(campo, id = 0, Cnpj_Cnpf = 0, CdRepresentante = 0){
+                var action = 'GetEmpresas';
+                $(campo + ' option').remove();
+                $.ajax({
+                    type: 'POST',
+                    url: 'dist/php/controllers/empresas.api.php',
+                    dataType: 'json',
+                    async: 'false',
+                    data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
+                    success: function (data)
+                    {
+                        console.log(data);
+                        $(data).each(function(k,v){
 
-
-              }
-          });
-          //cadastro_pedidos_edit_form_tabela_preco
-      }
-      function GetNaturezaOperacao(empresa, campo, representante = 0){
-          var action = 'get_natureza_operacao';
-          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
-          $(campo + ' option').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/sql_integration.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action, 'empresa':empresa, 'representante':representante},
-              success: function (data)
-              {
-                  console.log(data);
-                  $(data).each(function(k,v){
-
-                      // console.log(v);
-                      $(campo)
-                      .append($("<option></option>")
-                      .attr("value", v.id)
-                      .attr("selected", v.ativo)
-                      .text(v.descricao));
-                  });
+                            // console.log(v);
+                            $(campo)
+                            .append($("<option></option>")
+                            .attr("value", v.id)
+                            .attr("selected", v.ativo)
+                            .text(v.nome));
+                        });
 
 
 
-              }
-          });
-          //cadastro_pedidos_edit_form_tabela_preco
-      }
-
-      function GetClienteGrupos(campo = '#cadastro_clientes_edit_form_grupo'){
-          var action = 'get_cliente_grupos';
-          // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
-          $(campo + ' option').remove();
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/sql_integration.api.php',
-              dataType: 'json',
-              async: false,
-              data: {'action': action},
-              success: function (data)
-              {
-                  console.log(data);
-                  $(data).each(function(k,v){
-
-                      // console.log(v);
-                      $(campo)
-                      .append($("<option></option>")
-                      .attr("value", v.CdGrupo)
-                      .attr("selected", v.ativo)
-                      .text(v.DsGrupo));
-                  });
+                    }
+                });
 
 
+            }
 
-              }
-          });
-          //cadastro_pedidos_edit_form_tabela_preco
-      }
+            function VerificaAcessoCliente(CdRepresentante, Cnpj_Cnpf){
+                $.ajax({
+                    type: 'POST',
+                    url: 'content/pages/cadastros/cadastros/CadastroClientes/post.php',
+                    data: {'action':'VerificaAcessosEdicao', 'CdRepresentante': CdRepresentante, 'Cnpj_Cnpf': Cnpj_Cnpf},
+                    dataType: 'json',
+                    async: false,
+                    success: function (AcessoEdicao)
+                    {
+                        if(AcessoEdicao.erro > 0){
+                            toastr.error(AcessoEdicao.erro_mensagem + "<br /> Entre em contato com a NOBRE.", "Erro", {closeButton: true,
+                                extendedTimeOut: 0,
+                                timeOut: 0,
+                                tapToDismiss: false});
+                                CarregaModal('Erro', AcessoEdicao.erro_mensagem);
+                                CarregaPagina('content/pages/movimentacoes/pedidos/PedidosSistema/cadastro_pedidos.html');
+                                HideLoading();
+                                return false;
+
+                            }
+
+                        }
+                    });
+                }
+                function RepetirEndereco(tipo){
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_endereco').val($('#cadastro_clientes_edit_form_endereco_endereco').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_cep').val($('#cadastro_clientes_edit_form_endereco_cep').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_numero').val($('#cadastro_clientes_edit_form_endereco_numero').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_complemento').val($('#cadastro_clientes_edit_form_endereco_complemento').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_bairro').val($('#cadastro_clientes_edit_form_endereco_bairro').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_cidade').val($('#cadastro_clientes_edit_form_endereco_cidade').val());
+                    $('#cadastro_clientes_edit_form_endereco_' + tipo + '_estado').val($('#cadastro_clientes_edit_form_endereco_estado').val());
+                }
 
 
-      function BuscaCPFCNPJ(valor){
-          // console.log(valor);
-          var action = 'valida';
-          $.ajax({
-              type: 'POST',
-              url: 'dist/php/controllers/cpfcnpj.api.php',
-              dataType: 'json',
-              async: 'false',
-              data: {'action': action, 'cpfcnpj':valor},
-              success: function (data)
-              {
-                  // console.log(data);
-                  if(data.erro == 1){
-                      toastr.error(data.resposta);
-                  }
-                  else {
-                      toastr.success(data.resposta);
-                  }
+                function VerificaAcessoMunicipio(municipio, estado){
+                    var action = 'verifica_acesso_municipio';
+
+                    // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/sql_integration.api.php',
+                        dataType: 'json',
+                        async: false,
+                        data: {'action': action, 'municipio':municipio, 'estado': estado},
+                        success: function (data)
+                        {
+                            if(data == 0){
+                                toastr.error('Representante nao autorizado para este municipio. Aborte o cadastro e entre em contato com a Nobre.');
+                            }
+
+
+                        }
+                    });
+                }
+                function GetSegmentoMercado(campo){
+                    var action = 'get_segmento_mercado';
+                    $(campo + ' option').remove();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/sql_integration.api.php',
+                        dataType: 'json',
+                        async: false,
+                        data: {'action': action},
+                        success: function (data)
+                        {
+                            $(data).each(function(k,v){
+
+                                // console.log(v);
+                                $(campo)
+                                .append($("<option></option>")
+                                .attr("value", v.CdSegmento)
+                                .text(v.DsSegmento));
+                            });
 
 
 
-              }
-          });
-      }
+                        }
+                    });
+                    //cadastro_pedidos_edit_form_tabela_preco
+                }
+                function GetRegiao(campo){
+                    var action = 'get_regiao';
+                    $(campo + ' option').remove();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/sql_integration.api.php',
+                        dataType: 'json',
+                        async: false,
+                        data: {'action': action},
+                        success: function (data)
+                        {
+                            $(data).each(function(k,v){
 
-</script>
-<style type="text/css">
-    .pointer {
-        cursor:pointer;
-    }
-    #cadastro_clientes_edit_form label {
-        font-weight: bold;
-    }
-</style>
-<script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
-<script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>
+                                // console.log(v);
+                                $(campo)
+                                .append($("<option></option>")
+                                .attr("value", v.CdRegiao)
+                                .text(v.DsRegiao));
+                            });
+
+
+
+                        }
+                    });
+                    //cadastro_pedidos_edit_form_tabela_preco
+                }
+                function GetNaturezaOperacao(empresa, campo, representante = 0){
+                    var action = 'get_natureza_operacao';
+                    // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+                    $(campo + ' option').remove();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/sql_integration.api.php',
+                        dataType: 'json',
+                        async: false,
+                        data: {'action': action, 'empresa':empresa, 'representante':representante},
+                        success: function (data)
+                        {
+                            console.log(data);
+                            $(data).each(function(k,v){
+
+                                // console.log(v);
+                                $(campo)
+                                .append($("<option></option>")
+                                .attr("value", v.id)
+                                .attr("selected", v.ativo)
+                                .text(v.descricao));
+                            });
+
+
+
+                        }
+                    });
+                    //cadastro_pedidos_edit_form_tabela_preco
+                }
+
+                function GetClienteGrupos(campo = '#cadastro_clientes_edit_form_grupo'){
+                    var action = 'get_cliente_grupos';
+                    // var campo = $('#cadastro_clientes_edit_form_natureza_operacao');
+                    $(campo + ' option').remove();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/sql_integration.api.php',
+                        dataType: 'json',
+                        async: false,
+                        data: {'action': action},
+                        success: function (data)
+                        {
+                            console.log(data);
+                            $(data).each(function(k,v){
+
+                                // console.log(v);
+                                $(campo)
+                                .append($("<option></option>")
+                                .attr("value", v.CdGrupo)
+                                .attr("selected", v.ativo)
+                                .text(v.DsGrupo));
+                            });
+
+
+
+                        }
+                    });
+                    //cadastro_pedidos_edit_form_tabela_preco
+                }
+
+
+                function BuscaCPFCNPJ(valor){
+                    // console.log(valor);
+                    var action = 'valida';
+                    $.ajax({
+                        type: 'POST',
+                        url: 'dist/php/controllers/cpfcnpj.api.php',
+                        dataType: 'json',
+                        async: 'false',
+                        data: {'action': action, 'cpfcnpj':valor},
+                        success: function (data)
+                        {
+                            // console.log(data);
+                            if(data.erro == 1){
+                                toastr.error(data.resposta);
+                            }
+                            else {
+                                toastr.success(data.resposta);
+                            }
+
+
+
+                        }
+                    });
+                }
+
+            </script>
+            <style type="text/css">
+                .pointer {
+                    cursor:pointer;
+                }
+                #cadastro_clientes_edit_form label {
+                    font-weight: bold;
+                }
+            </style>
+            <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+            <script type="text/javascript" src="./assets/scripts/main.87c0748b313a1dda75f5.js"></script>

@@ -219,7 +219,7 @@ if($_POST['action'] == 'GetUserData'){
 
 
 
-    $sql = "SELECT * FROM BusinessCadClienteSocio WHERE Cnpj_Cnpf = :Cnpj_Cnpf AND CdRepresentante = :CdRepresentante";
+    $sql = "SELECT *, FORMAT(DtNascimento, 'yyyy-MM-dd') as DtNascimento FROM BusinessCadClienteSocio WHERE Cnpj_Cnpf = :Cnpj_Cnpf AND CdRepresentante = :CdRepresentante";
     $sql = $con_sql_server->prepare($sql);
     $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
     $sql->bindParam('CdRepresentante', $CdRepresentante);
@@ -227,6 +227,15 @@ if($_POST['action'] == 'GetUserData'){
     $sql->execute();
 
     $row['socios'] = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT *, FORMAT(DtNascimento, 'yyyy-MM-dd') as DtNascimento FROM BusinessCadClienteGerSet WHERE Cnpj_Cnpf = :Cnpj_Cnpf AND CdRepresentante = :CdRepresentante";
+    $sql = $con_sql_server->prepare($sql);
+    $sql->bindParam('Cnpj_Cnpf', $Cnpj_Cnpf);
+    $sql->bindParam('CdRepresentante', $CdRepresentante);
+
+    $sql->execute();
+
+    $row['gerentes'] = $sql->fetchAll(PDO::FETCH_ASSOC);
     $row['resposta'] = $row;
     echo json_encode($row);
 }
@@ -245,6 +254,7 @@ if($_POST['action'] == 'novo'){
 
     var_dump($_POST);
     $cont_socios = 0;
+    $cont_gerentes = 0;
     $cont = 0;
         $dados = $_POST['dados'];
         foreach ($dados as $dd) {
@@ -280,6 +290,21 @@ if($_POST['action'] == 'novo'){
 
 
                 $cont_socios++;
+            }
+
+
+            if($dd['name'] == "cadastro_clientes_edit_form_gerentes_nome" && $dd['value'] != ""){
+                $gerentes[$cont_gerentes]['NmGerente'] = $dd['value'];
+                $gerentes[$cont_gerentes]['DtNascimento'] = $dados[$cont+1]['value'];
+                $gerentes[$cont_gerentes]['FlEstCivil'] = $dados[$cont+2]['value'];
+                $gerentes[$cont_gerentes]['QtdeFilhos'] = $dados[$cont+3]['value'];
+                $gerentes[$cont_gerentes]['BebidaPreferida'] = $dados[$cont+4]['value'];
+                $gerentes[$cont_gerentes]['TimeFutebol'] = $dados[$cont+5]['value'];
+                $gerentes[$cont_gerentes]['EsportePratica'] = $dados[$cont+6]['value'];
+                $gerentes[$cont_gerentes]['CdSequencia'] = str_pad($cont_gerentes+1, 2, "0", STR_PAD_LEFT);
+
+
+                $cont_gerentes++;
             }
             $cont++;
 
@@ -803,6 +828,62 @@ if($_POST['action'] == 'novo'){
             }
         }
     }
+
+
+    if(@is_array($gerentes)){
+        foreach($gerentes as $sc){
+            $sql = "INSERT INTO BusinessCadClienteGerSet
+            (
+                CdRepresentante,
+                Cnpj_Cnpf,
+                CdSequencia,
+                NmGerente,
+                DtNascimento,
+                FlEstCivil,
+                QtdeFilhos,
+                BebidaPreferida,
+                TimeFutebol,
+                EsportePratica
+            )
+            VALUES (
+                :CdRepresentante,
+                :Cnpj_Cnpf,
+                :CdSequencia,
+                :NmGerente,
+                :DtNascimento,
+                :FlEstCivil,
+                :QtdeFilhos,
+                :BebidaPreferida,
+                :TimeFutebol,
+                :EsportePratica
+            )
+            ";
+            try {
+                $sql = $con->prepare($sql);
+                $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante']);
+                $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+                $sql->bindParam('CdSequencia', $sc['CdSequencia']);
+                $sql->bindParam('NmGerente', $sc['NmGerente']);
+                $sql->bindParam('DtNascimento', $sc['DtNascimento']);
+                $sql->bindParam('FlEstCivil', $sc['FlEstCivil']);
+                $sql->bindParam('QtdeFilhos', $sc['QtdeFilhos']);
+                $sql->bindParam('BebidaPreferida', $sc['BebidaPreferida']);
+                $sql->bindParam('TimeFutebol', $sc['TimeFutebol']);
+                $sql->bindParam('EsportePratica', $sc['EsportePratica']);
+                $sql->execute();
+            }
+            catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+            catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+    }
     echo 0;
     exit;
 
@@ -812,6 +893,7 @@ if($_POST['action'] == 'editar'){
     // exit;
     $cont_socios = 0;
     $cont = 0;
+    $cont_gerentes = 0;
         $dados = $_POST['dados'];
         foreach ($dados as $dd) {
             if($dd['name'] == "cadastro_clientes_edit_form_restricao"){
@@ -846,6 +928,20 @@ if($_POST['action'] == 'editar'){
 
 
                 $cont_socios++;
+            }
+
+            if($dd['name'] == "cadastro_clientes_edit_form_gerentes_nome" && $dd['value'] != ""){
+                $gerentes[$cont_gerentes]['NmGerente'] = $dd['value'];
+                $gerentes[$cont_gerentes]['DtNascimento'] = $dados[$cont+1]['value'];
+                $gerentes[$cont_gerentes]['FlEstCivil'] = $dados[$cont+2]['value'];
+                $gerentes[$cont_gerentes]['QtdeFilhos'] = $dados[$cont+3]['value'];
+                $gerentes[$cont_gerentes]['BebidaPreferida'] = $dados[$cont+4]['value'];
+                $gerentes[$cont_gerentes]['TimeFutebol'] = $dados[$cont+5]['value'];
+                $gerentes[$cont_gerentes]['EsportePratica'] = $dados[$cont+6]['value'];
+                $gerentes[$cont_gerentes]['CdSequencia'] = str_pad($cont_gerentes+1, 2, "0", STR_PAD_LEFT);
+
+
+                $cont_gerentes++;
             }
             $cont++;
 
@@ -1304,6 +1400,84 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
                 $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
                 $sql->bindParam('CdSequencia', $sc['CdSequencia']);
                 $sql->bindParam('NmSocio', $sc['NmSocio']);
+                $sql->bindParam('DtNascimento', $sc['DtNascimento']);
+                $sql->bindParam('FlEstCivil', $sc['FlEstCivil']);
+                $sql->bindParam('QtdeFilhos', $sc['QtdeFilhos']);
+                $sql->bindParam('BebidaPreferida', $sc['BebidaPreferida']);
+                $sql->bindParam('TimeFutebol', $sc['TimeFutebol']);
+                $sql->bindParam('EsportePratica', $sc['EsportePratica']);
+                $sql->execute();
+            }
+            catch(Exception $e){
+                $error_message = $e->getMessage();
+                echo $error_message;
+                exit;
+            }
+            catch(PDOException $ex){
+                $error_message = $ex->getMessage();
+                echo $error_message;
+                exit;
+            }
+        }
+    }
+
+
+
+    $sql = "DELETE FROM BusinessCadClienteGerSet WHERE
+    CdRepresentante = :CdRepresentante AND
+    Cnpj_Cnpf = :Cnpj_Cnpf";
+    try {
+        $sql = $con->prepare($sql);
+        $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+        $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+        $sql->execute();
+    }
+    catch(Exception $e){
+        $error_message = $e->getMessage();
+        echo $error_message;
+        exit;
+    }
+    catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        echo $error_message;
+        exit;
+    }
+
+
+    if(@is_array($gerentes)){
+        foreach($gerentes as $sc){
+            $sql = "INSERT INTO BusinessCadClienteGerSet
+            (
+                CdRepresentante,
+                Cnpj_Cnpf,
+                CdSequencia,
+                NmGerente,
+                DtNascimento,
+                FlEstCivil,
+                QtdeFilhos,
+                BebidaPreferida,
+                TimeFutebol,
+                EsportePratica
+            )
+            VALUES (
+                :CdRepresentante,
+                :Cnpj_Cnpf,
+                :CdSequencia,
+                :NmGerente,
+                :DtNascimento,
+                :FlEstCivil,
+                :QtdeFilhos,
+                :BebidaPreferida,
+                :TimeFutebol,
+                :EsportePratica
+            )
+            ";
+            try {
+                $sql = $con->prepare($sql);
+                $sql->bindParam('CdRepresentante', $campos_sql['CdRepresentante_old']);
+                $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+                $sql->bindParam('CdSequencia', $sc['CdSequencia']);
+                $sql->bindParam('NmGerente', $sc['NmGerente']);
                 $sql->bindParam('DtNascimento', $sc['DtNascimento']);
                 $sql->bindParam('FlEstCivil', $sc['FlEstCivil']);
                 $sql->bindParam('QtdeFilhos', $sc['QtdeFilhos']);

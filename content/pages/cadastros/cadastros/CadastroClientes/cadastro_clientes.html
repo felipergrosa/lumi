@@ -317,6 +317,18 @@
                     </div>
 
             </div>
+            <div class="col-xs-12 gerentes_div">
+                    <div class="socios_label">
+                        <button onclick="AddGerente();" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
+                        <label>Gerentes</label>
+                    </div>
+
+
+                    <div class="gerentes">
+
+                    </div>
+
+            </div>
             <button type="submit" class="btn btn-primary" id="cadastro_clientes_submit" onclick="CadastroClientesSave();">Salvar</button>
         </form>
     </div>
@@ -443,6 +455,13 @@
                             if(socios[0]){
                                 $(socios).each(function(k,v){
                                     AddSocio(v);
+                                });
+                            }
+
+                            var gerentes = User.gerentes;
+                            if(gerentes[0]){
+                                $(gerentes).each(function(k,v){
+                                    AddGerente(v);
                                 });
                             }
 
@@ -1027,6 +1046,89 @@
                                 '<div class="col-md-4 col-xs-6">' +
                                     '<label for="cadastro_clientes_edit_form_socios_esporte">Esporte que pratica</label>' +
                                     '<input type="text" class="form-control" id="cadastro_clientes_edit_form_socios_esporte" name="cadastro_clientes_edit_form_socios_esporte" value = "' + campos.EsportePratica +'"/>' +
+                                '</div>' +
+                                '</div>');
+                        }
+
+                }
+
+
+                function AddGerente(campos = 0){
+                    if(campos == 0){
+                        $('.gerentes').append('<div class="col-xs-12 socio form-group row">' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_nome">Nome</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_nome" name="cadastro_clientes_edit_form_gerentes_nome" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_nascimento">Nascimento</label>' +
+                                '<input type="date" class="form-control" id="cadastro_clientes_edit_form_gerentes_nascimento" name="cadastro_clientes_edit_form_gerentes_nascimento" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<button onclick="RemoveSocio(this);" class="puxa_botao_direita btn-icon btn-icon-only btn-pill btn float-right" style="padding-bottom: 10px; color: red;"><i class="lnr-trash btn-icon-wrapper"> </i></button>' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_estado_civil">Estado Civil</label>' +
+                                '<select class="form-control" id="cadastro_clientes_edit_form_gerentes_estado_civil" name="cadastro_clientes_edit_form_gerentes_estado_civil">' +
+                                    '<option value="CASADO (A)" selected="">CASADO (A)</option>' +
+                                    '<option value="SOLTEIRO (A)">SOLTEIRO (A)</option>' +
+                                    '<option value="VIUVO (A)">VIUVO (A)</option>' +
+                                    '<option value="SEPARADO (A)">SEPARADO (A)</option>' +
+                                    '<option value="OUTROS">OUTROS</option>' +
+                                '</select>' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_qtfilhos">Quant. Filhos</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_qtfilhos" name="cadastro_clientes_edit_form_gerentes_qtfilhos" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_bebida">Bebida Preferida</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_bebida" name="cadastro_clientes_edit_form_gerentes_bebida" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_time">Time de Futebol</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_time" name="cadastro_clientes_edit_form_gerentes_time" />' +
+                            '</div>' +
+                            '<div class="col-md-4 col-xs-6">' +
+                                '<label for="cadastro_clientes_edit_form_gerentes_esporte">Esporte que pratica</label>' +
+                                '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_esporte" name="cadastro_clientes_edit_form_gerentes_esporte" />' +
+                            '</div>' +
+                            '</div>');
+                        }
+                        else {
+                            $('.gerentes').append('<div class="col-xs-12 socio form-group row">' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_nome">Nome</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_nome" name="cadastro_clientes_edit_form_gerentes_nome" value = "' + campos.NmGerente +'" />' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_nascimento">Nascimento</label>' +
+                                    '<input type="date" class="form-control" id="cadastro_clientes_edit_form_gerentes_nascimento" name="cadastro_clientes_edit_form_gerentes_nascimento" value = "' + campos.DtNascimento +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<button onclick="RemoveSocio(this);" class="puxa_botao_direita btn-icon btn-icon-only btn-pill btn float-right" style="padding-bottom: 10px; color: red;"><i class="lnr-trash btn-icon-wrapper"> </i></button>' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_estado_civil">Estado Civil</label>' +
+                                    '<select class="form-control" id="cadastro_clientes_edit_form_gerentes_estado_civil" name="cadastro_clientes_edit_form_gerentes_estado_civil">' +
+                                        '<option value="CASADO (A)" selected="">CASADO (A)</option>' +
+                                        '<option value="SOLTEIRO (A)">SOLTEIRO (A)</option>' +
+                                        '<option value="VIUVO (A)">VIUVO (A)</option>' +
+                                        '<option value="SEPARADO (A)">SEPARADO (A)</option>' +
+                                        '<option value="OUTROS">OUTROS</option>' +
+                                    '</select>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_qtfilhos">Quant. Filhos</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_qtfilhos" name="cadastro_clientes_edit_form_gerentes_qtfilhos" value = "' + campos.QtdeFilhos +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_bebida">Bebida Preferida</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_bebida" name="cadastro_clientes_edit_form_gerentes_bebida" value = "' + campos.BebidaPreferida +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_time">Time de Futebol</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_time" name="cadastro_clientes_edit_form_gerentes_time" value = "' + campos.TimeFutebol +'"/>' +
+                                '</div>' +
+                                '<div class="col-md-4 col-xs-6">' +
+                                    '<label for="cadastro_clientes_edit_form_gerentes_esporte">Esporte que pratica</label>' +
+                                    '<input type="text" class="form-control" id="cadastro_clientes_edit_form_gerentes_esporte" name="cadastro_clientes_edit_form_gerentes_esporte" value = "' + campos.EsportePratica +'"/>' +
                                 '</div>' +
                                 '</div>');
                         }

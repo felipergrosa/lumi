@@ -90,7 +90,11 @@ if($_POST['action'] == 'GetUserList'){
     a.F_Cidade as endereco_cidade,
     a.F_Estado as endereco_estado
     FROM BusinessCadCliente a
-    WHERE a.CdRepresentante = '$CdRepresentante'";
+    -- LEFT JOIN BusinessCadClienteLC b ON a.Cnpj_Cnpf=b.Cnpj_Cnpf
+    WHERE a.CdRepresentante = '$CdRepresentante'
+    -- OR b.CdRepresentante = '$CdRepresentante'
+
+    ";
 
     $sql = $con_sql_server->prepare($sql);
     $sql->execute();

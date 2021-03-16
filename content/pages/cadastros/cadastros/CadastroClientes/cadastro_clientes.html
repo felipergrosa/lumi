@@ -413,8 +413,6 @@
                             GetSegmentoMercado('#cadastro_clientes_edit_form_segmento_mercado');
                             GetRegiao('#cadastro_clientes_edit_form_segmento_regiao');
                             GetClienteGrupos();
-                            console.log("User");
-                            console.log(User);
                             var prefix = '#cadastro_clientes_edit_form_';
                             var UserKeys = Object.keys(User);
                             $(UserKeys).each(function(k,v){
@@ -499,15 +497,12 @@
                     success: function (User)
                     {
 
-                        console.log(User);
                         if(User.nome){
                             var acessos = VerificaAcessoCliente(User.CdRepresentante, User.Cnpj_Cnpf);
-                            console.log(acessos);
                             if(acessos === false){
                                 return false;
                             }
 
-                            console.log(User);
                             var prefix = '#cadastro_clientes_edit_form_';
                             var UserKeys = Object.keys(User);
                             $(UserKeys).each(function(k,v){
@@ -560,11 +555,8 @@
                                     AddSocio(v);
                                 });
                             }
-                            console.log('testando post_screen ' + $('#post_screen').val() );
-                            console.log('populando empresa em ' + $('#cadastro_pedidos_edit_form_empresa').val());
                             $('#cadastro_clientes_edit_form_empresa option[value="' + $('#cadastro_pedidos_edit_form_empresa').val() + '"]').prop('selected',true);
                             if($('#post_screen').val() == 'cadastro_pedidos'){
-                                console.log('post_screen' + $('#cadastro_pedidos_edit_form_empresa').val());
 
                             }
                         }
@@ -743,7 +735,6 @@
                         $(campo_estado).val(data);
                     }
                 });
-                console.log(resultado);
             }
 
             function BuscaCep(cep, prefix){
@@ -762,7 +753,6 @@
                             if(data.localidade){
                                 var cidade = data.localidade;
                                 cidade = cidade.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-                                console.log(cidade);
                                 // console.log(data);
                                 $('#' + prefix + '_estado').val(data.uf);
                                 // var estado = GetEstadoSigla(data.uf, '#' + prefix + '_estado');
@@ -804,7 +794,6 @@
                     data: {'action': action, 'Cnpj_Cnpf': Cnpj_Cnpf, 'CdRepresentante':CdRepresentante},
                     success: function (data)
                     {
-                        console.log(data);
                         $(data).each(function(k,v){
 
                             // console.log(v);
@@ -945,7 +934,6 @@
                         data: {'action': action, 'empresa':empresa, 'representante':representante},
                         success: function (data)
                         {
-                            console.log(data);
                             $(data).each(function(k,v){
 
                                 // console.log(v);
@@ -1057,7 +1045,6 @@
                         data: {'action': action},
                         success: function (data)
                         {
-                            console.log(data);
                             $(data).each(function(k,v){
 
                                 // console.log(v);

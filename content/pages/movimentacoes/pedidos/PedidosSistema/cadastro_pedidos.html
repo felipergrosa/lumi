@@ -576,7 +576,6 @@
 
             },
             complete: function(){
-                console.log(old_cnpj);
                 GetUserInfoEdit(0, 'novo');
                 $('#post_screen').val('cadastro_pedidos');
                 PreenchePorCnpj(old_cnpj);
@@ -608,7 +607,6 @@
             data: {'action': action, 'empresa':empresa},
             success: function (data)
             {
-                console.log(data);
                 $(data).each(function(k,v){
 
                     // console.log(v);
@@ -637,8 +635,6 @@
             data: {'action': action, 'empresa':empresa},
             success: function (data)
             {
-                console.log('condicoes de pagto');
-                console.log(data);
                 $(data).each(function(k,v){
                     if(v.minimo == null){
                         v.minimo = 0;
@@ -669,8 +665,6 @@
             data: {'action': action, 'empresa':empresa},
             success: function (data)
             {
-                console.log('transportadoras');
-                console.log(data);
                 $(data).each(function(k,v){
 
                     // console.log(v);
@@ -699,8 +693,6 @@
             data: {'action': action, 'empresa':empresa},
             success: function (data)
             {
-                console.log('condicoes de pagto');
-                console.log(data);
                 $(data).each(function(k,v){
 
                     // console.log(v);
@@ -720,10 +712,8 @@
     function BuscaCombo(element, busca, alvo = false){
         var tipo = "produto";
         if($('#busca_box').length){
-            console.log('existe');
         }
         else {
-            console.log('não existe, criando...');
             $('body').append('<div id="busca_box"></div>');
         }
         var left = $(element).offset().left;
@@ -748,7 +738,6 @@
                 success: function (data)
                 {
 
-                    console.log(data);
                     if(data['status'] == 'ok'){
                         var retorno = '';
                         var maximo = 5;

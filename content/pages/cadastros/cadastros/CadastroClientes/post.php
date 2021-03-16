@@ -37,7 +37,6 @@ if(@$_POST['action'] == 'VerificaAcessosEdicao'){
 
     @$CdNatureza = $row['CDNATUREZA'];
     @$CdSegmento = $row['CdSegmento'];
-    var_dump($CdSegmento);
     @$CdRegiao = $row['CdRegiao'];
     @$CdMunicipio = $row['CdMunicipio'];
 
@@ -51,7 +50,7 @@ if(@$_POST['action'] == 'VerificaAcessosEdicao'){
         $erro++;
         $erro_mensagem .= "Representante não tem acesso a natureza de operação ".$CdNatureza." (".$row['DsNatureza'].") <br />";
     }
-    $PermSegmento = $SqlServer->BuscaSegmentoMercado($representante_matriz_id, $CdNatureza);
+    $PermSegmento = $SqlServer->BuscaSegmentoMercado($representante_matriz_id, $CdSegmento);
     if(@!$PermSegmento){
         $erro++;
         $erro_mensagem .= "Representante não tem acesso ao Segmento ".$CdSegmento." (".$row['DsSegmento'].") <br />";
@@ -1200,7 +1199,26 @@ Cnpj_Cnpf = :Cnpj_Cnpf";
     }
 
     @$empresas = $_POST['empresas'];
+    $sql = "DELETE FROM BusinessCadClienteLC WHERE
 
+    CdRepresentante = :CdRepresentante AND Cnpj_Cnpf = :Cnpj_Cnpf";
+    try {
+        $sql = $con->prepare($sql);
+        $sql->bindParam('CdRepresentante', $representante_id);
+        $sql->bindParam('Cnpj_Cnpf', $campos_sql['Cnpj_Cnpf']);
+
+        @$sql->execute();
+    }
+    catch(Exception $e){
+        $error_message = $e->getMessage();
+        // echo $error_message;
+        //exit;
+    }
+    catch(PDOException $ex){
+        $error_message = $ex->getMessage();
+        // echo $error_message;
+        //exit;
+    }
     if(@is_array($empresas)){
         foreach($empresas as $ep){
             $sql = "INSERT INTO BusinessCadClienteLC

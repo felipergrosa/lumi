@@ -298,14 +298,14 @@
                     <label for="cadastro_clientes_edit_form_observacoes">Observações</label>
                     <textarea class="form-control" id="cadastro_clientes_edit_form_observacoes" name="cadastro_clientes_edit_form_observacoes"></textarea>
                 </div>
-                <div class="col-md-12 col-xs-12" style="display:none;">
+                <div class="col-md-12 col-xs-12 empresas_div">
                     <label for="cadastro_clientes_edit_form_empresa">Empresas</label>
                     <select multiple="multiple" class="multiselect-dropdown form-control" id="cadastro_clientes_edit_form_empresa" name="cadastro_clientes_edit_form_empresa">
 
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 socios_div">
                     <div class="socios_label">
                         <button onclick="AddSocio();" class="btn-icon btn-icon-only btn-pill btn btn-success float-right" style="padding-bottom: 10px;"><i class="lnr-plus-circle btn-icon-wrapper"> </i></button>
                         <label>Sócios</label>
@@ -343,7 +343,7 @@
             MascaraTelefone('#cadastro_clientes_edit_form_endereco_entrega_contato_telefone');
 
 
-            PopularEmpresas('#cadastro_clientes_edit_form_empresa');
+            // PopularEmpresas('#cadastro_clientes_edit_form_empresa');
             GetUserList();
             $('#cadastro_clientes_userlist_table').DataTable({
                 "language": {
@@ -539,7 +539,7 @@
                             var campos_bloquear = ['cpfcnpj',
                             'nome',
                             'razao_social',
-                            'IE',
+                            'rgie',
                             'suframa',
                             'suframa_validade',
                             'desconto',
@@ -549,9 +549,24 @@
                             'restricao_texto',
                             'observacoes'];
                             $(campos_bloquear).each(function(k,v){
-                                console.log(v);
                                 $(prefix + v).attr('readonly', true);
                             });
+
+                            $('.empresas_div').hide();
+                            $('.socios_div').hide();
+                            var socios = User.socios;
+                            if(socios[0]){
+                                $(socios).each(function(k,v){
+                                    AddSocio(v);
+                                });
+                            }
+                            console.log('testando post_screen ' + $('#post_screen').val() );
+                            console.log('populando empresa em ' + $('#cadastro_pedidos_edit_form_empresa').val());
+                            $('#cadastro_clientes_edit_form_empresa option[value="' + $('#cadastro_pedidos_edit_form_empresa').val() + '"]').prop('selected',true);
+                            if($('#post_screen').val() == 'cadastro_pedidos'){
+                                console.log('post_screen' + $('#cadastro_pedidos_edit_form_empresa').val());
+
+                            }
                         }
                         else {
                             $('#action_for_form').val('novo');

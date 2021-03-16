@@ -560,6 +560,7 @@
         });
     }
     function CarregaCadastroClientesPedidos(){
+        var empresa_selecionada = $('#cadastro_pedidos_edit_form_empresa').val();
         var old_cnpj = $('#cadastro_pedidos_edit_form_cpfcnpj').val();
         toastr.warning('Cliente não encontrado, carregando tela para cadastramento.');
         $.ajax({
@@ -577,11 +578,13 @@
             complete: function(){
                 console.log(old_cnpj);
                 GetUserInfoEdit(0, 'novo');
+                $('#post_screen').val('cadastro_pedidos');
                 PreenchePorCnpj(old_cnpj);
                 $('#cadastro_clientes_edit_form_cpfcnpj').val(old_cnpj);
-
                 $('#post_screen').val('cadastro_pedidos');
-                $('#cadastro_clientes_edit_form_empresa option[value=' + $('#cadastro_pedidos_edit_form_empresa').val() + ']').attr('selected',true);
+                // console.log('empresa_selecionada ' + empresa_selecionada);
+                // $('#cadastro_clientes_edit_form_empresa option[value=' + empresa_selecionada + ']').prop('selected',true);
+                // $('#cadastro_clientes_edit_form_empresa').trigger('change');
                 HideLoading();
             }
         });

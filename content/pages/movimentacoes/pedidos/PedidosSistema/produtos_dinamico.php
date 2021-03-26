@@ -47,44 +47,44 @@
                             <span class="fa fa-trash" style="font-size: 2.2em; cursor:pointer;" onclick="javascript: DeleteLinha(this);"></span>
                         </div>
                         <div class="col-12">
-                            Descontos
+                            <span class=" font-size-lg">Descontos</span>
                         </div>
                         <!-- <section class="descontos"> -->
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">Padrão</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_padrao">Padrão</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_padrao" name="vendas_nova_venda_produto_desconto_padrao" value="0.00" />
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">P.Comissão</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_p_comissao">P.Comissão</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_p_comissao" name="vendas_nova_venda_produto_desconto_p_comissao" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">Negociacao</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_negociacao">Negociacao</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_negociacao" name="vendas_nova_venda_produto_desconto_negociacao" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">Antecipado</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_antecipado">Antecipado</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_antecipado" name="vendas_nova_venda_produto_desconto_antecipado" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">10 Dias</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_10_dias">10 Dias</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_10_dias" name="vendas_nova_venda_produto_desconto_10_dias" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">Negociado</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_negociado">Negociado</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_negociado" name="vendas_nova_venda_produto_desconto_negociado" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">Ref. Cliente</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_ref_cliente">Ref. Cliente</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_ref_cliente" name="vendas_nova_venda_produto_desconto_ref_cliente" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">%IPI</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_pct_ipi">%IPI</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_pct_ipi" name="vendas_nova_venda_produto_desconto_pct_ipi" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
-                                <label for="vendas_nova_venda_produto_desconto1">%ICMS</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                                <label for="vendas_nova_venda_produto_desconto_pct_icms">%ICMS</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_pct_icms" name="vendas_nova_venda_produto_desconto_pct_icms" value="0.00"/>
                             </div>
                         <!-- </section> -->
                     </div>

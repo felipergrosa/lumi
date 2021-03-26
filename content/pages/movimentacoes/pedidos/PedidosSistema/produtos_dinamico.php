@@ -23,7 +23,7 @@
                             ?>
                             <div class="form-group row" id="dump_produto<?php echo $i; ?>">
                         <div class="col-xs-2 col-md-2">
-                            <input type="text" class="form-control" id="vendas_nova_venda_produto_id" name="vendas_nova_venda_produto_id" 
+                            <input type="text" class="form-control" id="vendas_nova_venda_produto_id" name="vendas_nova_venda_produto_id"
                             onkeypress="ProximoCampo('dump_produto<?php echo $i; ?>', 'qt', event);"
                             ondblclick="console.log('dblclick');" readonly
                             />
@@ -46,6 +46,45 @@
                         <div class="col-xs-1 text-center">
                             <span class="fa fa-trash" style="font-size: 2.2em; cursor:pointer;" onclick="javascript: DeleteLinha(this);"></span>
                         </div>
+
+                        <!-- <section class="descontos"> -->
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">Padrão</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">P.Comissão</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">Negociacao</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">Antecipado</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">10 Dias</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">Negociado</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">Ref. Cliente</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">%IPI</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <label for="vendas_nova_venda_produto_desconto1">%ICMS</label>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto1" name="vendas_nova_venda_produto_desconto1"/>
+                            </div>
+                        <!-- </section> -->
                     </div>
                             <?php
                         }

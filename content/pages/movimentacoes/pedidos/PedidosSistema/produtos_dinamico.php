@@ -19,7 +19,7 @@
                         </div>
                     </div>
 <?php
-                        for($i=1; $i<10; $i++){
+                        for($i=1; $i<2; $i++){
                             ?>
                             <div class="form-group row" id="dump_produto<?php echo $i; ?>">
                         <div class="col-xs-2 col-md-2">
@@ -46,7 +46,9 @@
                         <div class="col-xs-1 text-center">
                             <span class="fa fa-trash" style="font-size: 2.2em; cursor:pointer;" onclick="javascript: DeleteLinha(this);"></span>
                         </div>
-
+                        <div class="col-12">
+                            Descontos
+                        </div>
                         <!-- <section class="descontos"> -->
                             <div class="col-xs-2 col-md-2">
                                 <label for="vendas_nova_venda_produto_desconto1">Padrão</label>

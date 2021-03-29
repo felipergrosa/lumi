@@ -72,11 +72,11 @@
                             </div>
                             <div class="col-xs-2 col-md-2">
                                 <label for="vendas_nova_venda_produto_desconto_negociado">Negociado</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_negociado" name="vendas_nova_venda_produto_desconto_negociado" value="0.00"/>
+                                <input type="text" class="form-control valor" id="vendas_nova_venda_produto_desconto_negociado" name="vendas_nova_venda_produto_desconto_negociado" value="0.00"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
                                 <label for="vendas_nova_venda_produto_desconto_ref_cliente">Ref. Cliente</label>
-                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_ref_cliente" name="vendas_nova_venda_produto_desconto_ref_cliente" value="0.00"/>
+                                <input type="text" class="form-control" id="vendas_nova_venda_produto_desconto_ref_cliente" name="vendas_nova_venda_produto_desconto_ref_cliente"/>
                             </div>
                             <div class="col-xs-2 col-md-2">
                                 <label for="vendas_nova_venda_produto_desconto_pct_ipi">%IPI</label>
@@ -88,6 +88,50 @@
                             </div>
                         <!-- </section> -->
                     </div>
+
+                    <script type="text/javascript">
+                    $(".valor").on("keyup", function (e, v) {
+                        console.log('teste')
+                        // accept numbers only (0-9)
+                        if ((e.which >= 48) && (e.which <= 57)) {
+
+                            // convert CharCode into a number
+                            number = String.fromCharCode(e.which);
+
+                            // hide value in input
+                            $(this).val("");
+
+                            // main array which holds all numbers
+                            value.push(number);
+
+                            // array of numbers before decimal mark
+                            before.push(value[i]);
+
+                            // move numbers past decimal mark
+                            if (i > 1) {
+                                after.push(value[i - 2]);
+                                before.splice(0, 1);
+                            }
+
+                            // final value
+                            var val_final = after.join("") + "." + before.join("");
+
+                            // show value separated by comma(s)
+                            $(this).val(addComma(val_final));
+
+                            // update counter
+                            i++;
+
+                            // for demo
+                            $(".amount").html(" " + $(this).val());
+
+                        } else {
+
+                            // reset values
+                            resetVal();
+                        }
+                    });
+                    </script>
                             <?php
                         }
                     ?>
